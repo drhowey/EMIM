@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="emimstyles.css" />
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+<!-- Begin Header -->
+<div id="header">
+<table><tr>
+<td>
+<img width="200" src="emim5.png" alt="EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling"/>
+</td>
+<td>
+<p style="margin-left: 1em;">EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</p>
+</td></tr>
+</table>
+</div>
+<!-- End Header -->
+<!-- Begin Menu Navigation -->
+<ul id="menunav">
+<li><a href="index.html">Home</a></li>
+<li><a href="downloads.html">Download</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+<!-- End Menu Navigation -->
+
+</td></tr>
+<tr><td>
+<table border="0" cellpadding="0" cellspacing="0"><tr>
+<td valign="top">
+<!-- Begin Left Column -->
+<div id="leftcolumn">
+<!-- Begin Contents Navigation -->
+<div id="navcontainer">
+<ul>
+<li><a href="introduction.html">1 Introduction</a>
+<ul>
+<li><a href="introduction.html#information">1.1 Program information and citation</a></li>
+</ul>
+</li>
+<li><a href="quick-start.html">2 Quick Start</a>
+</li>
+<li><a href="comp.html">3 Slow Start</a>
+<ul>
+<li><a href="comp.html#comp-premim">3.1 Compilation of PREMIM source code</a></li>
+<li><a href="comp.html#comp-emim">3.2 Compilation of EMIM source code</a></li>
+</ul>
+</li>
+<li><a href="premim.html">4 PREMIM: Pedigree file conversion</a>
+<ul>
+<li><a href="premim.html#premim-usage">4.1 Usage</a></li>
+<li><a href="premim.html#premim-input">4.2 Input files</a></li>
+<li><a href="premim.html#premim-output">4.3 Output files</a></li>
+<li><a href="premim.html#premim-processing">4.4 Data processing</a></li>
+<li><a href="premim.html#premim-parallel">4.5 Parallel processing</a></li>
+<li><a href="premim.html#risk-allele">4.6 Changing the risk allele</a></li>
+</ul>
+</li>
+<li><a href="emim.html">5 EMIM: Input files</a>
+<ul>
+<li><a href="emim.html#emimmarkers">5.1 emimmarkers.dat</a></li>
+<li><a href="emim.html#emimparams">5.2 emimparams.dat</a></li>
+<li><a href="emim.html#caseparenttrios">5.3 caseparenttrios.dat</a></li>
+<li><a href="emim.html#caseparents">5.4 caseparents.dat</a></li>
+<li><a href="emim.html#casemotherduos">5.5 casemotherduos.dat</a></li>
+<li><a href="emim.html#casefatherduos">5.6 casefatherduos.dat</a></li>
+<li><a href="emim.html#casemothers">5.7 casemothers.dat</a></li>
+<li><a href="emim.html#casefathers">5.8 casefathers.dat</a></li>
+<li><a href="emim.html#cases">5.9 cases.dat</a></li>
+<li><a href="emim.html#conparents">5.10 conparents.dat</a></li>
+<li><a href="emim.html#conmotherduos">5.11 conmotherduos.dat</a></li>
+<li><a href="emim.html#confatherduos">5.12 confatherduos.dat</a></li>
+<li><a href="emim.html#cons">5.13 cons.dat</a></li>
+</ul>
+</li>
+<li><a href="output.html">6 EMIM: Usage and output files</a>
+<ul>
+<li><a href="output.html#alt-paras">6.1 Alternative parameterisations</a></li>
+</ul>
+</li>
+<li><a href="example.html">7 Example using PREMIM and EMIM</a>
+<ul>
+<li><a href="example.html#eg-run-premim">7.1 Running PREMIM</a></li>
+<li><a href="example.html#eg-run-emim">7.2 Running EMIM</a></li>
+</ul>
+</li>
+<li><a href="parallel.html">8 Parallel processing</a>
+</li>
+<li><a href="poo.html">9 Parent-of-origin effects with SHAPEIT2</a>
+<ul>
+<li><a href="poo.html#options">9.1 Options</a></li>
+<li><a href="poo.html#files">9.2 Data files</a></li>
+<li><a href="poo.html#poo-example">9.3 Example Analysis</a></li>
+</ul>
+</li>
+<li><a href="trouble.html">10 Troubleshooting and results interpretation</a>
+<ul>
+<li><a href="trouble.html#GWAS">10.1 GWAS data</a></li>
+<li><a href="trouble.html#Imputed">10.2 Imputed data</a></li>
+<li><a href="trouble.html#Merged">10.3 Merged data</a></li>
+</ul>
+</li>
+<li><a href="references.html">References</a></li>
+</ul>
+</div>
+<!-- End Contents Navigation -->
+</div>
+<!-- End Left Column -->
+</td>
+<td valign="top">
+<!-- Begin Right Column -->
+<div id="rightcolumn">
+<h1>8 Parallel processing</h1>
+<p>
+EMIM performs the analysis for each SNP one by one, so if there are many SNPs then this may take a long time. It is therefore natural to want to speed up the process by performing these calculations in parallel. To facilitate this, EMIM and PREMIM have added features to make this easy by splitting the input files for EMIM into many different files, or by using multiple files (e.g. one file per chromosome) that have already been created using some other program such as PLINK. </p>
+<p>
+The following the instructions explain how to do this: </p>
+<ol>
+<li>
+<b>Create input and output sub-directories for EMIM.</b> In the directory where your pedigree file or pedigree files are, create sub-directories for the input and output of EMIM. For example, to create directories simply called <tt>input</tt> and <tt>output</tt> in Linux/UNIX type: <pre>
+mkdir input
+mkdir output
+</pre>
+</li><li>
+<b>Create input files for EMIM.</b> The next step is to create the input files for EMIM using PREMIM with your pedigree file(s). There are two different ways to do this: <ol>
+<li>
+If your data is currently contained in a single file (e.g. called <i>data.bed</i>), you can use PREMIM with the "<tt>-s n dir</tt>" option to split the output files (<i>caseparenttrios.dat</i> etc.) into many files each containing <tt>n</tt> SNPs into directory <tt>dir</tt>. Since the data may be split into many files it is wise to put them in the separate <tt>input</tt> directory you made, in order to make them easier to manage. For example, to split the output into files each containing 1000 SNPs into the directory <tt>input</tt>, using the initial binary pedigree file <i>data.bed</i> and asking PREMIM to estimate allele frequencies, type: <pre>./premim -a -s 1000 input/ data.bed </pre>
+Note that the "/" is required after the directory name and a "\" may be required for systems other than Linux/UNIX. The files created will be named <i>input/caseparenttrios1.dat, input/caseparenttrios2.dat...</i> etc. Only one EMIM parameter file (<i>emimparams.dat</i>) is created (in the directory above the <tt>input</tt> directory). <br/><br/></li><li>
+If your data is already split into many files (e.g. one per chromosome, named <i>chr1.bed, chr2.bed, chr3.bed</i> etc.) you need to move these files into the <tt>input</tt> directory and, within the <tt>input</tt> directory, run PREMIM on each file to create the input files for EMIM. This can be done manually, one file at a time, or else you can write a loop via a Perl script or similar. Alternatively, if you are using a High Performance Computing (HPC) cluster using the open-source Sun Grid Engine (SGE) scheduler software, then these jobs may be submitted as an array job using something similar to the following script: <pre>
+#!/bin/bash
+# execute in current working directory
+#$ -cwd
+# export local envirnoment
+#$ -V
+# the number of PREMIM tasks 
+#$ -t 1-22
+# execute PREMIM for each task
+./premim -a -n $SGE_TASK_ID chr$SGE_TASK_ID.bed 
+</pre>
+The key thing is to make sure that you use PREMIM's <tt>-n</tt> option to output a set of input files for EMIM which have different names (e.g. one set of EMIM input files per chromosome). This relies on the fact that it is possible to create files <i>caseparenttriosXXX.dat, caseparentsXXX.dat...</i> etc. in PREMIM by using the "<tt>-n name</tt>" option. For example to create output files with 5 appended to the end using pedigree file <tt>data.ped</tt>, you can type "<tt>./premim -n 5 data.ped</tt>" <br/><br/>If the above job script is called <i>premimarray.sh</i> then it is submitted to the job queue as follows: <pre>qsub premimarray.sh </pre>
+This will submit a number of serial jobs (22 in the example above) to the HPC to execute in parallel. The exact details of how to perform parallel jobs may depend on your local computing services and you should consult your local computing support if in doubt. <br/><br/>Once the array job, or Perl loop, or manual running of PREMIM has finished, you should have created a set of input files named <i>input/caseparenttrios1.dat, input/caseparenttrios2.dat...</i> etc. Only one EMIM parameter file (<i>emimparams.dat</i>) will have been created, corresponding to the last set of input files PREMIM created. This is not entirely satisfactory, as you may find that the last set of input files does not contain the largest number of SNPs. You therefore need to edit the number of SNPs on line 13 of <i>emimparams.dat</i> to the correspond to a number greater than the number of lines in the largest input file <i>emimmarkers*.dat</i>. E.g. type <pre>
+wc -l emimmarkers*.dat
+</pre>
+to find out which file has the greatest number of lines, and edit the number of SNPs on line 13 of <i>emimparams.dat</i> to correspond to this number (or greater). THEN MOVE THIS FILE <i>emimparams.dat</i> ONE LEVEL BACK IN THE DIRECTORY HIERARCHY (i.e. it should be placed in the directory above the <tt>input</tt> directory).</li>
+</ol>
+</li><li>
+<b>Create SNP marker files.</b> Before running EMIM it must be ensured that the necessary SNP marker files are available for each set of input files. Normally the file <i>emimmarkers.dat</i> is used, in the parallel version the files <i>emimmarkers1.dat, emimmarkers2.dat...</i> etc. are used instead and are stored in the input directory for EMIM along with the rest of the files. If you used PREMIM's <tt>-a</tt> option when creating the input files for EMIM, then you should already have a usable set of SNP marker files in the <tt>input</tt> directory. Otherwise, these files may be created using an existing SNP marker file by using PREMIM with the "<tt>-fm n markerfile.dat dir</tt>" option which splits an existing marker file into many marker files each with <tt>n</tt> SNPs into directory <tt>dir</tt>. For example, to split the file <i>emimmarkers.dat</i> into marker files with 1000 SNPs each into directory <tt>input</tt> type: <pre>./premim -fm 1000 emimmarkers.dat input/ </pre>
+This creates the files <i>input/emimmarkers1.dat, input/emimmarkers2.dat...</i> etc. </li><li>
+<b>Run EMIM in parallel.</b> For each set of input files, for example, <i>input/caseparenttrios5.dat, input/caseparents5.dat...</i> etc., it is possible to run EMIM by typing: <pre>./emim 5 input/ output/ </pre>
+This will create result files <i>output/emimsummary5.out</i> and <i>output/emimresults5.out</i>. This must be done for every set of files numbered 1 to <tt>N</tt> for some <tt>N</tt>. The number <tt>N</tt> may correspond to 22 (e.g. if your data files were set up one per chromosome, for 22 chromosomes) or to some other number, depending on how many sets of input files were created by PREMIM when it split up your original data file. If you are using a High Performance Computing (HPC) cluster using the open-source Sun Grid Engine (SGE) scheduler software, then these jobs may be submitted as an array job using something similar to the following script: <pre>
+#!/bin/bash
+# execute in current working directory
+#$ -cwd
+# export local envirnoment
+#$ -V
+# the number of EMIM tasks 
+#$ -t 1-1435
+# execute EMIM for each task
+./emim $SGE_TASK_ID input/ output/
+</pre>
+If the above script is saved in the directory above the <tt>input</tt> directory (i.e. the directory where your file <i>emimparams.dat</i> exists) and if the script is called <i>emimarray.sh</i>, then it is submitted to the job queue as follows: <pre>qsub emimarray.sh </pre>
+This will submit a number of serial jobs (1435 in the example above) to the HPC to execute in parallel. The exact details of how to perform parallel jobs may depend on your local computing services and you should consult your local computing support if in doubt. </li><li>
+<b>Collate EMIM results.</b> The results of the EMIM analysis are stored in the given output directory, for example <i>output/emimsummaryJ.out</i> and <i>output/emimresultsJ.out</i> for <tt>J</tt> from 1 to <tt>N</tt> for some <tt>N</tt>. This can be convenient if each file corresponds to a different chromosome, for example, but it is not very convenient if there are hundreds or thousands of result files. These files may therefore be collated into two result files <i>emimsummary.out</i> and <i>emimresults.out</i> by using the "<tt>-fr dir</tt>" option in PREMIM. For example, if the results are in directory <tt>output</tt> type: <pre>./premim -fr output/ </pre>
+Note that the SNP numbers in these combined files will relate to the number within each output file <i>output/emimsummaryJ.out</i> and <i>output/emimresultsJ.out</i>, which in turn corresponds to the SNP number within the input files <i>input/caseparenttriosJ.dat, input/casemotherduosJ.dat...</i> etc. As a result, these SNP numbers in the combined files will not be unique. If you used PREMIM to split a single file (e.g. <i>data.bed</i>) into many files for parallel processing, the SNP ID (as opposed to the SNP number) in the combined files should correspond to the SNP number within the original file <i>data.bed</i>, and so will be unique. If you used PREMIM to process a set of files (e.g. one per chromosome, named <i>chr1.bed, chr2.bed, chr3.bed</i> etc.) then both the SNP number and the SNP ID within the combined will not be unique, as they will refer to the number within the original file <i>chr1.bed, chr2.bed, chr3.bed</i> etc. We recommend you keep a separate list of the SNP identifiers from your .map or .bim files (e.g. their rs IDs) and their SNP number (order) within these files, in order to make it easier to match up the results in your combined output files with the correct SNPs. This can be done using the <tt>-rout</tt> option in PREMIM.</li>
+</ol>
+<br />
+<div class="prevnext"><span class="left"><a href="example.html">&lt;-prev</a>
+</span><span class="right"><a href="poo.html">next-&gt;</a>
+</span></div><!-- End Right Column -->
+</div>
+</td>
+</tr></table>
+<!-- End Wrapper -->
+</td></tr></table>
+</div>
+ <!-- Start of StatCounter Code --> <script type="text/javascript"> var sc_project=6887608; var sc_invisible=1; var sc_security="98b151c3"; </script> <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><div class="statcounter"><a title="weebly reliable statistics" href="http://statcounter.com/weebly/" target="_blank"><img class="statcounter" src="http://c.statcounter.com/6887608/0/98b151c3/1/" alt="weebly reliable statistics" ></a></div></noscript> <!-- End of StatCounter Code --></body>
+</html>

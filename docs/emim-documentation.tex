@@ -1,0 +1,1135 @@
+\documentclass[a4paper,11pt]{report}
+\pagestyle{myheadings}
+\markright{ }
+\pagenumbering{arabic}
+%\setlength{\textheight}{10.5in}
+%\setlength{\textwidth}{7.0in}
+\oddsidemargin -0.2in
+\evensidemargin -0.2in
+\topmargin -0.5in
+\renewcommand{\baselinestretch}{1.2}
+
+%\usepackage[all]{xypic}
+\usepackage{times}
+\usepackage{mathptm}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{lscape}
+\usepackage{natbib}
+
+\usepackage{alltt,lscape,rotating,epsfig}
+
+%\usepackage{citesupernumber}
+
+%\usepackage{draftcopy}
+%\setlength{\topmargin}{0mm} 
+\setlength{\topmargin}{-5mm} 
+\setlength{\headheight}{5mm}
+\setlength{\headsep}{15mm} 
+%\setlength{\textheight}{245mm}
+\setlength{\textheight}{242mm}
+\setlength{\oddsidemargin}{5mm} 
+\setlength{\evensidemargin}{0mm}
+\setlength{\textwidth}{145mm} 
+
+
+\newcommand{\ie}{{\it i.e. }}
+\newcommand{\eg}{{\it e.g. }}
+
+
+% dont indent paras, put space instead
+
+
+\setlength{\parskip}{0.3cm}
+\setlength{\parindent}{0pt}
+
+
+
+
+\begin{document}
+\bibliographystyle{/home/nhc15/People/HOLLY/PAPER/genepi}
+
+
+\title{EMIM: Estimation of  Maternal, Imprinting and interaction effects using Multinomial modelling}
+
+\vspace{0.5in}
+
+\author{Version 1.14 (September 2010) \\ \\ Heather J. Cordell \\ \\Institute of Human Genetics, Newcastle University \\International Centre for Life, Central Parkway \\Newcastle upon Tyne, NE1 3BZ, UK\\ [0.5in] heather.cordell@newcastle.ac.uk}
+
+\maketitle
+\date
+
+
+%\section*{EMIM: Estimation of  Maternal, Imprinting and interaction effects using Multinomial modelling}
+
+\section*{Introduction}
+
+According to Wikipedia, ``Emim'' was the Moabite name for one 
+of the tribes of Rephaim. They are described in Deuteronomy 
+chapter 2 as having been a powerful people, populous and 
+having a successful kingdom. The Emim are also mentioned 
+in Genesis 14:5 where the name is translated 
+as ``the dreaded ones''.
+
+Hopefully our program EMIM will prove an equally powerful tool for the
+detection of complex effects in genetic disease studies...
+
+\section*{Program information and citation}
+
+EMIM is a fortran 77 program that compiles under Linux using a
+suitable compiler e.g. g77, gfortran, fort77, f77. I have not 
+tried compiling on any other (non-Linux) system, but see no reason why the 
+program should not compile provided an appropriate fortran 77 
+compiler is available.
+
+For details concerning the methodology of the multinomial
+likelihood approach used by this program, please see
+the accompanying manuscript \citep{ainsworth:etal:10}:
+\\
+``Ainsworth HF, Unwin J, Jamison DL and Cordell HJ (2010) Investigation of maternal 
+effects,  maternal-foetal interactions and parent-of-origin 
+effects (imprinting), using mothers and their offspring''
+(Manuscript submitted). 
+
+You are STRONGLY recommended to read this 
+paper before using EMIM in order to understand the notation and 
+parameter restrictions/analysis options used.
+
+\bigskip
+
+EMIM uses a maximisation subroutine MAXFUN that was originally 
+written as part of (an early former version of) the S.A.G.E. package:
+http://darwin.cwru.edu/sage/
+
+Users of S.A.G.E are asked to insert the following acknowledgement 
+in any publication that uses results obtained from S.A.G.E.:
+
+"(Some of) The results of this paper were obtained by using the 
+program package S.A.G.E., which is supported by a U.S. Public 
+Health Service Resource Grant (RR03655) from the National Center 
+for Research Resources" (it is important that the grant number 
+appears under "acknowledgments"). 
+
+Please see more details on the S.A.G.E website:
+http://darwin.cwru.edu/sage/?q=node/5
+
+
+\newpage
+
+\section*{Unpacking}
+
+
+You should be able to unpack the tarred gzipped file (EMIM-v1.14.tar.gz) under Linux or Unix using a command such as:
+
+tar zxvf EMIM-v1.14.tar.gz
+
+This should create a new directory containing the source code and, within it, a sub-directory containing a set of example files. These  example files are not intended to be particularly realistic (!) but simply can be used to check that the program runs.
+
+
+
+\section*{Compilation}
+
+
+
+One of the following (or similar) should compile the program
+under unix or linux:
+
+\vspace{0.2in}
+
+g77 emim.f maxfun.f -o emim
+
+gfortran emim.f maxfun.f -o emim
+
+fort77 emim.f maxfun.f -o emim
+
+f77 emim.f maxfun.f -o emim
+
+\vspace{0.2in}
+
+This should produce an executable that can by run by typing
+``./emim'' (or else by giving the full pathname e.g. /home/username/EMIM-v1.14/emim )
+
+
+\vspace{0.2in}
+
+Some compilers produce a number of warning messages when compiling EMIM. Provided that an executable file ``emim" has been created, I do not anticipate that you need to be too concerned about these warnings (!)
+
+
+\newpage
+
+\section*{Input files}
+
+EMIM requires two compulsory input files, {\it emimmarkers.dat} and {\it emimparams.dat}, together with at least one out of 
+three optional input data
+files ({\it caseparenttrios.dat}, {\it casemotherduos.dat}, {\it casefatherduos.dat}) and any number of additional optional input data
+files  ({\it caseparents.dat}, {\it casemothers.dat}, {\it casefathers.dat}, {\it cases.dat}, {\it conparents.dat}, {\it conmotherduos.dat}, {\it confatherduos.dat}, {\it cons.dat}).
+
+Currently these optional input data files mst be created maually by the user, but we are working on producing a program to generate these files automatically, given data in standard pedigree file format. For now, you will have to
+decide on an allele coding (alleles=1 and 2) and count up the number of individuals/trios/pairs with the various
+genotype combinations (genotypes 22, 12, 11) as required in the various input files.
+
+
+{\bf 
+
+*******************************************************************
+
+WARNING!!!! A common problem sometimes encountered with the input files is when the final line of the file does not have a newline character. If you get an error message
+such as ``Fortran runtime error: End of file'' please check that all your input files have  a newline character at the end of the final line.
+
+******************************************************************
+}
+
+\subsection*{Description of input files}
+
+{\bf emimmarkers.dat}: This file lists on each line (in order) a numeric SNP ID (which could correspond to SNP number or base pair position, for example) for each SNP to be analysed, together with the allele frequency for the allele denoted ``2'' (usually the minor allele) at each SNP.
+
+For example, if there are 8 different SNPs to be analysed, with SNPs 1--5 having minor allele frequency 0.3 and SNPs 6, 7, 8 having minor allele frequencies 0.1, 0.2, 0.5 respetively, {\it emimmarkers.dat} might look like:
+
+\begin{verbatim}
+1 0.3
+2 0.3
+3 0.3
+4 0.3
+5 0.3
+6 0.1
+7 0.2
+8 0.5
+\end{verbatim}
+
+\newpage
+The allele frequencies are generally only used as starting values (unless you choose the option in EMIM to fix the allele frequency at its starting value - which is NOT recommended). Therefore the allele frequencies do not have to be too accurate. An estimate from HapMap or from previous genetic studies in your population should be sufficient.
+
+\vspace{0.5in}
+
+{\bf emimparams.dat}: This is a file that tells EMIM what input files
+to read in and sets up the various parameter restrictions for the analyses to be performed. An example of this file is shown on the following page. Here we describe the lines of this file in detail:
+
+
+\vspace{0.3in}
+
+Lines 1, 14 and 33 are not read by the program but are simply
+separators to make the 3 sections of this file easier to read. The text after $<<$ on each other line of the file is not read by the program, but is designed to describe what the number (1 or 0) at the beginning of the line means. You are strongly recommended to keep these text comments in order to avoid mistakes. The order of the lines must be EXACTLY as shown in this example.
+
+Lines 2-12 tell EMIM what input files to expect (note that the names given to these input files are not optional). A ``1'' indicates that this input file exists and is to be read in, while a ``0'' indicates that this input file is not to be read in. At least one of the files {\it caseparenttrios.dat}, {\it casemotherduos.dat}, {\it casefatherduos.dat} (lines 2, 4 and 5) must be read in; in the example above all three of these files are read in, as well as a {\it conmotherduos.dat} file.
+
+Line 13 tells EMIM how many to be analysed: this number must either match or be less than the number of SNPs in the file  {\it emimmarkers.dat}. (If this number $n$ is less than  the number of SNPs in the file  {\it emimmarkers.dat}, then only the first $n$ SNPs  in the file  {\it emimmarkers.dat} will be analysed).
+
+The second and third sections of the file have 
+a number of lines telling what parameters to estimate and what parameter restrictions to use. A ``1'' indicates that this
+parameter is to be estimated or this restriction is to be used. 
+A ``1'' indicates that this
+parameter is not to be estimated or this restriction is not to be used.
+
+
+
+\newpage
+\begin{verbatim}
+-----------INPUT DATAFILES--------------------------------------
+1    << caseparenttrios.dat file (0=no, 1=yes)
+0    << caseparents.dat file (0=no, 1=yes)
+1    << casemotherduos.dat file (0=no, 1=yes)
+1    << casefatherduos.dat file (0=no, 1=yes)
+0    << casemothers.dat file (0=no, 1=yes)
+0    << casefathers.dat file (0=no, 1=yes)
+0    << cases.dat file (0=no, 1=yes)
+0    << conparents.dat file (0=no, 1=yes)
+1    << conmotherduos.dat file (0=no, 1=yes)
+0    << confatherduos.dat file (0=no, 1=yes)
+0    << cons.dat file (0=no, 1=yes)
+8    << no of SNPs in each file
+------------------PARAMETER RESTRICTIONS-----------------------
+0    << fix allele freq A (0=no, 1=yes)
+0    << assume HWE and random mating (0=no=estimate mews, 1=yes)
+0    << assume parental allelic symmetry (0=no, 1=yes)
+1    << estimate R1 (0=no, 1=yes)
+1    << estimate R2 (0=no, 1=yes)
+0    << R2=R1 (0=no, 1=yes)
+0    << R2=R1squared (0=no, 1=yes)
+1    << estimate S1 (0=no, 1=yes)    
+1    << estimate S2 (0=no, 1=yes)
+0    << S2=S1 (0=no, 1=yes)
+0    << S2=S1squared (0=no, 1=yes)
+1    << estimate Im (0=no, 1=yes)
+0    << estimate Ip (0=no, 1=yes)
+1    << estimate gamma11 (0=no, 1=yes)
+0    << estimate gamma12 (0=no, 1=yes)
+0    << estimate gamma21 (0=no, 1=yes)
+1    << estimate gamma22 (0=no, 1=yes)
+0    << gamma22=gamma12=gamma21=gamma11 (0=no, 1=yes)
+---------------OTHER PARAMETERIZATIONS-------------------------
+0    << estimate Weinberg (1999b) Im (0=no, 1=yes)
+0    << estimate Weinberg (1999b) Ip (=Li 2009 Jm) (0=no, 1=yes)
+0    << estimate Sinsheimer (2003) gamma01 (0=no, 1=yes)
+0    << estimate Sinsheimer (2003) gamma21 (0=no, 1=yes)
+0    << estimate Palmer (2006) match parameter (0=no, 1=yes)
+0    << estimate Li (2009) conflict parameter Jc (0=no, 1=yes)
+\end{verbatim}
+
+\newpage
+
+
+
+Line 15 
+{\tt	<< fix allele freq A (0=no, 1=yes)
+}
+indicates  that the allele frequencies are to be fixed 
+at their given starting values (NOT RECOMMENDED). A ``1'' in this line will supercede any instructions given in the next two lines (lines 16 and 17).
+
+Line 16
+{\tt	<<  assume HWE and random mating (0=no=estimate mews, 1=yes)
+}
+indicates that the analysis should be performed assuming Hardy Weinberg Equilibrium (HWE) and random mating. In that case, one allele frequency parameter
+$A_2$ (the frequency of the 2 allele) will be estimated (or fixed) as opposed to estimating six mating-type stratification parameters $\mu_1 - \mu_6$.  A ``1'' in this line will supercede any instructions given in the next line (line 17).
+
+Line 17
+{\tt	<< assume parental allelic symmetry (0=no, 1=yes)
+}
+indicates that parental allelic symmetry should be assumed 
+(i.e. $\mu_4 = \mu_3$) when estimating  $\mu_1 - \mu_6$.
+
+Line 18
+{\tt	<< estimate R1 (0=no, 1=yes)
+}
+indicates that the child genotype effect $R_1$ (the factor by which the disease risk is multiplied if the child has a single copy of allele 2) should be estimated.
+
+Line 19
+{\tt	<< estimate R2 (0=no, 1=yes)
+}
+indicates that the child genotype effect $R_2$ (the factor by which the disease risk is multiplied if the child has two copies of allele 2) should be estimated.
+
+Line 20
+{\tt	<< R2=R1 (0=no, 1=yes)
+}
+indicates that a single child genotype effect $R_2=R_1$ should be estimated. 
+A ``1'' in this line will supercede any instructions given in the two previous lines. However, if line 20 is set equal to ``1'', we recommend you set lines 18 and 19 to ``0'' in order to avoid problems when EMIM tries to determine whether
+the parameters you have selected are estimable, given the data.
+
+
+Line 21
+{\tt	<< R2=R1squared	(0=no, 1=yes)
+}
+indicates that a single child genotype effect $R_2={R_1}^2$ 
+should be estimated. This is a multiplicative allelic model
+for the child genotype effects.
+A ``1'' in this line will supercede any instructions given in the three previous lines. However, if line 21 is set equal to ``1'', we recommend you set lines 18, 19 and 20 
+to ``0'' in order to avoid problems when EMIM tries to determine whether
+the parameters you have selected are estimable, given the data.
+
+Line 22
+{\tt	<< estimate S1 (0=no, 1=yes)
+}
+indicates that the maternal genotype effect $S_1$ (the factor by which the disease risk is multiplied if the mother has a single copy of allele 2) should be estimated.
+
+Line 23
+{\tt	<< estimate S2 (0=no, 1=yes)
+}
+indicates that the maternal genotype effect $S_2$ (the factor by which the disease risk is multiplied if the mother has two copies of allele 2) should be estimated.
+
+Line 24
+{\tt	<< S2=S1 (0=no, 1=yes)
+}
+indicates that a single maternal genotype effect $S_2=S_1$ 
+should be estimated. 
+A ``1'' in this line will supercede any instructions given in the two previous lines. However, if line 24 is set equal to ``1'', we recommend you set lines 22 and 23 to ``0'' in order to avoid problems when EMIM tries to determine whether
+the parameters you have selected are estimable, given the data.
+
+Line 25
+{\tt	<< S2=S1squared	(0=no, 1=yes)
+}
+indicates that a single maternal genotype effect $S_2={S_1}^2$ 
+should be estimated. This is a multiplicative allelic model
+for the maternal genotype effects.
+A ``1'' in this line will supercede any instructions given in the three previous lines. However, if line 25 is set equal to ``1'', we recommend you set lines 22, 23 and 24 to ``0'' in order to avoid problems when EMIM tries to determine whether
+the parameters you have selected are estimable, given the data.
+
+Line 26
+{\tt	<< estimate Im (0=no, 1=yes)
+}
+indicates that a maternal imprinting effect $I_m$
+(a multiplicative factor by which the probability of disease is
+ multiplied if the child receives a (maternal) copy of the 2 allele from
+ their mother) should be estimated. A ``1'' in this line will supercede any instructions given in the next line (line 27) i.e. only one of  $I_m$ and  $I_p$ cam be estimated
+
+Line 27
+{\tt	<< estimate Ip (0=no, 1=yes)
+}
+indicates that a paternal imprinting effect  $I_p$
+(a multiplicative factor by which the probability of disease is
+ multiplied if the child receives a (paternal) copy of the 2 allele from
+ their father) should be estimated.
+
+Line 28
+{\tt	<< estimate gamma11 (0=no, 1=yes)
+}
+indicates that the mother/child genotype interaction parameter $\gamma_{11}$ should be estimated.
+
+Line 29
+{\tt	<< estimate gamma12 (0=no, 1=yes)
+}
+indicates that the mother/child genotype interaction parameter $\gamma_{12}$ should be estimated.
+
+Line 30
+{\tt	<< estimate gamma21 (0=no, 1=yes)
+}
+indicates that the mother/child genotype interaction parameter $\gamma_{21}$ should be estimated.
+
+Line 31
+{\tt	<< estimate gamma22 (0=no, 1=yes)
+}
+indicates that the mother/child genotype interaction parameter $\gamma_{22}$ should be estimated.
+
+Line 32
+{\tt	<< gamma22=gamma12=gamma21=gamma11 (0=no, 1=yes)
+}
+indicates that a single mother/child genotype interaction parameter 
+$\gamma_{22}=\gamma_{12}=\gamma_{21}=\gamma_{11}$ should be estimated.
+A ``1'' in this line will supercede any instructions given 
+in the four previous lines.
+However, if line 32 is set equal to ``1'', we recommend you set lines 28, 29, 30 and 31 to ``0'' in order to avoid problems when EMIM tries to determine whether
+the parameters you have selected are estimable, given the data.
+
+\bigskip
+
+Depending on  what optional input data files are available, estimation of certain parameter combinations may be limited. (This is particularly true if you only read in a single file, {\it casemotherduos.dat} or 
+{\it casefatherduos.dat}). EMIM will attempt to adjust the number of
+ parameters to estimate in some ``sensible'' way if it detects you are 
+trying to estimate too many parameters with not enough restrictions. 
+However, it may be better
+ to make this adjustment yourself (e.g.
+by making assumptions of HWE and/or estimating only a smaller number of parameters). You can generally tell if EMIM has been successful at 
+its choice of parameters by looking at the output confidence intervals:  if these do not look sensible (e.g. if the upper and lower confidence limits for a parameter are equal)
+then there is a good chance that the  choice of parameters has not been made appropriately.
+
+\bigskip
+
+Lines 34 and 35 \\
+{\tt	<< estimate Weinberg (1999b) Im (0=no, 1=yes)
+} \\
+{\tt    << estimate Weinberg (1999b) Ip (=Li 2009 Jm) (0=no, 1=yes)
+}
+\\
+Parameterization of interactions and imprinting effects is quite complex 
+(see Ainsworth et al. 2010) and 
+several different parameterizations have been proposed in the literature.
+Our paramaterization for the parent-of-origin effects $I_m$ and $I_p$ corresponds to the original 
+parameterization used by  \citet{weinberg:etal:98} rather than to a later alternative parameterization used by  \citet{weinberg:99b}, \citet{parimi:etal:08}, and \citet{li:etal:09}.
+If preferred, the user can choose to use the later parameterization 
+by setting the values in lines 26 and 27 to 0 and the values in
+in line 34 or 35 to 1. In this case, if interactions are also required, we recommend using
+either the \citet{sinsheimer:etal:03} or \citet{palmer:etal:06} parameterization (see below), as
+our interaction parameterization does not allow estimation of the later \citet{weinberg:99b}
+imprinting parameters.
+
+Lines 36 and 37 \\
+{\tt    << estimate Sinsheimer (2003) gamma01 (0=no, 1=yes)
+} \\
+{\tt    << estimate Sinsheimer (2003) gamma21 (0=no, 1=yes)
+} 
+\\
+\citet{sinsheimer:etal:03} proposed an alternative parameterization for interactions
+in terms of maternal-fetal genotype incompatibility (MFG) parameters. 
+\citet{sinsheimer:etal:03} denoted these parameters as
+$\mu$ (or $\mu_0$) and $\mu_2$.
+We denote
+these MFG interactions as $\gamma_{01}$ and $\gamma_{21}$, since they correspond to
+effects that operate (in addition to maternal and
+child genotype effects) when the child has one copy,
+and the mother either zero  or two copies, of 
+a particular allele of interest. To include one or both MFG interactions,
+you should set the values in lines 28-32 to 0 and the
+value(s) in line 36 and/or 37 to 1.
+
+Line 38 \\
+{\tt    << estimate Palmer (2006) match parameter (0=no, 1=yes)
+}
+\\
+\citet{sinsheimer:etal:03} and  \citet{palmer:etal:06} considered an alternative 
+interaction parameterization in which  `matching' rather `mismatching' between maternal and foetal genotypes increases disease risk in the offspring. To model interaction via the single \citet{palmer:etal:06} match parameter $\mu$, you should set the values in lines 28-32 to 0 and the value in line 38 to 1.
+
+
+Line 39 \\
+{\tt    << estimate Li (2009) conflict parameter Jc (0=no, 1=yes)
+}
+\\
+\citet{li:etal:09} (based on work by  \citet{parimi:etal:08}) considered an alternative  interaction parameterization that modelled
+`conflict' between the mothers and childs genotypes. To model interaction via the single \citet{li:etal:09} 
+conflict parameter (which we denote $J_c$, corresponding to exp($i_c$) in the notation of \citet{li:etal:09}),
+ you should set the values in lines 28-32 to 0 and the
+value in line 39 to 1. Note that the recommended model of \citet{li:etal:09} and
+\citet{parimi:etal:08}) is to include both $J_c$ and $J_m$ 
+(=exp($i_m$) in the notation of \citet{li:etal:09}) where
+$J_m$ is the imprinting parameter selectable on line 35.
+So to fit the full \citet{li:etal:09} and \citet{parimi:etal:08} model you should
+set the values in lines 35 and 39 to 1.
+
+
+
+
+
+
+
+
+\bigskip
+
+	{\bf  caseparenttrios.dat}: This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 15 cell counts corresponding to the number
+of fully genotyped case/parent trios whose genotype combinations
+s fall into the appropriate genotype categories as given in 
+Ainsworth et al. (2010) Table 1. (Zero counts are allowed, although
+may make it more difficult to estimate certain parameter combinations).
+
+For example, suppose that at the first SNP the genotype combinations of mother, father and child as given in Ainsworth et al. (2010) Table 1 are:
+
+\begin{tabular}{rrrrr} 
+group    &   mother &father &child    &count \\ \hline
+1 &22 &22 &22 &48 \\
+2 &22 &12 &22       &111 \\
+3 &22 &12 &12 &54\\
+4 &12 &22 &22 &88\\
+5 &12 &22 &12 &16\\
+6 &22 &11 &12       &136\\
+7 &11 &22 &12 &11\\
+8 &12 &12 &22       &167\\
+9 &12 &12 &12 &89\\
+10 &12 &12 &11 &14\\
+11 &12 &11 &12       &161\\
+12 &12 &11 &11 &36\\
+13 &11 &12 &12 &27\\
+14 &11 &12 &11 &13\\
+15 &11 &11 &11 &29\\
+\end{tabular}
+
+Then the line in	{\it  caseparenttrios.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	48 111 54 88 16 136 11 167 89 14 161 36 27 13 29
+}
+
+An example of {\it  caseparenttrios.dat} for 8 SNPs, of which the first has counts as given above, 
+and the other seven just happen to all have exactly the same (different set of) 
+genotype counts (admittedly a contrived example!) is shown below:
+\newpage
+
+\begin{verbatim}
+snp 	cellcount 1-15
+1 	48 111 54 88 16 136 11 167 89 14 161 36 27 13 29
+2 	16 46 23 18 16 59 13 40 56 11 74 29 27 17 55
+3 	16 46 23 18 16 59 13 40 56 11 74 29 27 17 55
+4 	16 46 23 18 16 59 13 40 56 11 74 29 27 17 55
+5 	16 46 23 18 16 59 13 40 56 11 74 29 27 17 55
+6 	16 46 23 18 16 59 13 40 56 11 74 29 27 17 55
+7 	16 46 23 18 16 59 13 40 56 11 74 29 27 17 55
+8 	16 46 23 18 16 59 13 40 56 11 74 29 27 17 55
+\end{verbatim}
+ \bigskip
+
+	{\bf  caseparents.dat}: This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 9 cell counts corresponding to the number
+of fully genotyped parents of cases whose genotype combinations
+ fall into the appropriate genotype categories. Note that these
+ parents of cases must not not include parents of cases
+who have already appeared as case/parent trios in the file 	
+{\it  caseparenttrios.dat} (i.e. all input data files must be
+independent).
+
+
+For example, suppose that at the first SNP the genotype combinations of the mother and father are
+
+\begin{tabular}{rrrr} 
+group    &   mother &father   &count \\ \hline
+1 &22 &22 &12\\
+2 &22 &12 &38\\
+3 &22 &11 &49\\
+4 &12 &22 &47\\
+5 &12 &12       &191\\
+6 &12 &11       &192\\
+7 &11 &22 &42\\
+8 &11 &12       &201\\
+9 &11 &11       &228\\
+\end{tabular}
+
+Then the line in	{\it  caseparents.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	12 38 49 47 191 192 42 201 228
+}
+
+An example of {\it  caseparents.dat} for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example!) is shown below:\newpage
+
+\begin{verbatim}
+snp	cellcount 1-9
+1 	12 38 49 47 191 192 42 201 228
+2 	41 81 63 157 44 52 62 80 100
+3 	41 81 63 157 44 52 62 80 100
+4 	41 81 63 157 44 52 62 80 100
+5 	41 81 63 157 44 52 62 80 100
+6 	41 81 63 157 44 52 62 80 100
+7 	41 81 63 157 44 52 62 80 100
+8 	41 81 63 157 44 52 62 80 100
+\end{verbatim}
+ \bigskip
+
+
+
+	{\bf  casemotherduos.dat}:  This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 7 cell counts corresponding to the number
+of fully genotyped case/mother duos whose genotype combinations
+fall into the appropriate genotype categories. Note that these
+must not not include cases and mothers
+who have already appeared as case/parent 
+trios in the file {\it  caseparenttrios.dat},
+or mothers
+who have already appeared in the file  {\it  caseparents.dat} (i.e. all input data files must be
+independent).
+Zero counts are allowed, although
+may make it more difficult to estimate certain parameter combinations.
+
+For example, suppose that at the first SNP the genotype combinations of the mother and child are
+
+\begin{tabular}{rrrr} 
+group    &   mother &child   &count \\ \hline
+1 &22 &22       &159\\
+2 &22 &12       &190\\
+3 &12 &22       &255\\
+4 &12 &12       &266\\
+5 &12 &11 &50\\
+6 &11 &12 &38\\
+7 &11 &11 &42\\
+\end{tabular}
+
+Then the line in	{\it  casemotherduos.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	159 190 255 266 50 38 42
+}
+
+An example of {\it  casemotherduos.dat} for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example!) is shown below:
+\newpage
+
+\begin{verbatim}
+snp	cellcount 1-7
+1 	159 190 255 266 50 38 42
+2 	41 81 63 157 44 52 62
+3 	41 81 63 157 44 52 62
+4 	41 81 63 157 44 52 62
+5 	41 81 63 157 44 52 62
+6 	41 81 63 157 44 52 62
+7 	41 81 63 157 44 52 62
+8 	41 81 63 157 44 52 62
+\end{verbatim}
+ 
+\bigskip
+
+	{\bf  casefatherduos.dat}:  This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 7 cell counts corresponding to the number
+of fully genotyped case/father duos whose genotype combinations 
+fall into the appropriate genotype categories. Note that these
+must not not include cases and fathers
+who have already appeared as case/parent 
+trios in the file {\it  caseparenttrios.dat}, fathers
+who have already appeared in the file  {\it  caseparents.dat},
+or cases who have already appeared in the file {\it  casemotherduos.dat} (i.e. all input data files must be
+independent).
+Zero counts are allowed, although
+may make it more difficult to estimate certain parameter combinations.
+
+For example, suppose that at the first SNP the genotype combinations of the father and child are
+
+\begin{tabular}{rrrr} 
+group    &   father &child   &count \\ \hline
+1 &22 &22       &159\\
+2 &22 &12       &190\\
+3 &12 &22       &255\\
+4 &12 &12       &266\\
+5 &12 &11 &50\\
+6 &11 &12 &38\\
+7 &11 &11 &42\\
+\end{tabular}
+
+Then the line in	{\it  casefatherduos.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	159 190 255 266 50 38 42
+}
+
+An example of {\it  casefatherduos.dat} for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example!) is shown below:
+
+\newpage
+\begin{verbatim}
+snp	cellcount 1-7
+1 	159 190 255 266 50 38 42
+2 	41 81 63 157 44 52 62
+3 	41 81 63 157 44 52 62
+4 	41 81 63 157 44 52 62
+5 	41 81 63 157 44 52 62
+6 	41 81 63 157 44 52 62
+7 	41 81 63 157 44 52 62
+8 	41 81 63 157 44 52 62
+\end{verbatim}
+ 
+\bigskip
+
+	{\bf  casemothers.dat}:  This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 3 cell counts corresponding to the number
+of fully genotyped mothers of cases whose genotypes 
+fall into the appropriate genotype categories. Note that these
+must not not include mothers of cases already
+in the files {\it  caseparenttrios.dat}, {\it  caseparents.dat},
+or {\it  casemotherduos.dat} (i.e. all input data files must be
+independent).
+
+
+For example, suppose that at the first SNP the genotypes of the mothers are
+
+\begin{tabular}{rrr} 
+group    &   mother &count \\ \hline
+1     &  22   &   90\\
+2     &  12   &   420\\
+3     &  11   &   490\\
+\end{tabular}
+
+Then the line in	{\it  casemothers.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	90 420 490
+}
+
+An example of {\it  casemothers.dat} for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example!) is shown below:
+
+\begin{verbatim}
+snp	cellcount 1-3
+1 	90 420 490
+2 	22 31 16
+3 	22 31 16
+4 	22 31 16
+5 	22 31 16
+6 	22 31 16
+7 	22 31 16
+8 	22 31 16
+\end{verbatim}
+ 
+\bigskip
+
+	{\bf  casefathers.dat}:  This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 3 cell counts corresponding to the number
+of fully genotyped fathers of cases whose genotypes 
+fall into the appropriate genotype categories. Note that these
+must not not include fathers of cases already
+in the files {\it  caseparenttrios.dat}, {\it  caseparents.dat},
+or {\it  casefatherduos.dat} (i.e. all input data files must be
+independent).
+
+
+For example, suppose that at the first SNP the genotypes of the fathers are
+
+\begin{tabular}{rrr} 
+group    &   father &count \\ \hline
+1     &  22   &   90\\
+2     &  12   &   420\\
+3     &  11   &   490\\
+\end{tabular}
+
+Then the line in	{\it  casefathers.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	90 420 490
+}
+
+An example of {\it  casefathers.dat} for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example!) is shown below:
+
+\begin{verbatim}
+snp	cellcount 1-3
+1 	90 420 490
+2 	22 31 16
+3 	22 31 16
+4 	22 31 16
+5 	22 31 16
+6 	22 31 16
+7 	22 31 16
+8 	22 31 16
+\end{verbatim}
+ 
+\bigskip
+
+	{\bf  cases.dat}:  This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 3 cell counts corresponding to the number
+of fully genotyped cases whose genotypes 
+fall into the appropriate genotype categories. Note that these
+must not not include cases already
+in the files {\it  caseparenttrios.dat}, {\it  casemotherduos.dat},
+or {\it  casefatherduos.dat} (i.e. all input data files must be
+independent).
+
+
+For example, suppose that at the first SNP the genotypes of the cases are
+
+\begin{tabular}{rrr} 
+group    &   case &count \\ \hline
+1     &  22   &   90\\
+2     &  12   &   420\\
+3     &  11   &   490\\
+\end{tabular}
+
+Then the line in	{\it  cases.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	90 420 490
+}
+
+An example of {\it  cases.dat} for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example!) is shown below:
+
+\begin{verbatim}
+snp	cellcount 1-3
+1 	90 420 490
+2 	22 31 16
+3 	22 31 16
+4 	22 31 16
+5 	22 31 16
+6 	22 31 16
+7 	22 31 16
+8 	22 31 16
+\end{verbatim}
+ 
+\bigskip
+
+	{\bf  conparents.dat}: 
+ This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 9 cell counts corresponding to the number
+of fully genotyped parents of controls whose genotype combinations
+ fall into the appropriate genotype categories. 
+
+Note that by controls we mean individuals of unknown disease status, or
+(provided the disease is rare) individuals who are known to
+be disease-free.
+Note that these
+ parents of controls must not not include parents
+who have already appeared in any other input files 
+(i.e. all input data files must be
+independent).
+
+
+For example, suppose that at the first SNP the genotype combinations of the mother and father are
+
+\begin{tabular}{rrrr} 
+group    &   mother &father   &count \\ \hline
+1 &22 &22 &12\\
+2 &22 &12 &38\\
+3 &22 &11 &49\\
+4 &12 &22 &47\\
+5 &12 &12       &191\\
+6 &12 &11       &192\\
+7 &11 &22 &42\\
+8 &11 &12       &201\\
+9 &11 &11       &228\\
+\end{tabular}
+
+Then the line in	{\it  conparents.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	12 38 49 47 191 192 42 201 228
+}
+
+An example of {\it  conparents.dat} for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example!) is shown below:
+
+\begin{verbatim}
+snp	cellcount 1-9
+1 	12 38 49 47 191 192 42 201 228
+2 	41 81 63 157 44 52 62 80 100
+3 	41 81 63 157 44 52 62 80 100
+4 	41 81 63 157 44 52 62 80 100
+5 	41 81 63 157 44 52 62 80 100
+6 	41 81 63 157 44 52 62 80 100
+7 	41 81 63 157 44 52 62 80 100
+8 	41 81 63 157 44 52 62 80 100
+\end{verbatim}
+ \bigskip
+
+	{\bf  conmotherduos.dat}:  This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 7 cell counts corresponding to the number
+of fully genotyped control/mother duos whose genotype combinations
+fall into the appropriate genotype categories. 
+Note that by controls we mean individuals of unknown disease status, or
+(provided the disease is rare) individuals who are known to
+be disease-free.  This must not not include individuals
+who have already appeared in any other input files 
+(i.e. all input data files must be
+independent).
+
+
+
+For example, suppose that at the first SNP the genotype combinations of the mother and child are
+
+\begin{tabular}{rrrr} 
+group    &   mother &child   &count \\ \hline
+1 &22 &22       &159\\
+2 &22 &12       &190\\
+3 &12 &22       &255\\
+4 &12 &12       &266\\
+5 &12 &11 &50\\
+6 &11 &12 &38\\
+7 &11 &11 &42\\
+\end{tabular}
+
+Then the line in	{\it  conmotherduos.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	159 190 255 266 50 38 42
+}
+
+An example of {\it  conmotherduos.dat} for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example!) is shown below:
+
+\begin{verbatim}
+snp	cellcount 1-7
+1 	159 190 255 266 50 38 42
+2 	41 81 63 157 44 52 62
+3 	41 81 63 157 44 52 62
+4 	41 81 63 157 44 52 62
+5 	41 81 63 157 44 52 62
+6 	41 81 63 157 44 52 62
+7 	41 81 63 157 44 52 62
+8 	41 81 63 157 44 52 62
+\end{verbatim}
+ 
+\bigskip
+
+
+
+	{\bf  confatherduos.dat}:  This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 7 cell counts corresponding to the number
+of fully genotyped control/father duos whose genotype combinations
+fall into the appropriate genotype categories. 
+Note that by controls we mean individuals of unknown disease status, or
+(provided the disease is rare) individuals who are known to
+be disease-free.  This must not not include individuals
+who have already appeared in any other input files 
+(i.e. all input data files must be
+independent).
+
+
+
+For example, suppose that at the first SNP the genotype combinations of the father and child are
+
+\begin{tabular}{rrrr} 
+group    &   father &child   &count \\ \hline
+1 &22 &22       &159\\
+2 &22 &12       &190\\
+3 &12 &22       &255\\
+4 &12 &12       &266\\
+5 &12 &11 &50\\
+6 &11 &12 &38\\
+7 &11 &11 &42\\
+\end{tabular}
+
+Then the line in	{\it  confatherduos.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	159 190 255 266 50 38 42
+}
+
+An example of {\it  confatherduos.dat} for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example!) is shown below:
+
+\begin{verbatim}
+snp	cellcount 1-7
+1 	159 190 255 266 50 38 42
+2 	41 81 63 157 44 52 62
+3 	41 81 63 157 44 52 62
+4 	41 81 63 157 44 52 62
+5 	41 81 63 157 44 52 62
+6 	41 81 63 157 44 52 62
+7 	41 81 63 157 44 52 62
+8 	41 81 63 157 44 52 62
+\end{verbatim}
+ 
+\bigskip
+
+
+
+	{\bf  cons.dat}:  This file contains a header line
+(which is not read in by the program but is useful for reminding
+yourself of the  column order), followed by a line of data
+for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER
+as given in {\it emimmarkers.dat}).
+
+The first number on each line is the numeric SNP ID (as given in {\it emimmarkers.dat}). This is followed by 3 cell counts corresponding to the number
+of fully genotyped controls whose genotypes 
+fall into the appropriate genotype categories. 
+Note that by controls we mean individuals of unknown disease status, or
+(provided the disease is rare) individuals who are known to
+be disease-free.  This must not not include individuals
+who have already appeared in any other input files 
+(i.e. all input data files must be
+independent).
+
+
+\newpage
+
+For example, suppose that at the first SNP the genotypes of the controls are
+
+\begin{tabular}{rrr} 
+group    &   control &count \\ \hline
+1     &  22   &   90\\
+2     &  12   &   420\\
+3     &  11   &   490\\
+\end{tabular}
+
+Then the line in	{\it  cons.dat} corresponding to this SNP 
+would look like:
+
+{\tt
+1 	90 420 490
+}
+
+An example of {\it  cons.dat} for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example!) is shown below:
+
+\begin{verbatim}
+snp	cellcount 1-3
+1 	90 420 490
+2 	22 31 16
+3 	22 31 16
+4 	22 31 16
+5 	22 31 16
+6 	22 31 16
+7 	22 31 16
+8 	22 31 16
+\end{verbatim}
+ 
+\bigskip
+
+
+\newpage
+\section*{Output files}
+
+
+The program is run by typing ``./emim''. This should produce 2 primary output files: {\it emimresults.out} and {\it emimsummary.out}. Two files ({\it fort.11} and {\it fort.12})
+with details of the maximisation procedure are also
+produced by the MAXFUN subroutine. These files can be quite large and 
+may subsequently be deleted if detailed output is not required.
+(However they can be quite useful for troubleshooting when
+the maximisation procedure does not appear to have worked correctly). 
+
+
+The main results are given in the file {\it emimresults.out}. A fairly
+large number of lines of results
+are output for each SNP in turn, therefore this file can become
+quite large. First come the parameter estimates
+ from a global null model
+(in which the parameters $R_1$, $R_2$, $S_1$, $S_2$, $I_m$, $I_p$, $\gamma_{11}$, $\gamma_{12}$, $\gamma_{21}$,$\gamma_{22}$ are all set to equal 1.0). 
+Next  the parameter estimates
+ from the specified alternative model (as specified in the file
+{\it emimparams.dat} are given, both on their original and log scales,
+followed by 95\% confidence intervals for estimated parameters of interest.
+Finally the maximized ln likelihoods for the alternative and null
+models are given, together with twice the difference between these
+(which can be compared to a chi-squared on the appropriate df (=the number
+of  estimated parameters of interest) to calculate a $p$ value, if required.
+Note that if nested alternative (non-null) models are to be compared,
+you will have to run EMIM twice and compare
+twice the difference between the
+maximized ln likelihoods for each of the alternative models
+to a chi-squared on the appropriate df.
+
+A summary of the results from {\it emimresults.out} is given in the file
+{\it emimsummary.out}. This file can be more convenient to deal with
+if analysis is being performed on a large number of SNPs. First comes a header line describing the different columns. Then comes a single line of results
+for each SNP analysed. The entries in each line correspond to the SNP number, the SNP ID, the estimated allele 
+frequency (or input allele frequency if allele 
+frequency is not estimated), then for each 
+parameter ($R_1$, $R_2$, $S_1$, $S_2$, $I_m$, $I_p$, $\gamma_{11}$, $\gamma_{12}$, $\gamma_{21}$, $\gamma_{22}$) in turn,
+we have the estimate of the logarithm of the relevant parameter,
+its estimated standard error, and the estimated
+ lower and upper 95\% confidence limit for the logarithm of the relevant parameter.
+Finally we have the maximized log likelihood under the null,  the maximized log likelihood under the alternative, and  twice the difference between these.
+
+If one of the parameterizations from the third section of {\it emimparams.dat} has been selected,
+the output parameters in {\it emimsummary.out} are slightly different.
+If the \citet{sinsheimer:etal:03}
+MFG interaction parameters have been chosen, then
+instead of $\gamma_{11}$ and/or $\gamma_{22}$, you should find that MFG parameters
+$\gamma_{01}$ and/or $\gamma_{21}$ (denoted MFG01 and MFG21)
+are output. 
+If the \citet{palmer:etal:06} interaction parameter has been chosen, then
+instead of $\gamma_{11}$ you should find the Palmer match parameter (denoted MFGmu)
+is output. 
+If the  \citet{li:etal:09} and \citet{parimi:etal:08} interaction parameter has been chosen, then
+instead of $\gamma_{22}$, you should find that the \citet{li:etal:09}
+conflict parameter (denoted Jc)
+is output. 
+Hopefully the header line in {\it emimsummary.out} should make it clear which parameters have been output.
+
+
+
+
+\clearpage
+
+
+\bibliography{/home/nhc15/TeX/BIBTEX/master-hjc}
+
+
+
+\end{document}
+
+
+
+
+
+

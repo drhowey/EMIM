@@ -1,0 +1,7 @@
+pdflatex emim.tex
+
+bibtex emim
+
+pdflatex emim.tex
+
+pdflatex emim.tex

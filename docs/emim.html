@@ -1,0 +1,646 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="emimstyles.css" />
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+<!-- Begin Header -->
+<div id="header">
+<table><tr>
+<td>
+<img width="200" src="emim5.png" alt="EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling"/>
+</td>
+<td>
+<p style="margin-left: 1em;">EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</p>
+</td></tr>
+</table>
+</div>
+<!-- End Header -->
+<!-- Begin Menu Navigation -->
+<ul id="menunav">
+<li><a href="index.html">Home</a></li>
+<li><a href="downloads.html">Download</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+<!-- End Menu Navigation -->
+
+</td></tr>
+<tr><td>
+<table border="0" cellpadding="0" cellspacing="0"><tr>
+<td valign="top">
+<!-- Begin Left Column -->
+<div id="leftcolumn">
+<!-- Begin Contents Navigation -->
+<div id="navcontainer">
+<ul>
+<li><a href="introduction.html">1 Introduction</a>
+<ul>
+<li><a href="introduction.html#information">1.1 Program information and citation</a></li>
+</ul>
+</li>
+<li><a href="quick-start.html">2 Quick Start</a>
+</li>
+<li><a href="comp.html">3 Slow Start</a>
+<ul>
+<li><a href="comp.html#comp-premim">3.1 Compilation of PREMIM source code</a></li>
+<li><a href="comp.html#comp-emim">3.2 Compilation of EMIM source code</a></li>
+</ul>
+</li>
+<li><a href="premim.html">4 PREMIM: Pedigree file conversion</a>
+<ul>
+<li><a href="premim.html#premim-usage">4.1 Usage</a></li>
+<li><a href="premim.html#premim-input">4.2 Input files</a></li>
+<li><a href="premim.html#premim-output">4.3 Output files</a></li>
+<li><a href="premim.html#premim-processing">4.4 Data processing</a></li>
+<li><a href="premim.html#premim-parallel">4.5 Parallel processing</a></li>
+<li><a href="premim.html#risk-allele">4.6 Changing the risk allele</a></li>
+</ul>
+</li>
+<li><a href="emim.html">5 EMIM: Input files</a>
+<ul>
+<li><a href="emim.html#emimmarkers">5.1 emimmarkers.dat</a></li>
+<li><a href="emim.html#emimparams">5.2 emimparams.dat</a></li>
+<li><a href="emim.html#caseparenttrios">5.3 caseparenttrios.dat</a></li>
+<li><a href="emim.html#caseparents">5.4 caseparents.dat</a></li>
+<li><a href="emim.html#casemotherduos">5.5 casemotherduos.dat</a></li>
+<li><a href="emim.html#casefatherduos">5.6 casefatherduos.dat</a></li>
+<li><a href="emim.html#casemothers">5.7 casemothers.dat</a></li>
+<li><a href="emim.html#casefathers">5.8 casefathers.dat</a></li>
+<li><a href="emim.html#cases">5.9 cases.dat</a></li>
+<li><a href="emim.html#conparents">5.10 conparents.dat</a></li>
+<li><a href="emim.html#conmotherduos">5.11 conmotherduos.dat</a></li>
+<li><a href="emim.html#confatherduos">5.12 confatherduos.dat</a></li>
+<li><a href="emim.html#cons">5.13 cons.dat</a></li>
+</ul>
+</li>
+<li><a href="output.html">6 EMIM: Usage and output files</a>
+<ul>
+<li><a href="output.html#alt-paras">6.1 Alternative parameterisations</a></li>
+</ul>
+</li>
+<li><a href="example.html">7 Example using PREMIM and EMIM</a>
+<ul>
+<li><a href="example.html#eg-run-premim">7.1 Running PREMIM</a></li>
+<li><a href="example.html#eg-run-emim">7.2 Running EMIM</a></li>
+</ul>
+</li>
+<li><a href="parallel.html">8 Parallel processing</a>
+</li>
+<li><a href="poo.html">9 Parent-of-origin effects with SHAPEIT2</a>
+<ul>
+<li><a href="poo.html#options">9.1 Options</a></li>
+<li><a href="poo.html#files">9.2 Data files</a></li>
+<li><a href="poo.html#poo-example">9.3 Example Analysis</a></li>
+</ul>
+</li>
+<li><a href="trouble.html">10 Troubleshooting and results interpretation</a>
+<ul>
+<li><a href="trouble.html#GWAS">10.1 GWAS data</a></li>
+<li><a href="trouble.html#Imputed">10.2 Imputed data</a></li>
+<li><a href="trouble.html#Merged">10.3 Merged data</a></li>
+</ul>
+</li>
+<li><a href="references.html">References</a></li>
+</ul>
+</div>
+<!-- End Contents Navigation -->
+</div>
+<!-- End Left Column -->
+</td>
+<td valign="top">
+<!-- Begin Right Column -->
+<div id="rightcolumn">
+<h1>5 EMIM: Input files</h1>
+<p>
+<b>NOTE: EMIM is designed for the analysis of diallelic autosomal loci (i.e. SNPs on chromosomes 1-22) only. Please make sure to remove any non-autosomal or multi-allelic loci from your input files before running PREMIM and EMIM.</b> </p>
+<p>
+EMIM requires two compulsory input files, <i>emimmarkers.dat</i> and <i>emimparams.dat</i>, together with at least one out of three optional input data files (<i>caseparenttrios.dat</i>, <i>casemotherduos.dat</i>, <i>casefatherduos.dat</i>) and any number of additional optional input data files (<i>caseparents.dat</i>, <i>casemothers.dat</i>, <i>casefathers.dat</i>, <i>cases.dat</i>, <i>conparents.dat</i>, <i>conmotherduos.dat</i>, <i>confatherduos.dat</i>, <i>cons.dat</i>). </p>
+<p>
+In previous versions of EMIM, these optional input data files had be created manually by the user, but now you can use PREMIM to generate these files automatically from standard PLINK format files. However, you may prefer to consider creating the file <i>emimmarkers.dat</i> yourself using the correct allele frequencies for your population (as PREMIM will use the observed allele frequencies in your sample, which may not be truly representative of population control frequencies). Alternatively, you could run PREMIM on some population control data (e.g. HapMap or WTCCC) to generate <i>emimmarkers.dat</i>, before running PREMIM on your own data to create the other files. </p>
+<p>
+For most EMIM analyses the marker allele frequencies are used only as starting values for the numerical maximization procedure, and so it is not important that they are too accurate (as they will be re-estimated as required by EMIM). If your data consists of anything other than complete case/parent trios, then these estimated allele frequencies and/or mating type frequencies <b>will</b> influence the final results, in particular rendering the results potentially sensitive to population stratification. (See <a href="references.html#ainsworth:etal:11">Ainsworth et al. (2011)</a> for more details). For this reason, we recommend that you aim to ensure that your data set consists of individuals who are well matched for ancestry and come from a single homogeneous population. </p>
+<p>
+If you prefer to create the EMIM input files manually yourself, you will have to decide on an allele coding scheme (alleles=1 and 2) and count up the number of individuals/trios/pairs with the various genotype combinations (genotypes 22, 12, 11) as required in the various EMIM input files described below. </p>
+<p>
+<b>WARNING!!!! A common problem sometimes encountered with the input files is when the final line of the file does not have a newline character. If you get an error message such as &ldquo;fortran runtime error: End of file&rdquo; please check that all your input files have a newline character at the end of the final line.</b> </p>
+<h2><a name="emimmarkers">5.1 emimmarkers.dat</a></h2>
+<p>
+<b>emimmarkers.dat</b>: This file lists on each line (in order) a numeric SNP ID (which could correspond to SNP number or base pair position, for example) for each SNP to be analysed, together with the allele frequency for the allele denoted &ldquo;2&rdquo; (usually the minor allele) at each SNP. </p>
+<p>
+For example, if there are 8 different SNPs to be analysed, with SNPs 1 to 8 having minor allele frequencies 0.419927, 0.28163, 0.01, 0.152068, 0.265815, 0.0991484, 0.129562 and 0.379584 respetively, <i>emimmarkers.dat</i> might look like: </p>
+<pre>
+1	0.419927
+2	0.28163
+3	0.01
+4	0.152068
+5	0.265815
+6	0.0991484
+7	0.129562
+8	0.379584
+</pre>
+<p>
+The allele frequencies are generally only used as starting values (unless you choose the option in EMIM to fix the allele frequency at its starting value - which is NOT recommended). Therefore the allele frequencies do not have to be too accurate. An estimate from HapMap, or from previous genetic studies in your population, or even estimated from your own data set (using PREMIM) should be sufficient. </p>
+<h2><a name="emimparams">5.2 emimparams.dat</a></h2>
+<p>
+<b>emimparams.dat</b>: This is a file that tells EMIM what input files to read in and sets up the various parameter restrictions for the analyses to be performed. An example of this file is shown on the following page. Here we describe the lines of this file in detail: </p>
+<p>
+Lines 1, 14 and 34 are not used by the program but are simply separators to make the 3 sections of this file easier to read. The text after <img src="http://latex.codecogs.com/png.latex?\inline &lt;&lt; \small " alt="&lt;&lt;"/> on each other line of the file is not read by the program, but is designed to describe what the number (1 or 0) at the beginning of the line means. You are strongly recommended to keep these text comments in order to avoid mistakes. The order of the lines must be EXACTLY as shown in this example. </p>
+<p>
+Lines 2-12 tell EMIM what input files to expect (note that the names given to these input files are not optional). A &ldquo;1&rdquo; indicates that this input file exists and is to be read in, while a &ldquo;0&rdquo; indicates that this input file is not to be read in. At least one of the files <i>caseparenttrios.dat</i>, <i>casemotherduos.dat</i>, <i>casefatherduos.dat</i> (lines 2, 4 and 5) must be read in; in the example above all three of these files are read in, as well as a <i>conmotherduos.dat</i> file. </p>
+<p>
+Line 13 tells EMIM how many SNPs to be analysed. Normally this number will match the number of SNPs in the file <i>emimmarkers.dat</i>. If this number n is less than the number of SNPs in the file <i>emimmarkers.dat</i>, then only the first n SNPs in the file <i>emimmarkers.dat</i> will be analysed. If this number n is greater than the number of SNPs in the file <i>emimmarkers.dat</i>, then EMIM will simply stop after it has analysed all the SNPs listed in <i>emimmarkers.dat</i> </p>
+<p>
+The second and third sections of the file have a number of lines telling what parameters to estimate and what parameter restrictions to use. A &ldquo;1&rdquo; indicates that this parameter is to be estimated or this restriction is to be used. A &ldquo;0&rdquo; indicates that this parameter is not to be estimated or this restriction is not to be used. </p>
+<pre>
+-----------INPUT DATAFILES------------------------------------------------
+1   &lt;&lt; caseparenttrios.dat file (0=no, 1=yes)
+1   &lt;&lt; caseparents.dat file (0=no, 1=yes)
+1   &lt;&lt; casemotherduos.dat file (0=no, 1=yes)
+0   &lt;&lt; casefatherduos.dat file (0=no, 1=yes)
+1   &lt;&lt; casemothers.dat file (0=no, 1=yes)
+0   &lt;&lt; casefathers.dat file (0=no, 1=yes)
+1   &lt;&lt; cases.dat file (0=no, 1=yes)
+1   &lt;&lt; conparents.dat file (0=no, 1=yes)
+0   &lt;&lt; conmotherduos.dat file (0=no, 1=yes)
+0   &lt;&lt; confatherduos.dat file (0=no, 1=yes)
+1   &lt;&lt; cons.dat file (0=no, 1=yes)
+634 &lt;&lt; no of SNPs in each file
+------------------PARAMETER RESTRICTIONS----------------------------------
+0   &lt;&lt; fix allele freq A (0=no, 1=yes)
+1   &lt;&lt; assume HWE and random mating (0=no=estimate 6 mu parameters, 1=yes)
+0   &lt;&lt; assume parental allelic exchangeability (0=no, 1=yes)
+0   &lt;&lt; use CPG likelihood (estimate 9 mu parameters)
+1   &lt;&lt; estimate R1 (0=no, 1=yes)
+1   &lt;&lt; estimate R2 (0=no, 1=yes)
+0   &lt;&lt; R2=R1 (0=no, 1=yes)
+0   &lt;&lt; R2=R1squared (0=no, 1=yes)
+0   &lt;&lt; estimate S1 (0=no, 1=yes)    
+0   &lt;&lt; estimate S2 (0=no, 1=yes)
+0   &lt;&lt; S2=S1 (0=no, 1=yes)
+0   &lt;&lt; S2=S1squared (0=no, 1=yes)
+1   &lt;&lt; estimate Im (0=no, 1=yes)
+0   &lt;&lt; estimate Ip (0=no, 1=yes)
+0   &lt;&lt; estimate gamma11 (0=no, 1=yes)
+0   &lt;&lt; estimate gamma12 (0=no, 1=yes)
+0   &lt;&lt; estimate gamma21 (0=no, 1=yes)
+0   &lt;&lt; estimate gamma22 (0=no, 1=yes)
+0   &lt;&lt; gamma22=gamma12= gamma21=gamma11 (0=no, 1=yes)
+---------------OTHER PARAMETERIZATIONS------------------------------------
+0   &lt;&lt; estimate Weinberg (1999b) Im (0=no, 1=yes)
+0   &lt;&lt; estimate Weinberg (1999b) Ip (=Li 2009 Jm) (0=no, 1=yes)
+0   &lt;&lt; estimate Sinsheimer (2003) gamma01 (0=no, 1=yes)
+0   &lt;&lt; estimate Sinsheimer (2003) gamma21 (0=no, 1=yes)
+0   &lt;&lt; estimate Palmer (2006) match parameter (0=no, 1=yes)
+0   &lt;&lt; estimate Li (2009) conflict parameter Jc (0=no, 1=yes)
+</pre>
+<p>
+Line 15 <tt>&lt;&lt; fix allele freq A (0=no, 1=yes)</tt> indicates that the allele frequencies are to be fixed at their given starting values (NOT RECOMMENDED). A &ldquo;1&rdquo; in this line will supercede any instructions given in the next two lines (lines 16 and 17). </p>
+<p>
+Line 16 <tt>&lt;&lt; assume HWE and random mating (0=no=estimate 6 mu parameters, 1=yes)</tt> indicates that the analysis should be performed assuming Hardy Weinberg Equilibrium (HWE) and random mating. In that case, one allele frequency parameter <img src="http://latex.codecogs.com/png.latex?\inline A_2 \small " alt="A_2"/> (the frequency of the 2 allele) will be estimated (or fixed) as opposed to estimating six mating-type stratification parameters <img src="http://latex.codecogs.com/png.latex?\inline \mu_1 - \mu_6 \small " alt="\mu_1 - \mu_6"/>. A &ldquo;1&rdquo; in this line will supercede any instructions given in the next line (line 17). </p>
+<p>
+Line 17 <tt>&lt;&lt; assume parental allelic exchangeability (0=no, 1=yes)</tt> indicates that parental allelic exchangeability should be assumed (i.e. <img src="http://latex.codecogs.com/png.latex?\inline \mu_4 = \mu_3 \small " alt="\mu_4 = \mu_3"/>) when estimating <img src="http://latex.codecogs.com/png.latex?\inline \mu_1 - \mu_6 \small " alt="\mu_1 - \mu_6"/>. </p>
+<p>
+Line 18 <tt>&lt;&lt; use CPG likelihood (estimate 9 mu parameters)</tt> indicates that the Conditional on Parental Genotypes (CPG) rather than the Conditional on Exchangeable Parental Genotypes (CEPG) [<a href="references.html#cordell:04">Cordell (2004)</a>, <a href="references.html#weinberg:shi:09">Weinberg and Shi (2009)</a>] likelihood should be used. This provides a more robust analysis that does not assume mating symmetry (exchangeability of parental mating types), at the expense of estimating a larger number (nine) of mating-type stratification parameters. This analysis is recommended if your derives from pedigrees that contain (or were ascertained on the basis of the presence of) multiple affected individuals [<a href="references.html#cordell:04">Cordell (2004)</a>]. </p>
+<p>
+Line 19 <tt>&lt;&lt; estimate R1 (0=no, 1=yes)</tt> indicates that the child genotype effect <img src="http://latex.codecogs.com/png.latex?\inline R_1 \small " alt="R_1"/> (the factor by which the disease risk is multiplied if the child has a single copy of allele 2) should be estimated. </p>
+<p>
+Line 20 <tt>&lt;&lt; estimate R2 (0=no, 1=yes)</tt> indicates that the child genotype effect <img src="http://latex.codecogs.com/png.latex?\inline R_2 \small " alt="R_2"/> (the factor by which the disease risk is multiplied if the child has two copies of allele 2) should be estimated. </p>
+<p>
+Line 21 <tt>&lt;&lt; R2=R1 (0=no, 1=yes)</tt> indicates that a single child genotype effect <img src="http://latex.codecogs.com/png.latex?\inline R_2=R_1 \small " alt="R_2=R_1"/> should be estimated. A &ldquo;1&rdquo; in this line will supercede any instructions given in the two previous lines. However, if line 21 is set equal to &ldquo;1&rdquo;, we recommend you set lines 19 and 20 to &ldquo;0&rdquo; in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. </p>
+<p>
+Line 22 <tt>&lt;&lt; R2=R1squared (0=no, 1=yes)</tt> indicates that a single child genotype effect <img src="http://latex.codecogs.com/png.latex?\inline R_2={R_1}^2 \small " alt="R_2={R_1}^2"/> should be estimated. This is a multiplicative allelic model for the child genotype effects. A &ldquo;1&rdquo; in this line will supercede any instructions given in the three previous lines. However, if line 22 is set equal to &ldquo;1&rdquo;, we recommend you set lines 19, 20 and 21 to &ldquo;0&rdquo; in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. </p>
+<p>
+Line 23 <tt>&lt;&lt; estimate S1 (0=no, 1=yes)</tt> indicates that the maternal genotype effect <img src="http://latex.codecogs.com/png.latex?\inline S_1 \small " alt="S_1"/> (the factor by which the disease risk is multiplied if the mother has a single copy of allele 2) should be estimated. </p>
+<p>
+Line 24 <tt>&lt;&lt; estimate S2 (0=no, 1=yes)</tt> indicates that the maternal genotype effect <img src="http://latex.codecogs.com/png.latex?\inline S_2 \small " alt="S_2"/> (the factor by which the disease risk is multiplied if the mother has two copies of allele 2) should be estimated. </p>
+<p>
+Line 25 <tt>&lt;&lt; S2=S1 (0=no, 1=yes)</tt> indicates that a single maternal genotype effect <img src="http://latex.codecogs.com/png.latex?\inline S_2=S_1 \small " alt="S_2=S_1"/> should be estimated. A &ldquo;1&rdquo; in this line will supercede any instructions given in the two previous lines. However, if line 25 is set equal to &ldquo;1&rdquo;, we recommend you set lines 23 and 24 to &ldquo;0&rdquo; in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. </p>
+<p>
+Line 26 <tt>&lt;&lt; S2=S1squared (0=no, 1=yes)</tt> indicates that a single maternal genotype effect <img src="http://latex.codecogs.com/png.latex?\inline S_2={S_1}^2 \small " alt="S_2={S_1}^2"/> should be estimated. This is a multiplicative allelic model for the maternal genotype effects. A &ldquo;1&rdquo; in this line will supercede any instructions given in the three previous lines. However, if line 26 is set equal to &ldquo;1&rdquo;, we recommend you set lines 23, 24 and 25 to &ldquo;0&rdquo; in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. </p>
+<p>
+Line 27 <tt>&lt;&lt; estimate Im (0=no, 1=yes)</tt> indicates that a maternal imprinting effect <img src="http://latex.codecogs.com/png.latex?\inline I_m \small " alt="I_m"/> (a multiplicative factor by which the probability of disease is multiplied if the child receives a (maternal) copy of the 2 allele from their mother) should be estimated. A &ldquo;1&rdquo; in this line will supercede any instructions given in the next line (line 28) i.e. only one of <img src="http://latex.codecogs.com/png.latex?\inline I_m \small " alt="I_m"/> and <img src="http://latex.codecogs.com/png.latex?\inline I_p \small " alt="I_p"/> can be estimated. The exception to this is if no child genotype (R) or interaction (gamma) parameters are estimated, in which case it is possible to estimate both <img src="http://latex.codecogs.com/png.latex?\inline I_m \small " alt="I_m"/> and <img src="http://latex.codecogs.com/png.latex?\inline I_p \small " alt="I_p"/>. </p>
+<p>
+Line 28 <tt>&lt;&lt; estimate Ip (0=no, 1=yes)</tt> indicates that a paternal imprinting effect <img src="http://latex.codecogs.com/png.latex?\inline I_p \small " alt="I_p"/> (a multiplicative factor by which the probability of disease is multiplied if the child receives a (paternal) copy of the 2 allele from their father) should be estimated. </p>
+<p>
+Line 29 <tt>&lt;&lt; estimate gamma11 (0=no, 1=yes)</tt> indicates that the mother/child genotype interaction parameter <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{11} \small " alt="\gamma_{11}"/> should be estimated. </p>
+<p>
+Line 30 <tt>&lt;&lt; estimate gamma12 (0=no, 1=yes)</tt> indicates that the mother/child genotype interaction parameter <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{12} \small " alt="\gamma_{12}"/> should be estimated. </p>
+<p>
+Line 31 <tt>&lt;&lt; estimate gamma21 (0=no, 1=yes)</tt> indicates that the mother/child genotype interaction parameter <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{21} \small " alt="\gamma_{21}"/> should be estimated. </p>
+<p>
+Line 32 <tt>&lt;&lt; estimate gamma22 (0=no, 1=yes)</tt> indicates that the mother/child genotype interaction parameter <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{22} \small " alt="\gamma_{22}"/> should be estimated. </p>
+<p>
+Line 33 <tt>&lt;&lt; gamma22=gamma12=gamma21=gamma11 (0=no, 1=yes)</tt> indicates that a single mother/child genotype interaction parameter <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{22}=\gamma_{12}=\gamma_{21}=\gamma_{11} \small " alt="\gamma_{22}=\gamma_{12}=\gamma_{21}=\gamma_{11}"/> should be estimated. A &ldquo;1&rdquo; in this line will supercede any instructions given in the four previous lines. However, if line 33 is set equal to &ldquo;1&rdquo;, we recommend you set lines 29, 30, 31 and 32 to &ldquo;0&rdquo; in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. </p>
+<p>
+Depending on what optional input data files are available, estimation of certain parameter combinations may be limited. (This is particularly true if you only read in a single file, <i>casemotherduos.dat</i> or <i>casefatherduos.dat</i> ). EMIM will attempt to adjust the number of parameters to estimate in some &ldquo;sensible&rdquo; way if it detects you are trying to estimate too many parameters with not enough restrictions. However, it may be better to make this adjustment yourself (e.g. by making assumptions of HWE and/or estimating only a smaller number of parameters). You can generally tell if EMIM has been successful at its choice of parameters by looking at the output confidence intervals: if these do not look sensible (e.g. if the upper and lower confidence limits for a parameter are equal) then there is a good chance that the choice of parameters has not been made appropriately. </p>
+<p>
+Lines 35 and 36 <tt>&lt;&lt; estimate Weinberg (1999b) Im (0=no, 1=yes)</tt> <tt>&lt;&lt; estimate Weinberg (1999b) Ip (=Li 2009 Jm) (0=no, 1=yes)</tt> </p>
+<p>
+Parameterization of interactions and imprinting effects is quite complex (see <a href="references.html#ainsworth:etal:11">Ainsworth et al. (2011)</a>) and several different parameterizations have been proposed in the literature. Our parameterization for the parent-of-origin effects <img src="http://latex.codecogs.com/png.latex?\inline I_m \small " alt="I_m"/> and <img src="http://latex.codecogs.com/png.latex?\inline I_p \small " alt="I_p"/> corresponds to the original parameterization used by <a href="references.html#weinberg:etal:98">Weinberg et al. (1998)</a> rather than to a later alternative parameterization used by <a href="references.html#weinberg:99b">Weinberg (1999)</a>, <a href="references.html#parimi:etal:08">Parimi et al. (2008)</a>, and <a href="references.html#li:etal:09">Li et al. (2009)</a>. If preferred, the user can choose to use the later parameterization by setting the values in lines 27 and 28 to 0 and the values in line 35 or 36 to 1. In this case, if interactions are also required, we recommend using either the <a href="references.html#sinsheimer:etal:03">Sinsheimer et al. (2003)</a> or <a href="references.html#palmer:etal:06">Palmer et al. (2006)</a> parameterization (see below), as our interaction parameterization does not allow estimation of the later <a href="references.html#weinberg:99b">Weinberg (1999)</a> imprinting parameters. </p>
+<p>
+Lines 37 and 38 <tt>&lt;&lt; estimate Sinsheimer (2003) gamma01 (0=no, 1=yes)</tt> <tt>&lt;&lt; estimate Sinsheimer (2003) gamma21 (0=no, 1=yes)</tt> <a href="references.html#sinsheimer:etal:03">Sinsheimer et al. (2003)</a> proposed an alternative parameterization for interactions in terms of maternal-fetal genotype incompatibility (MFG) parameters. <a href="references.html#sinsheimer:etal:03">Sinsheimer et al. (2003)</a> denoted these parameters as <img src="http://latex.codecogs.com/png.latex?\inline \mu \small " alt="\mu"/> (or <img src="http://latex.codecogs.com/png.latex?\inline \mu_0 \small " alt="\mu_0"/>) and <img src="http://latex.codecogs.com/png.latex?\inline \mu_2 \small " alt="\mu_2"/>. We denote these MFG interactions as <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{01} \small " alt="\gamma_{01}"/> and <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{21} \small " alt="\gamma_{21}"/>, since they correspond to effects that operate (in addition to maternal and child genotype effects) when the child has one copy, and the mother either zero or two copies, of a particular allele of interest. To include one or both MFG interactions, you should set the values in lines 29-33 to 0 and the value(s) in line 37 and/or 38 to 1. </p>
+<p>
+Line 39 <tt>&lt;&lt; estimate Palmer (2006) match parameter (0=no, 1=yes)</tt> <a href="references.html#sinsheimer:etal:03">Sinsheimer et al. (2003)</a> and <a href="references.html#palmer:etal:06">Palmer et al. (2006)</a> considered an alternative interaction parameterization in which &ldquo;matching&rdquo; rather &ldquo;mismatching&rdquo; between maternal and fetal genotypes increases disease risk in the offspring. To model interaction via the single <a href="references.html#palmer:etal:06">Palmer et al. (2006)</a> match parameter <img src="http://latex.codecogs.com/png.latex?\inline \mu \small " alt="\mu"/>, you should set the values in lines 29-33 to 0 and the value in line 39 to 1. </p>
+<p>
+Line 40 <tt>&lt;&lt; estimate Li (2009) conflict parameter Jc (0=no, 1=yes)</tt> <a href="references.html#li:etal:09">Li et al. (2009)</a> (based on work by <a href="references.html#parimi:etal:08">Parimi et al. (2008)</a>) considered an alternative interaction parameterization that modelled &ldquo;conflict&rdquo; between the mothers and childs genotypes. To model interaction via the single <a href="references.html#li:etal:09">Li et al. (2009)</a> conflict parameter (which we denote <img src="http://latex.codecogs.com/png.latex?\inline J_c \small " alt="J_c"/>, corresponding to exp(<img src="http://latex.codecogs.com/png.latex?\inline i_c \small " alt="i_c"/>) in the notation of <a href="references.html#li:etal:09">Li et al. (2009)</a>), you should set the values in lines 29-33 to 0 and the value in line 40 to 1. Note that the recommended model of <a href="references.html#li:etal:09">Li et al. (2009)</a> and <a href="references.html#parimi:etal:08">Parimi et al. (2008)</a>) is to include both <img src="http://latex.codecogs.com/png.latex?\inline J_c \small " alt="J_c"/> and <img src="http://latex.codecogs.com/png.latex?\inline J_m \small " alt="J_m"/> (=exp(<img src="http://latex.codecogs.com/png.latex?\inline i_m \small " alt="i_m"/>) in the notation of <a href="references.html#li:etal:09">Li et al. (2009)</a>) where <img src="http://latex.codecogs.com/png.latex?\inline J_m \small " alt="J_m"/> is the imprinting parameter selectable on line 36. So to fit the full <a href="references.html#li:etal:09">Li et al. (2009)</a> and <a href="references.html#parimi:etal:08">Parimi et al. (2008)</a> model you should set the values in lines 36 and 40 to 1. </p>
+<h2><a name="caseparenttrios">5.3 caseparenttrios.dat</a></h2>
+<p>
+<b>caseparenttrios.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 15 cell counts corresponding to the number of fully genotyped case/parent trios whose genotype combinations fall into the appropriate genotype categories as given in <a href="references.html#ainsworth:etal:11">Ainsworth et al. (2011)</a> Table 1. (Zero counts are allowed, although may make it more difficult to estimate certain parameter combinations). </p>
+<p>
+For example, suppose that at the first SNP the genotype combinations of mother, father and child as given in <a href="references.html#ainsworth:etal:11">Ainsworth et al. (2011)</a> Table 1 are: </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>mother </th><th>father </th><th>child </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">22 </td><td valign="top">22 </td><td valign="top">4</td></tr>
+<tr><td valign="top">2 </td><td valign="top">22 </td><td valign="top">12 </td><td valign="top">22 </td><td valign="top">10</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">22 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">17</td></tr>
+<tr><td valign="top">4 </td><td valign="top">12 </td><td valign="top">22 </td><td valign="top">22 </td><td valign="top">9</td></tr>
+<tr class="alt"><td valign="top">5 </td><td valign="top">12 </td><td valign="top">22 </td><td valign="top">12 </td><td valign="top">13</td></tr>
+<tr><td valign="top">6 </td><td valign="top">22 </td><td valign="top">11 </td><td valign="top">12 </td><td valign="top">6</td></tr>
+<tr class="alt"><td valign="top">7 </td><td valign="top">11 </td><td valign="top">22 </td><td valign="top">12 </td><td valign="top">4</td></tr>
+<tr><td valign="top">8 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">22 </td><td valign="top">14</td></tr>
+<tr class="alt"><td valign="top">9 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">44</td></tr>
+<tr><td valign="top">10 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">11 </td><td valign="top">26</td></tr>
+<tr class="alt"><td valign="top">11 </td><td valign="top">12 </td><td valign="top">11 </td><td valign="top">12 </td><td valign="top">25</td></tr>
+<tr><td valign="top">12 </td><td valign="top">12 </td><td valign="top">11 </td><td valign="top">11 </td><td valign="top">17</td></tr>
+<tr class="alt"><td valign="top">13 </td><td valign="top">11 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">24</td></tr>
+<tr><td valign="top">14 </td><td valign="top">11 </td><td valign="top">12 </td><td valign="top">11 </td><td valign="top">12</td></tr>
+<tr class="alt"><td valign="top">15 </td><td valign="top">11 </td><td valign="top">11 </td><td valign="top">11 </td><td valign="top">19</td></tr>
+</table>
+<p>
+Then the line in <i>caseparenttrios.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      4 10 17 9 13 6 4 14 44 26 25 17 24 12 19
+</pre>
+<p>
+An example of <i>caseparenttrios.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp     cellcount 1-15
+1      4 10 17 9 13 6 4 14 44 26 25 17 24 12 19
+2      1 0 8 0 5 2 3 2 23 21 29 38 26 43 52
+3      0 0 0 0 0 0 0 0 0 1 1 0 1 0 319
+4      0 0 3 0 0 2 4 1 13 24 22 40 8 25 131
+5      0 0 5 3 6 4 7 2 23 23 29 44 19 46 59
+6      0 0 1 2 0 0 2 2 4 8 14 18 21 26 197
+7      0 0 3 0 0 1 0 1 11 18 14 37 12 29 160
+8      1 3 9 5 12 9 8 12 31 30 28 26 31 20 20
+</pre>
+<h2><a name="caseparents">5.4 caseparents.dat</a></h2>
+<p>
+<b>caseparents.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 9 cell counts corresponding to the number of fully genotyped parents of cases whose genotype combinations fall into the appropriate genotype categories. Note that these parents of cases must not include parents of cases who have already appeared as case/parent trios in the file <i>caseparenttrios.dat</i> (i.e. all input data files must be independent). </p>
+<p>
+For example, suppose that at the first SNP the genotype combinations of the mother and father are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>mother </th><th>father </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">22 </td><td valign="top">0</td></tr>
+<tr><td valign="top">2 </td><td valign="top">22 </td><td valign="top">12 </td><td valign="top">0</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">22 </td><td valign="top">11 </td><td valign="top">1</td></tr>
+<tr><td valign="top">4 </td><td valign="top">12 </td><td valign="top">22 </td><td valign="top">0</td></tr>
+<tr class="alt"><td valign="top">5 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">0</td></tr>
+<tr><td valign="top">6 </td><td valign="top">12 </td><td valign="top">11 </td><td valign="top">0</td></tr>
+<tr class="alt"><td valign="top">7 </td><td valign="top">11 </td><td valign="top">22 </td><td valign="top">0</td></tr>
+<tr><td valign="top">8 </td><td valign="top">11 </td><td valign="top">12 </td><td valign="top">2</td></tr>
+<tr class="alt"><td valign="top">9 </td><td valign="top">11 </td><td valign="top">11 </td><td valign="top">16</td></tr>
+</table>
+<p>
+Then the line in <i>caseparents.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1     0 0 1 0 0 0 0 2 16
+</pre>
+<p>
+An example of <i>caseparents.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp cellcount 1-9
+1     0 0 1 0 0 0 0 2 16
+2     0 0 0 0 1 3 0 1 9
+3     0 0 0 0 0 0 0 0 13
+4     0 0 1 0 0 0 0 0 1
+5     0 0 0 0 1 0 0 1 0
+6     0 0 0 0 0 0 0 0 0
+7     0 0 0 0 0 0 1 0 0
+8     0 0 1 0 0 1 0 3 0
+</pre>
+<h2><a name="casemotherduos">5.5 casemotherduos.dat</a></h2>
+<p>
+<b>casemotherduos.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 7 cell counts corresponding to the number of fully genotyped case/mother duos whose genotype combinations fall into the appropriate genotype categories. Note that these must not include cases and mothers who have already appeared as case/parent trios in the file <i>caseparenttrios.dat</i>, or mothers who have already appeared in the file <i>caseparents.dat</i> (i.e. all input data files must be independent). Zero counts are allowed, although may make it more difficult to estimate certain parameter combinations. </p>
+<p>
+For example, suppose that at the first SNP the genotype combinations of the mother and child are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>mother </th><th>child </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">22 </td><td valign="top">4</td></tr>
+<tr><td valign="top">2 </td><td valign="top">22 </td><td valign="top">12 </td><td valign="top">3</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">12 </td><td valign="top">22 </td><td valign="top">1</td></tr>
+<tr><td valign="top">4 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">7</td></tr>
+<tr class="alt"><td valign="top">5 </td><td valign="top">12 </td><td valign="top">11 </td><td valign="top">4</td></tr>
+<tr><td valign="top">6 </td><td valign="top">11 </td><td valign="top">12 </td><td valign="top">3</td></tr>
+<tr class="alt"><td valign="top">7 </td><td valign="top">11 </td><td valign="top">11 </td><td valign="top">4</td></tr>
+</table>
+<p>
+Then the line in <i>casemotherduos.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      4 3 1 7 4 3 4
+</pre>
+<p>
+An example of <i>casemotherduos.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp cellcount 1-7 
+1      4 3 1 7 4 3 4
+2      0 1 3 3 6 5 7
+3      0 1 0 0 0 0 25
+4      0 0 0 2 3 5 15
+5      3 1 1 8 2 5 4
+6      0 0 1 2 4 2 17
+7      0 0 0 2 2 5 17
+8      1 3 3 6 4 0 7
+</pre>
+<h2><a name="casefatherduos">5.6 casefatherduos.dat</a></h2>
+<p>
+<b>casefatherduos.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 7 cell counts corresponding to the number of fully genotyped case/father duos whose genotype combinations fall into the appropriate genotype categories. Note that these must not include cases and fathers who have already appeared as case/parent trios in the file <i>caseparenttrios.dat</i>, fathers who have already appeared in the file <i>caseparents.dat</i>, or cases who have already appeared in the file <i>casemotherduos.dat</i> (i.e. all input data files must be independent). Zero counts are allowed, although may make it more difficult to estimate certain parameter combinations. </p>
+<p>
+For example, suppose that at the first SNP the genotype combinations of the father and child are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>father </th><th>child </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">22 </td><td valign="top">1</td></tr>
+<tr><td valign="top">2 </td><td valign="top">22 </td><td valign="top">12 </td><td valign="top">0</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">12 </td><td valign="top">22 </td><td valign="top">2</td></tr>
+<tr><td valign="top">4 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">1</td></tr>
+<tr class="alt"><td valign="top">5 </td><td valign="top">12 </td><td valign="top">11 </td><td valign="top">2</td></tr>
+<tr><td valign="top">6 </td><td valign="top">11 </td><td valign="top">12 </td><td valign="top">3</td></tr>
+<tr class="alt"><td valign="top">7 </td><td valign="top">11 </td><td valign="top">11 </td><td valign="top">3</td></tr>
+</table>
+<p>
+Then the line in <i>casefatherduos.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      1 0 2 1 2 3 3
+</pre>
+<p>
+An example of <i>casefatherduos.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp cellcount 1-7
+1      1 0 2 1 2 3 3
+2      0 0 1 0 5 4 1
+3      0 0 0 0 0 0 11
+4      0 1 0 3 0 0 7
+5      0 2 1 3 1 2 2
+6      0 0 0 0 2 3 6
+7      0 0 0 0 0 3 8
+8      1 0 1 2 2 2 5
+</pre>
+<h2><a name="casemothers">5.7 casemothers.dat</a></h2>
+<p>
+<b>casemothers.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 3 cell counts corresponding to the number of fully genotyped mothers of cases whose genotypes fall into the appropriate genotype categories. Note that these must not include mothers of cases already in the files <i>caseparenttrios.dat</i>, <i>caseparents.dat</i>, or <i>casemotherduos.dat</i> (i.e. all input data files must be independent). </p>
+<p>
+For example, suppose that at the first SNP the genotypes of the mothers are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>mother </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">18</td></tr>
+<tr><td valign="top">2 </td><td valign="top">12 </td><td valign="top">160</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">11 </td><td valign="top">358</td></tr>
+</table>
+<p>
+Then the line in <i>casemothers.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      18 160 358
+</pre>
+<p>
+An example of <i>casemothers.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp cellcount 1-3
+1      18 160 358
+2      8 90 438
+3      5 85 445
+4      8 147 375
+5      4 97 436
+6      1 32 503
+7      30 157 349
+8      5 64 467
+</pre>
+<h2><a name="casefathers">5.8 casefathers.dat</a></h2>
+<p>
+<b>casefathers.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 3 cell counts corresponding to the number of fully genotyped fathers of cases whose genotypes fall into the appropriate genotype categories. Note that these must not include fathers of cases already in the files <i>caseparenttrios.dat</i>, <i>caseparents.dat</i>, or <i>casefatherduos.dat</i> (i.e. all input data files must be independent). </p>
+<p>
+For example, suppose that at the first SNP the genotypes of the fathers are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>father </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">4</td></tr>
+<tr><td valign="top">2 </td><td valign="top">12 </td><td valign="top">71</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">11 </td><td valign="top">461</td></tr>
+</table>
+<p>
+Then the line in <i>casefathers.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      4 71 461
+</pre>
+<p>
+An example of <i>casefathers.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp cellcount 1-3
+1      4 71 461
+2      5 64 467
+3      2 27 506
+4      82 239 214
+5      4 55 477
+6      21 162 353
+7      4 62 470
+8      11 110 415
+</pre>
+<h2><a name="cases">5.9 cases.dat</a></h2>
+<p>
+<b>cases.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 3 cell counts corresponding to the number of fully genotyped cases whose genotypes fall into the appropriate genotype categories. Note that these must not include cases already in the files <i>caseparenttrios.dat</i>, <i>casemotherduos.dat</i>, or <i>casefatherduos.dat</i> (i.e. all input data files must be independent). </p>
+<p>
+For example, suppose that at the first SNP the genotypes of the cases are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>case </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">93</td></tr>
+<tr><td valign="top">2 </td><td valign="top">12 </td><td valign="top">268</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">11 </td><td valign="top">174</td></tr>
+</table>
+<p>
+Then the line in <i>cases.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      93 268 174
+</pre>
+<p>
+An example of <i>cases.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp cellcount 1-3
+1      93 268 174
+2      47 223 265
+3      0 0 536
+4      11 150 375
+5      51 197 288
+6      7 93 436
+7      9 128 399
+8      99 247 189
+</pre>
+<h2><a name="conparents">5.10 conparents.dat</a></h2>
+<p>
+<b>conparents.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 9 cell counts corresponding to the number of fully genotyped parents of controls whose genotype combinations fall into the appropriate genotype categories. </p>
+<p>
+Note that by controls we mean individuals of unknown disease status, or (provided the disease is rare) individuals who are known to be disease-free. Note that these parents of controls must not include parents who have already appeared in any other input files (i.e. all input data files must be independent). </p>
+<p>
+For example, suppose that at the first SNP the genotype combinations of the mother and father are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>mother </th><th>father </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">22 </td><td valign="top">0</td></tr>
+<tr><td valign="top">2 </td><td valign="top">22 </td><td valign="top">12 </td><td valign="top">0</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">22 </td><td valign="top">11 </td><td valign="top">0</td></tr>
+<tr><td valign="top">4 </td><td valign="top">12 </td><td valign="top">22 </td><td valign="top">0</td></tr>
+<tr class="alt"><td valign="top">5 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">0</td></tr>
+<tr><td valign="top">6 </td><td valign="top">12 </td><td valign="top">11 </td><td valign="top">0</td></tr>
+<tr class="alt"><td valign="top">7 </td><td valign="top">11 </td><td valign="top">22 </td><td valign="top">0</td></tr>
+<tr><td valign="top">8 </td><td valign="top">11 </td><td valign="top">12 </td><td valign="top">1</td></tr>
+<tr class="alt"><td valign="top">9 </td><td valign="top">11 </td><td valign="top">11 </td><td valign="top">0</td></tr>
+</table>
+<p>
+Then the line in <i>conparents.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      0 0 0 0 0 0 0 1 0
+</pre>
+<p>
+An example of <i>conparents.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp cellcount 1-9
+1      0 0 0 0 0 0 0 1 0
+2      0 0 0 0 0 0 0 0 1
+3      0 0 0 0 0 0 0 0 1
+4      0 0 0 0 1 0 0 0 0
+5      0 0 0 0 0 0 0 1 0
+6      0 0 0 0 1 0 0 0 0
+7      0 0 0 0 0 0 0 1 0
+8      0 0 0 0 0 1 0 0 0
+</pre>
+<h2><a name="conmotherduos">5.11 conmotherduos.dat</a></h2>
+<p>
+<b>conmotherduos.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 7 cell counts corresponding to the number of fully genotyped control/mother duos whose genotype combinations fall into the appropriate genotype categories. Note that by controls we mean individuals of unknown disease status, or (provided the disease is rare) individuals who are known to be disease-free. This must not include individuals who have already appeared in any other input files (i.e. all input data files must be independent). </p>
+<p>
+For example, suppose that at the first SNP the genotype combinations of the mother and child are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>mother </th><th>child </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">22 </td><td valign="top">0</td></tr>
+<tr><td valign="top">2 </td><td valign="top">22 </td><td valign="top">12 </td><td valign="top">0</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">12 </td><td valign="top">22 </td><td valign="top">1</td></tr>
+<tr><td valign="top">4 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">1</td></tr>
+<tr class="alt"><td valign="top">5 </td><td valign="top">12 </td><td valign="top">11 </td><td valign="top">2</td></tr>
+<tr><td valign="top">6 </td><td valign="top">11 </td><td valign="top">12 </td><td valign="top">2</td></tr>
+<tr class="alt"><td valign="top">7 </td><td valign="top">11 </td><td valign="top">11 </td><td valign="top">21</td></tr>
+</table>
+<p>
+Then the line in <i>conmotherduos.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      0 0 1 1 2 2 21
+</pre>
+<p>
+An example of <i>conmotherduos.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp cellcount 1-7
+1      0 0 1 1 2 2 21
+2      0 0 0 0 3 7 16
+3      0 0 0 1 2 2 20
+4      0 0 0 2 4 2 16
+5      0 0 2 1 2 1 19
+6      0 0 0 1 2 0 23
+7      0 0 0 3 5 5 13
+8      0 0 0 1 1 3 21
+</pre>
+<h2><a name="confatherduos">5.12 confatherduos.dat</a></h2>
+<p>
+<b>confatherduos.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 7 cell counts corresponding to the number of fully genotyped control/father duos whose genotype combinations fall into the appropriate genotype categories. Note that by controls we mean individuals of unknown disease status, or (provided the disease is rare) individuals who are known to be disease-free. This must not include individuals who have already appeared in any other input files (i.e. all input data files must be independent). </p>
+<p>
+For example, suppose that at the first SNP the genotype combinations of the father and child are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>father </th><th>child </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">22 </td><td valign="top">0</td></tr>
+<tr><td valign="top">2 </td><td valign="top">22 </td><td valign="top">12 </td><td valign="top">1</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">12 </td><td valign="top">22 </td><td valign="top">0</td></tr>
+<tr><td valign="top">4 </td><td valign="top">12 </td><td valign="top">12 </td><td valign="top">1</td></tr>
+<tr class="alt"><td valign="top">5 </td><td valign="top">12 </td><td valign="top">11 </td><td valign="top">1</td></tr>
+<tr><td valign="top">6 </td><td valign="top">11 </td><td valign="top">12 </td><td valign="top">2</td></tr>
+<tr class="alt"><td valign="top">7 </td><td valign="top">11 </td><td valign="top">11 </td><td valign="top">6</td></tr>
+</table>
+<p>
+Then the line in <i>confatherduos.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      0 1 0 1 1 2 6
+</pre>
+<p>
+An example of <i>confatherduos.dat</i> for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example is shown below: </p>
+<pre>
+snp cellcount 1-7
+1      0 1 0 1 1 2 6
+2      0 0 0 0 1 2 8
+3      0 0 0 0 3 1 7
+4      0 0 0 0 5 3 3
+5      0 0 0 3 1 0 7
+6      0 0 0 0 1 0 10
+7      0 0 0 0 2 4 5
+8      0 1 0 0 0 0 10
+</pre>
+<h2><a name="cons">5.13 cons.dat</a></h2>
+<p>
+<b>cons.dat</b>: This file contains a header line (which is not used by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 3 cell counts corresponding to the number of fully genotyped controls whose genotypes fall into the appropriate genotype categories. Note that by controls we mean individuals of unknown disease status, or (provided the disease is rare) individuals who are known to be disease-free. This must not include individuals who have already appeared in any other input files (i.e. all input data files must be independent). </p>
+<p>
+For example, suppose that at the first SNP the genotypes of the controls are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>control </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">1</td></tr>
+<tr><td valign="top">2 </td><td valign="top">12 </td><td valign="top">7</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">11 </td><td valign="top">6</td></tr>
+</table>
+<p>
+Then the line in <i>cons.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      1 7 6
+</pre>
+<p>
+An example of <i>cons.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp cellcount 1-3
+1      1 7 6
+2      1 4 9
+3      1 1 12
+4      0 1 13
+5      1 5 8
+6      0 7 7
+7      0 2 12
+8      0 5 9
+</pre>
+<br />
+<div class="prevnext"><span class="left"><a href="premim.html">&lt;-prev</a>
+</span><span class="right"><a href="output.html">next-&gt;</a>
+</span></div><!-- End Right Column -->
+</div>
+</td>
+</tr></table>
+<!-- End Wrapper -->
+</td></tr></table>
+</div>
+ <!-- Start of StatCounter Code --> <script type="text/javascript"> var sc_project=6887608; var sc_invisible=1; var sc_security="98b151c3"; </script> <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><div class="statcounter"><a title="weebly reliable statistics" href="http://statcounter.com/weebly/" target="_blank"><img class="statcounter" src="http://c.statcounter.com/6887608/0/98b151c3/1/" alt="weebly reliable statistics" ></a></div></noscript> <!-- End of StatCounter Code --></body>
+</html>

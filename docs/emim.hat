@@ -1,0 +1,1316 @@
+*title* EMIM: Estimation of  Maternal, Imprinting and interaction effects using Multinomial modelling */title*
+*stylefile* emimstyles.css */stylefile*
+*logo* emim5.png */logo*
+*logowidth* 200 */logowidth*
+
+*comment* 0. Commands are surrounded with asterisks. 1. Comments may be written between comment commands. 2. Sections start and end with section and /section commands and must have a name (for labelling) and a title. 3. Italics, bold and underline are given by *i* some words */i*, or *b* bold */b*, underline *u* underline */u*. Be sure to leave spaces inside. 4. Webpages that appear in the top menu but not in the main documentation can be given by using the webpage command.
+
+n. If ending a paragraph with something like $r$. Then be sure to put a space after the $
+
+*/comment*
+
+*webpage*
+
+*webpage-name* index */webpage-name*
+
+*webpage-title* Home */webpage-title*
+
+<h1>Welcome to the webpage of EMIM!</h1>
+
+* Please use the menu to get started. *
+
+*/webpage*
+
+************************* *webpage*
+
+*webpage-name* downloads */webpage-name*
+
+*webpage-title* Download */webpage-title*
+
+<h1>Download</h1>
+
+* If you have been using the *code* ihap */code* option then please download the latest version for important updates. *
+
+* The following executable files for EMIM (including PREMIM) are available for free download: *
+
+*tablel*
+*tr* Platform & File */tr*
+*tr* *html* Linux (x86_64) */html* *tex* Linux (x86\_64) */tex* & *html* <a href="emim-v3.22-linux-x86_64.zip">emim-v3.22-linux-x86_64.zip</a> */html* *tex* emim-v3.22-linux-x86\_64.zip */tex* */tr*
+*tr* *html* Linux (x86_32) */html* *tex* Linux (x86\_32) */tex* & *html* <a href="emim-v3.22-linux-x86_32.zip">emim-v3.22-linux-x86_32.zip</a> */html* *tex* emim-v3.22-linux-x86\_32.zip */tex* */tr*
+*tr* *html* Windows (x86_64) */html* *tex* Windows (x86\_64) */tex* & *html* <a  href="emim-v3.22-windows-x86_64.zip">emim-v3.22-windows-x86_64.zip</a> */html* *tex* emim-v3.22-windows-x86\_64.zip */tex* */tr*
+*tr* *html* Windows (x86_32) */html* *tex* Windows (x86\_32) */tex* & *html* <a  href="emim-v3.22-windows-x86_32.zip">emim-v3.22-windows-x86_32.zip</a> */html* *tex* emim-v3.22-windows-x86\_32.zip */tex* */tr*
+*/tablel*
+
+
+<h2>Documentation</h2>
+
+* Documentation for EMIM and PREMIM taken from these web pages may be downloaded from here: <a href="emim.pdf">emim.pdf</a>. *
+
+<h2>Source Code</h2>
+
+* Source code for both EMIM (FORTRAN) and PREMIM (C/C++) may be downloaded from here: <a href="emim-v3.22-code.zip">emim-v3.22-code.zip</a>. *
+
+*/webpage* ********************************* *webpage*
+
+*webpage-name* contact */webpage-name*
+
+*webpage-title* Contact */webpage-title*
+
+<h1>Contact</h1>
+
+* Please contact <a href="http://www.staff.ncl.ac.uk/heather.cordell/">Heather Cordell</a> with all queries regarding EMIM. * For queries regarding the pedigree file conversion program, PREMIM, please contact <a href="http://www.staff.ncl.ac.uk/richard.howey/">Richard Howey</a>. *
+
+*/webpage* ************************
+
+*section*
+
+*section-name* introduction */section-name*
+
+*section-title* Introduction */section-title*
+
+* According to Wikipedia, *q*Emim*/q* was the Moabite name for one of the tribes of Rephaim. They are described in Deuteronomy chapter 2 as having been a powerful people, populous and having a successful kingdom. The Emim are also mentioned in Genesis 14:5 where the name is translated as *q*the dreaded ones*/q*. * Hopefully our program EMIM will prove an equally powerful tool for the detection of complex effects in genetic disease studies... *
+
+***************
+
+*subsection*
+
+*subsection-name* information */subsection-name*
+
+*subsection-title* Program information and citation */subsection-title*
+
+*
+If you use the PREMIM/EMIM software in your work then please reference the accompanying software manuscript *cite* howey:cordell:12 */cite*:
+*
+
+*codeexample*
+@article{howey:cordell:12,
+  author = {Howey, R and Cordell, H J},
+  title = {{PREMIM} and {EMIM}: Tools for estimation of maternal, imprinting and interaction effects using multinomial modelling},
+  journal = {{BMC} Bioinformatics},
+  volume = {13},
+  pages = {149},
+  year = {2012}
+}              
+*/codeexample*
+
+*
+For use of the methodology of the multinomial likelihood approach used by this program, please reference the accompanying manuscript *cite* ainsworth:etal:11 */cite*:
+* 
+
+
+*codeexample*
+@article{ainsworth:etal:11,
+  author={Ainsworth, H F and Unwin, J and Jamison, D L and Cordell, H J},
+  title = {Investigation of maternal effects, maternal-foetal interactions and parent-of-origin effects (imprinting), using mothers and their offspring},
+  journal = {Genet Epidemiol},
+  volume = {35},
+  pages = {19-45},
+  number = {1},
+  month = {January},
+  year = {2011}
+}
+*/codeexample*
+
+
+*
+You are STRONGLY recommended to read this paper before using EMIM in order to understand the notation and parameter restrictions/analysis options used.
+*
+
+*
+If you have used PREMIM/EMIM to estimate parent-of-origin effects with the use of SHAPEIT2 to estimate the parent-of-origin of alleles, please reference *cite* howey:etal:15 */cite*:
+*
+
+*codeexample*
+@article{howey:etal:15,
+author={Howey, R and Mamasoula, C and T\"opf, A and Nudel, R and Goodship, J A and Keavney, B D and Cordell, H J},
+title={Increased Power for Detection of Parent-of-Origin Effects via the Use of Haplotype Estimation},
+journal={The American Journal of Human Genetics},
+volume={97},
+number={3},
+pages={419-434},
+year={2015}
+}
+*/codeexample*
+
+*
+EMIM is a FORTRAN 77 program with some FORTRAN 90 features and compiles under Linux or Windows (DOS)
+using a suitable compiler e.g. gfortran. 
+We have not tried compiling on any other system, but see no reason why the program should not compile provided an appropriate FORTRAN compiler is available. To run EMIM under Windows, you will need to use the command line interface (i.e. open a command line  (DOS) window).
+*
+
+*
+EMIM uses a maximisation subroutine MAXFUN that was originally written as part of (a former early version of) the S.A.G.E. package: *tex* \\ http://darwin.cwru.edu/sage/ */tex*
+
+*html* <a href="http://darwin.cwru.edu/sage/"> http://darwin.cwru.edu/sage/ </a> */html*
+*
+
+* Users of S.A.G.E are asked to insert the following acknowledgment in any publication that uses results obtained from S.A.G.E.:
+*
+
+*
+*q*(Some of) The results of this paper were obtained by using the program package S.A.G.E., which is supported by a U.S. Public Health Service Resource Grant (RR03655) from the National Center for Research Resources*/q* (it is important that the grant number appears under *q*acknowledgments*/q*).
+*
+
+*
+Please see more details on the S.A.G.E website:
+
+*tex* \\ http://darwin.cwru.edu/sage/?q=node/5 */tex*
+
+*html* <a href="http://darwin.cwru.edu/sage/?q=node/5"> http://darwin.cwru.edu/sage/?q=node/5 </a> */html*
+*
+
+*
+Copyright, 2012-2016 Heather Cordell and Richard Howey, GNU General Public License, version 3. 
+*
+
+*/subsection*
+
+*/section*
+
+**********************************************************
+
+
+*section*
+
+*section-name* quick-start */section-name*
+
+*section-title* Quick Start */section-title*
+
+*numlist*
+
+*item* Download set of executable files for EMIM (includes PREMIM) for your required platform:
+ 
+*tablel*
+*tr* Platform & File */tr*
+*tr* *html* Linux (x86_64) */html* *tex* Linux (x86\_64) */tex* & *html* <a href="emim-v3.22-linux-x86_64.zip">emim-v3.22-linux-x86_64.zip</a> */html* *tex* emim-v3.22-linux-x86\_64.zip */tex* */tr*
+*tr* *html* Linux (x86_32) */html* *tex* Linux (x86\_32) */tex* & *html* <a href="emim-v3.22-linux-x86_32.zip">emim-v3.22-linux-x86_32.zip</a> */html* *tex* emim-v3.22-linux-x86\_32.zip */tex* */tr*
+*tr* *html* Windows (x86_64) */html* *tex* Windows (x86\_64) */tex* & *html* <a  href="emim-v3.22-windows-x86_64.zip">emim-v3.22-windows-x86_64.zip</a> */html* *tex* emim-v3.22-windows-x86\_64.zip */tex* */tr*
+*tr* *html* Windows (x86_32) */html* *tex* Windows (x86\_32) */tex* & *html* <a  href="emim-v3.22-windows-x86_32.zip">emim-v3.22-windows-x86_32.zip</a> */html* *tex* emim-v3.22-windows-x86\_32.zip */tex* */tr*
+*/tablel*
+
+and unzip the set of files into a directory.
+
+*item* Run PREMIM on your pedigree data:
+
+*codeexample* ./premim mydatafile.ped */codeexample*
+
+where mydatafile.ped is a PLINK text pedigree file, or alternatively a better (faster) option is to use a PLINK binary pedigree file (.bed):
+
+*codeexample* ./premim mydatafile.bed */codeexample*
+
+ (These commands will assume the existence of either a corresponding .map file or corresponding .fam and .bim files.)
+
+*item* Run EMIM in the same directory as the .dat files created by PREMIM:
+
+*codeexample* ./emim */codeexample*
+
+*item* Check the results of EMIM in the files: *i* *html* <a href="output.html"> */html* emimresults.out*html* </a> */html* */i* and *i* *html* <a href="output.html"> */html* emimsummary.out*html* </a> */html* */i*.
+
+*item* Do another analysis by changing the parameters given to EMIM by editing the parameter file *i* *html* <a href="emimparams.html"> */html* emimparams.dat*html* </a> */html* */i*.
+
+*/numlist*
+
+* For more details and advanced options on PREMIM please read *ref* premim */ref*, and on EMIM please read *ref* emim */ref*. *
+
+* If a suitable executable file is not available for your system then you should download and compile the source code as explained in *ref* comp */ref*. *
+
+*/section* ********************
+
+*section*
+
+*section-name* comp */section-name*
+
+*section-title* Slow Start */section-title*
+
+* If you have successfully downloaded executable files for PREMIM and EMIM that work on your system then you may skip this section. However, if you need to compile the *tex* source code */tex* *html* <a href="emim-v3.22-code.zip">source code</a> &nbsp; */html* for your system then please follow the instructions below. *
+
+*subsection*
+
+*subsection-name* comp-premim */subsection-name*
+
+*subsection-title* Compilation of PREMIM source code */subsection-title*
+
+* The source code for PREMIM is written in C++ and can be compiled on any system with a C++ compiler installed. The code can be compiled by typing something similar to: *
+
+*codeexample* g++ *.cpp -o premim */codeexample*
+
+*
+Also, if you are using the GNU compiler it is often a good idea to use the -O3 option to optimize the code for faster execution:
+*
+
+*codeexample* g++ -O3 *.cpp -o premim */codeexample*
+
+
+* If you wish to use gzipped files with PREMIM then you may do so by installing the following two libraries:  *
+
+*tablel* *tr* Library & Website */tr*
+
+*tr* zlib & *html* <a href="http://www.zlib.net/">http://www.zlib.net/</a> */html* *tex* http://www.zlib.net/ */tex* */tr*
+
+*tr* gzstream & *html* <a href="http://www.cs.unc.edu/Research/compgeom/gzstream/">http://www.cs.unc.edu/Research/compgeom/gzstream/</a> */html* *tex* http://www.cs.unc.edu/Research/compgeom/gzstream/ */tex* */tr*
+
+*/tablel*
+
+*
+Then it is necessary to uncomment the following line in the *code* main.h */code* file:
+*
+
+*codeexample* //#define USING_GZIP */codeexample*
+
+* to become *
+
+*codeexample* #define USING_GZIP */codeexample*
+
+* Once the libraries are installed and the above line uncommented PREMIM can be compiled by typing something similar to: *
+
+*codeexample* g++ -O3 *.cpp -o premim -I/home/username/gzstream/gzstream
+ -L/home/username/gzstream/gzstream
+ -L/home/username/zlib/zlib-1.2.5 -lgzstream -lz
+*/codeexample*
+
+
+*/subsection*
+
+******************
+
+*subsection*
+
+*subsection-name* comp-emim */subsection-name*
+
+*subsection-title* Compilation of EMIM source code */subsection-title*
+
+* EMIM is written in Fortran 77 with some Fortran 90 features. Compile the program under Unix, Linux or Windows using: *
+
+*codeexample*
+gfortran emim.f maxfun.f -o emim
+*/codeexample*
+
+* This should produce an executable that can by run by typing *code* ./emim */code* (or else by giving the full pathname e.g. *code* /home/username/EMIM-v2.05/emim */code*) *
+
+* Some compilers may produce a number of warning messages when compiling EMIM. Provided that an executable file *code* emim */code* has been created, we do not anticipate that you need to be too concerned about these warnings. *
+
+* A set of example input files is included in the EMIM distribution. These example files are not intended to be particularly realistic but simply can be used to check that the program runs. *
+
+
+*/subsection*
+
+******************
+
+
+
+
+*/section*
+
+**********************************************************
+
+
+*input* premim.hat */input*
+
+
+*************************************************************************
+
+*section*
+
+*section-name* emim */section-name*
+
+*section-title* EMIM: Input files */section-title*
+
+* *b* NOTE: EMIM is designed for the analysis of diallelic autosomal loci (i.e. SNPs on chromosomes 1-22) only. Please make sure to remove any non-autosomal or multi-allelic loci from your input files before running PREMIM and EMIM. */b*  *
+
+* EMIM requires two compulsory input files, *i* emimmarkers.dat */i* and *i* emimparams.dat */i*, together with at least one out of three optional input data files (*i* caseparenttrios.dat */i*, *i* casemotherduos.dat */i*, *i* casefatherduos.dat */i*) and any number of additional optional input data files  (*i* caseparents.dat */i*, *i* casemothers.dat */i*, *i* casefathers.dat */i*, *i* cases.dat */i*, *i* conparents.dat */i*, *i* conmotherduos.dat */i*, *i* confatherduos.dat */i*, *i* cons.dat */i*). *
+
+* In previous versions of EMIM, these optional input data files had be created manually by the user, but now you can use PREMIM  to generate these files automatically from standard PLINK format files. However, you may prefer to consider creating the file *i* emimmarkers.dat */i* yourself using the correct allele frequencies for your population (as PREMIM will use the observed allele frequencies in your sample, which may not be truly representative of population control frequencies). Alternatively, you could run PREMIM on some population control data (e.g. HapMap or WTCCC) to generate *i* emimmarkers.dat */i*, before running PREMIM on your own data to create the other files. 
+
+* For most EMIM analyses the marker allele frequencies are used only as starting values for the numerical maximization procedure, and so it is not important that they are too accurate (as they will be re-estimated as required by EMIM). If your data consists of anything other than complete case/parent trios,
+then these estimated allele frequencies and/or mating type frequencies  *b* will  */b* influence the final results, in particular rendering the results potentially sensitive to population stratification. (See *cite* ainsworth:etal:11 */cite* for more details). For this reason, we recommend that
+you aim to ensure that your data set consists of
+individuals who are well matched for ancestry and come from a single homogeneous population. *
+  
+
+* If you prefer to create the EMIM input files manually yourself, you will have to decide on an allele coding scheme (alleles=1 and 2) and count up the number of individuals/trios/pairs with the various genotype combinations (genotypes 22, 12, 11) as required in the various EMIM input files described below. * 
+
+* *b* WARNING!!!! A common problem sometimes encountered with the input files is when the final line of the file does not have a newline character. If you get an error message such as *q*fortran runtime error: End of file*/q* please check that all your input files have  a newline character at the end of the final line. */b* *
+
+
+
+
+
+*****************************************************
+
+*subsection*
+
+*subsection-name* emimmarkers */subsection-name*
+
+*subsection-title* emimmarkers.dat */subsection-title*
+
+* *b* emimmarkers.dat */b*: This file lists on each line (in order) a numeric SNP ID (which could correspond to SNP number or base pair position, for example) for each SNP to be analysed, together with the allele frequency for the allele denoted *q*2*/q* (usually the minor allele) at each SNP. *
+
+*
+For example, if there are 8 different SNPs to be analysed, with SNPs 1 to 8 having minor allele frequencies 0.419927, 0.28163, 0.01, 0.152068, 0.265815, 0.0991484, 0.129562 and 0.379584 respetively, *i* emimmarkers.dat */i* might look like: *
+
+*codeexample*
+1	0.419927
+2	0.28163
+3	0.01
+4	0.152068
+5	0.265815
+6	0.0991484
+7	0.129562
+8	0.379584
+*/codeexample*
+
+* The allele frequencies are generally only used as starting values (unless you choose the option in EMIM to fix the allele frequency at its starting value - which is NOT recommended). Therefore the allele frequencies do not have to be too accurate. An estimate from HapMap, or from previous genetic studies in your population, or even estimated from your own data set (using PREMIM) should be sufficient. *
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* emimparams */subsection-name*
+
+*subsection-title* emimparams.dat */subsection-title*
+
+
+* *b* emimparams.dat */b*: This is a file that tells EMIM what input files to read in and sets up the various parameter restrictions for the analyses to be performed. An example of this file is shown on the following page. Here we describe the lines of this file in detail: *
+
+* Lines 1, 14 and 34 are not used by the program but are simply separators to make the 3 sections of this file easier to read. The text after $<<$ on each other line of the file is not read by the program, but is designed to describe what the number (1 or 0) at the beginning of the line means. You are strongly recommended to keep these text comments in order to avoid mistakes. The order of the lines must be EXACTLY as shown in this example. *
+
+* Lines 2-12 tell EMIM what input files to expect (note that the names given to these input files are not optional). A *q*1*/q* indicates that this input file exists and is to be read in, while a *q*0*/q* indicates that this input file is not to be read in. At least one of the files *i* caseparenttrios.dat */i*, *i* casemotherduos.dat */i*, *i* casefatherduos.dat */i* (lines 2, 4 and 5) must be read in; in the example above all three of these files are read in, as well as a *i* conmotherduos.dat */i* file. *
+
+* Line 13 tells EMIM how many SNPs to be analysed. Normally this number will match the number of SNPs in the file  *i* emimmarkers.dat */i*. If this number n is less than  the number of SNPs in the file  *i* emimmarkers.dat */i*, then only the first n SNPs  in the file  *i* emimmarkers.dat */i* will be analysed.
+If this number n is greater than  the number of SNPs in the file  *i* emimmarkers.dat */i*, then EMIM will simply stop after it has analysed all the
+SNPs listed in   *i* emimmarkers.dat */i* *
+
+* The second and third sections of the file have a number of lines telling what parameters to estimate and what parameter restrictions to use. A *q*1*/q* indicates that this parameter is to be estimated or this restriction is to be used. A *q*0*/q* indicates that this parameter is not to be estimated or this restriction is not to be used. *
+
+*codeexample*
+-----------INPUT DATAFILES------------------------------------------------
+1   << caseparenttrios.dat file (0=no, 1=yes)
+1   << caseparents.dat file (0=no, 1=yes)
+1   << casemotherduos.dat file (0=no, 1=yes)
+0   << casefatherduos.dat file (0=no, 1=yes)
+1   << casemothers.dat file (0=no, 1=yes)
+0   << casefathers.dat file (0=no, 1=yes)
+1   << cases.dat file (0=no, 1=yes)
+1   << conparents.dat file (0=no, 1=yes)
+0   << conmotherduos.dat file (0=no, 1=yes)
+0   << confatherduos.dat file (0=no, 1=yes)
+1   << cons.dat file (0=no, 1=yes)
+634 << no of SNPs in each file
+------------------PARAMETER RESTRICTIONS----------------------------------
+0   << fix allele freq A (0=no, 1=yes)
+1   << assume HWE and random mating (0=no=estimate 6 mu parameters, 1=yes)
+0   << assume parental allelic exchangeability (0=no, 1=yes)
+0   << use CPG likelihood (estimate 9 mu parameters)
+1   << estimate R1 (0=no, 1=yes)
+1   << estimate R2 (0=no, 1=yes)
+0   << R2=R1 (0=no, 1=yes)
+0   << R2=R1squared (0=no, 1=yes)
+0   << estimate S1 (0=no, 1=yes)    
+0   << estimate S2 (0=no, 1=yes)
+0   << S2=S1 (0=no, 1=yes)
+0   << S2=S1squared (0=no, 1=yes)
+1   << estimate Im (0=no, 1=yes)
+0   << estimate Ip (0=no, 1=yes)
+0   << estimate gamma11 (0=no, 1=yes)
+0   << estimate gamma12 (0=no, 1=yes)
+0   << estimate gamma21 (0=no, 1=yes)
+0   << estimate gamma22 (0=no, 1=yes)
+0   << gamma22=gamma12= gamma21=gamma11 (0=no, 1=yes)
+---------------OTHER PARAMETERIZATIONS------------------------------------
+0   << estimate Weinberg (1999b) Im (0=no, 1=yes)
+0   << estimate Weinberg (1999b) Ip (=Li 2009 Jm) (0=no, 1=yes)
+0   << estimate Sinsheimer (2003) gamma01 (0=no, 1=yes)
+0   << estimate Sinsheimer (2003) gamma21 (0=no, 1=yes)
+0   << estimate Palmer (2006) match parameter (0=no, 1=yes)
+0   << estimate Li (2009) conflict parameter Jc (0=no, 1=yes)
+*/codeexample*
+
+* Line 15 *code* << fix allele freq A (0=no, 1=yes) */code* indicates  that the allele frequencies are to be fixed at their given starting values (NOT RECOMMENDED). A *q*1*/q* in this line will supercede any instructions given in the next two lines (lines 16 and 17). 
+*
+
+* Line 16 *code*  <<  assume HWE and random mating (0=no=estimate 6 mu parameters, 1=yes) */code* indicates that the analysis should be performed assuming Hardy Weinberg Equilibrium (HWE) and random mating. In that case, one allele frequency parameter $A_2$ (the frequency of the 2 allele) will be estimated (or fixed) as opposed to estimating six mating-type stratification parameters $\mu_1 - \mu_6$.  A *q*1*/q* in this line will supercede any instructions given in the next line (line 17).
+*
+ 
+* Line 17 *code*  << assume parental allelic exchangeability (0=no, 1=yes) */code* indicates that parental allelic exchangeability should be assumed (i.e. $\mu_4 = \mu_3$) when estimating  $\mu_1 - \mu_6$.    
+*
+
+* Line 18 *code* << use CPG likelihood (estimate 9 mu parameters) */code* indicates that the Conditional on Parental Genotypes (CPG)
+rather than the Conditional on Exchangeable Parental Genotypes (CEPG)
+[*cite* cordell:04 */cite*, *cite* weinberg:shi:09 */cite*] likelihood should be used. This
+provides a more robust analysis that does not assume mating symmetry 
+(exchangeability of parental mating types),
+at the expense of estimating a larger number
+(nine) of mating-type stratification parameters.
+This analysis is recommended if your derives from pedigrees that
+contain (or were ascertained on the basis of the presence of) multiple affected
+individuals [*cite* cordell:04 */cite*].
+
+* Line 19 *code*  << estimate R1 (0=no, 1=yes) */code* indicates that the child genotype effect $R_1$ (the factor by which the disease risk is multiplied if the child has a single copy of allele 2) should be estimated.
+*
+ 
+* Line 20 *code*  << estimate R2 (0=no, 1=yes) */code* indicates that the child genotype effect $R_2$ (the factor by which the disease risk is multiplied if the child has two copies of allele 2) should be estimated. 
+*
+
+* Line 21 *code*  << R2=R1 (0=no, 1=yes) */code* indicates that a single child genotype effect $R_2=R_1$ should be estimated. A *q*1*/q* in this line will supercede any instructions given in the two previous lines. However, if line 21 is set equal to *q*1*/q*, we recommend you set lines 19 and 20 to *q*0*/q* in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. 
+*
+
+* Line 22 *code*  << R2=R1squared (0=no, 1=yes) */code* indicates that a single child genotype effect $R_2={R_1}^2$ should be estimated. This is a multiplicative allelic model for the child genotype effects. A *q*1*/q* in this line will supercede any instructions given in the three previous lines. However, if line 22 is set equal to *q*1*/q*, we recommend you set lines 19, 20 and 21 to *q*0*/q* in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. 
+* Line 23 *code*  << estimate S1 (0=no, 1=yes) */code* indicates that the maternal genotype effect $S_1$ (the factor by which the disease risk is multiplied if the mother has a single copy of allele 2) should be estimated. 
+* Line 24 *code*  << estimate S2 (0=no, 1=yes) */code* indicates that the maternal genotype effect $S_2$ (the factor by which the disease risk is multiplied if the mother has two copies of allele 2) should be estimated. 
+* Line 25 *code*  << S2=S1 (0=no, 1=yes) */code* indicates that a single maternal genotype effect $S_2=S_1$ should be estimated. A *q*1*/q* in this line will supercede any instructions given in the two previous lines. However, if line 25 is set equal to *q*1*/q*, we recommend you set lines 23 and 24 to *q*0*/q* in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. 
+* Line 26 *code*  << S2=S1squared (0=no, 1=yes) */code* indicates that a single maternal genotype effect $S_2={S_1}^2$ should be estimated. This is a multiplicative allelic model for the maternal genotype effects. A *q*1*/q* in this line will supercede any instructions given in the three previous lines. However, if line 26 is set equal to *q*1*/q*, we recommend you set lines 23, 24 and 25 to *q*0*/q* in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. 
+* Line 27 *code*  << estimate Im (0=no, 1=yes) */code* indicates that a maternal imprinting effect $I_m$ (a multiplicative factor by which the probability of disease is
+ multiplied if the child receives a (maternal) copy of the 2 allele from
+ their mother) should be estimated. A *q*1*/q* in this line will supercede any  instructions   given in the next line (line 28) i.e. only one of  $I_m$ and  $I_p$ can be  estimated. The   exception to this is if no child genotype (R) or interaction (gamma)  parameters are  estimated,  in which case it is possible to estimate both $I_m$ and   $I_p$.
+* Line 28 *code*  << estimate Ip (0=no, 1=yes) */code* indicates that a paternal imprinting effect  $I_p$ (a multiplicative factor by which the probability of disease is
+ multiplied if the child receives a (paternal) copy of the 2 allele from
+ their father) should be estimated.
+* Line 29 *code*  << estimate gamma11 (0=no, 1=yes) */code* indicates that the mother/child genotype interaction parameter $\gamma_{11}$ should be estimated. 
+* Line 30 *code*  << estimate gamma12 (0=no, 1=yes) */code* indicates that the mother/child genotype interaction parameter $\gamma_{12}$ should be estimated. 
+* Line 31 *code*  << estimate gamma21 (0=no, 1=yes) */code* indicates that the mother/child genotype interaction parameter $\gamma_{21}$ should be estimated. 
+* Line 32 *code*  << estimate gamma22 (0=no, 1=yes) */code* indicates that the mother/child genotype interaction parameter $\gamma_{22}$ should be estimated. 
+* Line 33 *code*  << gamma22=gamma12=gamma21=gamma11 (0=no, 1=yes) */code* indicates that a single mother/child genotype interaction parameter $\gamma_{22}=\gamma_{12}=\gamma_{21}=\gamma_{11}$ should be estimated. A *q*1*/q* in this line will supercede any instructions given in the four previous lines. However, if line 33 is set equal to *q*1*/q*, we recommend you set lines 29, 30, 31 and 32 to *q*0*/q* in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. * Depending on  what optional input data files are available, estimation of certain parameter combinations may be limited. (This is particularly true if you only read in a single file, *i* casemotherduos.dat */i* or *i* casefatherduos.dat */i* ). EMIM will attempt to adjust the number of
+ parameters to estimate in some *q*sensible*/q* way if it detects you are 
+trying to estimate too many parameters with not enough restrictions. However, it may be better
+ to make this adjustment yourself (e.g.
+by making assumptions of HWE and/or estimating only a smaller number of parameters). You can generally tell if EMIM has been successful at its choice of parameters by looking at the output confidence intervals:  if these do not look sensible (e.g. if the upper and lower confidence limits for a parameter are equal) then there is a good chance that the  choice of parameters has not been made appropriately. 
+* Lines 35 and 36 *code*  << estimate Weinberg (1999b) Im (0=no, 1=yes) */code* *code*    << estimate Weinberg (1999b) Ip (=Li 2009 Jm) (0=no, 1=yes) */code* * Parameterization of interactions and imprinting effects is quite complex (see *cite* ainsworth:etal:11 */cite*) and several different parameterizations have been proposed in the literature. Our parameterization for the parent-of-origin effects $I_m$ and $I_p$ corresponds to the original parameterization used by *cite* weinberg:etal:98 */cite* rather than to a later alternative parameterization used by *cite* weinberg:99b */cite*, *cite* parimi:etal:08 */cite*, and *cite* li:etal:09 */cite*. If preferred, the user can choose to use the later parameterization by setting the values in lines 27 and 28 to 0 and the values in line 35 or 36 to 1. In this case, if interactions are also required, we recommend using either the *cite* sinsheimer:etal:03 */cite* or *cite* palmer:etal:06 */cite* parameterization (see below), as our interaction parameterization does not allow estimation of the later *cite* weinberg:99b */cite* imprinting parameters. 
+* Lines 37 and 38 *code*  << estimate Sinsheimer (2003) gamma01 (0=no, 1=yes) */code* *code*  << estimate Sinsheimer (2003) gamma21 (0=no, 1=yes) */code*
+*cite* sinsheimer:etal:03 */cite* proposed an alternative parameterization for interactions in terms of maternal-fetal genotype incompatibility (MFG) parameters. *cite* sinsheimer:etal:03 */cite* denoted these parameters as $\mu$ (or $\mu_0$) and $\mu_2$. We denote these MFG interactions as $\gamma_{01}$ and $\gamma_{21}$, since they correspond to effects that operate (in addition to maternal and child genotype effects) when the child has one copy, and the mother either zero  or two copies, of a particular allele of interest. To include one or both MFG interactions, you should set the values in lines 29-33 to 0 and the value(s) in line 37 and/or 38 to 1. 
+* Line 39  *code*   << estimate Palmer (2006) match parameter (0=no, 1=yes) */code*
+*cite* sinsheimer:etal:03 */cite* and  *cite* palmer:etal:06 */cite* considered an alternative interaction parameterization in which *q*matching*/q* rather *q*mismatching*/q* between maternal and fetal genotypes increases disease risk in the offspring. To model interaction via the single *cite* palmer:etal:06 */cite* match parameter $\mu$, you should set the values in lines 29-33 to 0 and the value in line 39 to 1. 
+* Line 40 *code*  << estimate Li (2009) conflict parameter Jc (0=no, 1=yes) */code* *cite* li:etal:09 */cite* (based on work by *cite* parimi:etal:08 */cite*) considered an alternative  interaction parameterization that modelled *q*conflict*/q* between the mothers and childs genotypes. To model interaction via the single *cite* li:etal:09 */cite* conflict parameter (which we denote $J_c$, corresponding to exp($i_c$) in the notation of *cite* li:etal:09 */cite*), you should set the values in lines 29-33 to 0 and the value in line 40 to 1. Note that the recommended model of *cite* li:etal:09 */cite* and *cite* parimi:etal:08 */cite*) is to include both $J_c$ and $J_m$ (=exp($i_m$) in the notation of *cite* li:etal:09 */cite*) where $J_m$ is the imprinting parameter selectable on line 36. So to fit the full *cite* li:etal:09 */cite* and *cite* parimi:etal:08 */cite* model you should set the values in lines 36 and 40 to 1. *
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* caseparenttrios */subsection-name*
+
+*subsection-title* caseparenttrios.dat */subsection-title*
+
+* *b* caseparenttrios.dat */b*: This file contains a header line (which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 15 cell counts corresponding to the number of fully genotyped case/parent trios whose genotype combinations  fall into the appropriate genotype categories as given in *cite* ainsworth:etal:11 */cite* Table 1. (Zero counts are allowed, although may make it more difficult to estimate certain parameter combinations). * For example, suppose that at the first SNP the genotype combinations of mother, father and child as given in *cite* ainsworth:etal:11 */cite* Table 1 are: *
+
+*table*
+*tr* group    &   mother & father & child    & count */tr*
+*tr* 1 & 22 & 22 & 22 & 4 */tr*
+*tr* 2 & 22 & 12 & 22       & 10  */tr*
+*tr* 3 & 22 & 12 & 12 & 17   */tr*
+*tr* 4 & 12 & 22 & 22 & 9   */tr*
+*tr* 5 & 12 & 22 & 12 & 13 */tr*
+*tr* 6 & 22 & 11 & 12       &  6  */tr*
+*tr* 7 & 11 & 22 & 12 &  4  */tr*
+*tr* 8 & 12 & 12 & 22         &  14 */tr*
+*tr* 9 & 12 & 12 & 12  &   44 */tr*
+*tr* 10 & 12 & 12 & 11   &  26 */tr*
+*tr* 11 & 12 & 11 &    12        & 25 */tr*
+*tr* 12 & 12 &  11  &   11 & 17 */tr*
+*tr* 13 & 11 &   12  &  12 & 24 */tr*
+*tr* 14 &   11 &   12 & 11 &  12 */tr*
+*tr* 15 &  11 &  11  & 11  &  19 */tr*
+*/table*
+
+* Then the line in    *i* caseparenttrios.dat */i* corresponding to this SNP would look like: *
+
+*codeexample*
+1      4 10 17 9 13 6 4 14 44 26 25 17 24 12 19
+*/codeexample*
+
+* An example of *i* caseparenttrios.dat */i* for 8 SNPs, of which the first has counts as given above,  is shown below: *
+
+*codeexample*
+snp     cellcount 1-15
+1      4 10 17 9 13 6 4 14 44 26 25 17 24 12 19
+2      1 0 8 0 5 2 3 2 23 21 29 38 26 43 52
+3      0 0 0 0 0 0 0 0 0 1 1 0 1 0 319
+4      0 0 3 0 0 2 4 1 13 24 22 40 8 25 131
+5      0 0 5 3 6 4 7 2 23 23 29 44 19 46 59
+6      0 0 1 2 0 0 2 2 4 8 14 18 21 26 197
+7      0 0 3 0 0 1 0 1 11 18 14 37 12 29 160
+8      1 3 9 5 12 9 8 12 31 30 28 26 31 20 20
+*/codeexample*
+
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* caseparents */subsection-name*
+
+*subsection-title* caseparents.dat */subsection-title*
+
+
+* *b* caseparents.dat */b*: This file contains a header line (which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 9 cell counts corresponding to the number of fully genotyped parents of cases whose genotype combinations
+ fall into the appropriate genotype categories. Note that these
+ parents of cases must not include parents of cases
+who have already appeared as case/parent trios in the file  *i* caseparenttrios.dat */i* (i.e. all input data files must be independent). * For example, suppose that at the first SNP the genotype combinations of the mother and father are *
+
+*table* 
+*tr* group    &   mother & father   & count */tr*
+*tr* 1 & 22 & 22 & 0 */tr*
+*tr* 2 & 22 & 12 & 0 */tr*
+*tr* 3 & 22 & 11 & 1 */tr*
+*tr* 4 & 12 & 22 & 0  */tr*
+*tr* 5 & 12 & 12 &  0 */tr*
+*tr* 6 & 12 & 11 &  0 */tr*
+*tr* 7 & 11 & 22  & 0 */tr*
+*tr* 8 & 11 &   12 & 2 */tr*
+*tr* 9 &  11 &  11 & 16 */tr*
+*/table*
+
+* Then the line in    *i*  caseparents.dat */i* corresponding to this SNP would look like: *
+
+*codeexample*
+1     0 0 1 0 0 0 0 2 16
+*/codeexample*
+
+* An example of *i* caseparents.dat */i* for 8 SNPs, of which the first has counts as given above,  is shown below: *
+
+*codeexample*
+snp cellcount 1-9
+1     0 0 1 0 0 0 0 2 16
+2     0 0 0 0 1 3 0 1 9
+3     0 0 0 0 0 0 0 0 13
+4     0 0 1 0 0 0 0 0 1
+5     0 0 0 0 1 0 0 1 0
+6     0 0 0 0 0 0 0 0 0
+7     0 0 0 0 0 0 1 0 0
+8     0 0 1 0 0 1 0 3 0
+*/codeexample*
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* casemotherduos */subsection-name*
+
+*subsection-title* casemotherduos.dat */subsection-title*
+
+* *b* casemotherduos.dat */b*:  This file contains a header line (which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 7 cell counts corresponding to the number of fully genotyped case/mother duos whose genotype combinations fall into the appropriate genotype categories. Note that these must not include cases and mothers who have already appeared as case/parent trios in the file *i* caseparenttrios.dat */i*, or mothers who have already appeared in the file  *i* caseparents.dat */i* (i.e. all input data files must be independent). Zero counts are allowed, although may make it more difficult to estimate certain parameter combinations. * For example, suppose that at the first SNP the genotype combinations of the mother and child are *
+
+*table* 
+*tr* group    &   mother & child   & count */tr*
+*tr* 1 & 22 & 22       & 4 */tr*
+*tr* 2 & 22 & 12       & 3 */tr*
+*tr* 3 & 12 & 22       & 1 */tr*
+*tr* 4 & 12 & 12       & 7 */tr*
+*tr* 5 & 12 & 11 & 4 */tr*
+*tr*  6 & 11 & 12 & 3 */tr*
+*tr* 7 & 11   &  11 & 4 */tr*
+*/table*
+
+* Then the line in    *i* casemotherduos.dat */i* corresponding to this SNP would look like: *
+
+*codeexample*
+1      4 3 1 7 4 3 4
+*/codeexample*
+
+* An example of *i* casemotherduos.dat */i* for 8 SNPs, of which the first has counts as given above,  is shown below: *
+
+*codeexample*
+snp cellcount 1-7 
+1      4 3 1 7 4 3 4
+2      0 1 3 3 6 5 7
+3      0 1 0 0 0 0 25
+4      0 0 0 2 3 5 15
+5      3 1 1 8 2 5 4
+6      0 0 1 2 4 2 17
+7      0 0 0 2 2 5 17
+8      1 3 3 6 4 0 7
+*/codeexample*
+
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* casefatherduos */subsection-name*
+
+*subsection-title* casefatherduos.dat */subsection-title*
+
+
+* *b* casefatherduos.dat */b*:  This file contains a header line (which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 7 cell counts corresponding to the number of fully genotyped case/father duos whose genotype combinations fall into the appropriate genotype categories. Note that these must not include cases and fathers who have already appeared as case/parent trios in the file *i* caseparenttrios.dat */i*, fathers who have already appeared in the file  *i* caseparents.dat */i*, or cases who have already appeared in the file *i* casemotherduos.dat */i* (i.e. all input data files must be independent). Zero counts are allowed, although may make it more difficult to estimate certain parameter combinations. * For example, suppose that at the first SNP the genotype combinations of the father and child are *
+
+*table*
+*tr* group    &   father & child   & count */tr*
+*tr* 1 & 22 & 22       & 1 */tr*
+*tr* 2 & 22 & 12       & 0 */tr*
+*tr* 3 & 12 & 22       & 2 */tr*
+*tr* 4 & 12 & 12       & 1 */tr*
+*tr* 5 & 12 & 11 & 2 */tr*
+*tr*  6 & 11 & 12 & 3 */tr*
+*tr* 7 & 11  &  11 & 3 */tr*
+*/table*
+
+* Then the line in    *i* casefatherduos.dat */i* corresponding to this SNP would look like: *
+
+*codeexample*
+1      1 0 2 1 2 3 3
+*/codeexample*
+
+* An example of *i* casefatherduos.dat */i* for 8 SNPs, of which the first has counts as given above,  is shown below: *
+
+*codeexample*
+snp cellcount 1-7
+1      1 0 2 1 2 3 3
+2      0 0 1 0 5 4 1
+3      0 0 0 0 0 0 11
+4      0 1 0 3 0 0 7
+5      0 2 1 3 1 2 2
+6      0 0 0 0 2 3 6
+7      0 0 0 0 0 3 8
+8      1 0 1 2 2 2 5
+*/codeexample*
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* casemothers */subsection-name*
+
+*subsection-title* casemothers.dat */subsection-title*
+
+* *b*  casemothers.dat */b*:  This file contains a header line (which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 3 cell counts corresponding to the number of fully genotyped mothers of cases whose genotypes fall into the appropriate genotype categories. Note that these must not include mothers of cases already in the files *i* caseparenttrios.dat */i*, *i* caseparents.dat */i*, or *i* casemotherduos.dat */i* (i.e. all input data files must be independent). * For example, suppose that at the first SNP the genotypes of the mothers are *
+
+*table*
+*tr* group    &   mother & count */tr*
+*tr* 1     &  22   &   18 */tr*
+*tr* 2     &  12   &   160 */tr*
+*tr* 3     &  11   &   358 */tr*
+*/table*
+
+* Then the line in    *i*  casemothers.dat */i* corresponding to this SNP would look like: *
+
+*codeexample*
+1      18 160 358
+*/codeexample*
+
+* An example of *i* casemothers.dat */i* for 8 SNPs, of which the first has counts as given above,  is shown below: *
+
+*codeexample*
+snp cellcount 1-3
+1      18 160 358
+2      8 90 438
+3      5 85 445
+4      8 147 375
+5      4 97 436
+6      1 32 503
+7      30 157 349
+8      5 64 467
+*/codeexample*
+
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* casefathers */subsection-name*
+
+*subsection-title* casefathers.dat */subsection-title*
+
+
+* *b* casefathers.dat */b*:  This file contains a header line (which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 3 cell counts corresponding to the number of fully genotyped fathers of cases whose genotypes fall into the appropriate genotype categories. Note that these must not include fathers of cases already in the files *i* caseparenttrios.dat */i*, *i* caseparents.dat */i*, or *i* casefatherduos.dat */i* (i.e. all input data files must be independent). * For example, suppose that at the first SNP the genotypes of the fathers are *
+
+*table*
+*tr* group    &   father & count */tr*
+*tr* 1     &  22   &   4 */tr*
+*tr* 2     &  12   &   71 */tr*
+*tr* 3     &  11   &   461 */tr*
+*/table*
+
+* Then the line in    *i* casefathers.dat */i* corresponding to this SNP would look like: *
+
+*codeexample*
+1      4 71 461
+*/codeexample*
+
+* An example of *i* casefathers.dat */i* for 8 SNPs, of which the first has counts as given above,  is shown below: *
+
+*codeexample*
+snp cellcount 1-3
+1      4 71 461
+2      5 64 467
+3      2 27 506
+4      82 239 214
+5      4 55 477
+6      21 162 353
+7      4 62 470
+8      11 110 415
+*/codeexample*
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* cases */subsection-name*
+
+*subsection-title* cases.dat */subsection-title*
+
+
+* *b* cases.dat */b*:  This file contains a header line (which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 3 cell counts corresponding to the number of fully genotyped cases whose genotypes fall into the appropriate genotype categories. Note that these must not include cases already in the files *i* caseparenttrios.dat */i*, *i* casemotherduos.dat */i*, or *i* casefatherduos.dat */i* (i.e. all input data files must be independent). * For example, suppose that at the first SNP the genotypes of the cases are *
+
+*table*
+*tr* group    &   case & count */tr*
+*tr* 1     &  22   &   93 */tr*
+*tr* 2     &  12   &   268 */tr*
+*tr* 3     &  11   &   174 */tr*
+*/table*
+
+* Then the line in    *i* cases.dat */i* corresponding to this SNP would look like: *
+
+*codeexample*
+1      93 268 174
+*/codeexample*
+
+* An example of *i* cases.dat */i* for 8 SNPs, of which the first has counts as given above,  is shown below: *
+
+*codeexample*
+snp cellcount 1-3
+1      93 268 174
+2      47 223 265
+3      0 0 536
+4      11 150 375
+5      51 197 288
+6      7 93 436
+7      9 128 399
+8      99 247 189
+*/codeexample*
+
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* conparents */subsection-name*
+
+*subsection-title* conparents.dat */subsection-title*
+
+
+* *b* conparents.dat */b*: 
+ This file contains a header line
+(which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 9 cell counts corresponding to the number of fully genotyped parents of controls whose genotype combinations
+ fall into the appropriate genotype categories. 
+* Note that by controls we mean individuals of unknown disease status, or (provided the disease is rare) individuals who are known to be disease-free. Note that these
+ parents of controls must not include parents
+who have already appeared in any other input files (i.e. all input data files must be independent). * For example, suppose that at the first SNP the genotype combinations of the mother and father are *
+
+*table*
+*tr* group    &   mother & father   & count */tr*
+*tr* 1 & 22 & 22 & 0 */tr*
+*tr* 2 & 22 & 12 & 0 */tr*
+*tr* 3 & 22 & 11 & 0 */tr*
+*tr* 4 & 12 & 22 &  0 */tr*
+*tr* 5 & 12 &  12       & 0 */tr*
+*tr* 6 & 12   &  11       & 0 */tr*
+*tr* 7 & 11 & 22 & 0  */tr*
+*tr* 8 & 11 &  12       & 1 */tr*
+*tr* 9 & 11 &    11       & 0   */tr*
+*/table*
+
+* Then the line in    *i* conparents.dat */i* corresponding to this SNP would look like: *
+
+*codeexample*
+1      0 0 0 0 0 0 0 1 0
+*/codeexample*
+
+* An example of *i* conparents.dat */i* for 8 SNPs, of which the first has counts as given above,  is shown below: *
+
+*codeexample*
+snp cellcount 1-9
+1      0 0 0 0 0 0 0 1 0
+2      0 0 0 0 0 0 0 0 1
+3      0 0 0 0 0 0 0 0 1
+4      0 0 0 0 1 0 0 0 0
+5      0 0 0 0 0 0 0 1 0
+6      0 0 0 0 1 0 0 0 0
+7      0 0 0 0 0 0 0 1 0
+8      0 0 0 0 0 1 0 0 0
+*/codeexample*
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* conmotherduos */subsection-name*
+
+*subsection-title* conmotherduos.dat */subsection-title*
+
+
+* *b* conmotherduos.dat */b*:  This file contains a header line (which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 7 cell counts corresponding to the number of fully genotyped control/mother duos whose genotype combinations fall into the appropriate genotype categories. Note that by controls we mean individuals of unknown disease status, or (provided the disease is rare) individuals who are known to be disease-free.  This must not include individuals who have already appeared in any other input files (i.e. all input data files must be independent). * For example, suppose that at the first SNP the genotype combinations of the mother and child are *
+
+*table*
+*tr* group    &   mother & child   & count */tr*
+*tr* 1 & 22 & 22       & 0 */tr*
+*tr* 2 & 22 &  12       & 0 */tr*
+*tr* 3 & 12 & 22       & 1 */tr*
+*tr* 4 & 12 & 12       & 1  */tr*
+*tr* 5 & 12 &  11 & 2 */tr*
+*tr*  6 & 11 & 12 & 2 */tr*
+*tr* 7 &   11 &  11 & 21 */tr*
+*/table*
+
+* Then the line in    *i* conmotherduos.dat */i* corresponding to this SNP would look like: *
+
+*codeexample*
+1      0 0 1 1 2 2 21
+*/codeexample*
+
+* An example of *i* conmotherduos.dat */i* for 8 SNPs, of which the first has counts as given above,  is shown below: *
+
+*codeexample*
+snp cellcount 1-7
+1      0 0 1 1 2 2 21
+2      0 0 0 0 3 7 16
+3      0 0 0 1 2 2 20
+4      0 0 0 2 4 2 16
+5      0 0 2 1 2 1 19
+6      0 0 0 1 2 0 23
+7      0 0 0 3 5 5 13
+8      0 0 0 1 1 3 21
+*/codeexample*
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* confatherduos */subsection-name*
+
+*subsection-title* confatherduos.dat */subsection-title*
+
+
+* *b*  confatherduos.dat */b*:  This file contains a header line (which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 7 cell counts corresponding to the number of fully genotyped control/father duos whose genotype combinations fall into the appropriate genotype categories. Note that by controls we mean individuals of unknown disease status, or (provided the disease is rare) individuals who are known to be disease-free.  This must not include individuals who have already appeared in any other input files (i.e. all input data files must be independent). * For example, suppose that at the first SNP the genotype combinations of the father and child are
+*
+
+*table*
+*tr* group    &   father & child   & count */tr*
+*tr* 1 & 22 & 22       & 0 */tr*
+*tr* 2 & 22 &   12       & 1 */tr*
+*tr* 3 & 12 & 22       & 0  */tr*
+*tr* 4 & 12 & 12       & 1  */tr*
+*tr* 5 & 12 &   11 & 1 */tr*
+*tr* 6 & 11 & 12 & 2 */tr*
+*tr* 7  &  11 & 11 & 6 */tr*
+*/table*
+
+*
+Then  the line in    *i*      confatherduos.dat */i*  corresponding to this   SNP would look  like: *
+
+*codeexample*
+1      0 1 0 1 1 2 6
+*/codeexample*
+
+* An example of *i* confatherduos.dat */i* for 8 SNPs, of which the first has counts as given above, and the other seven just happen to all have exactly the same (different set of) genotype counts (admittedly a contrived example is shown below: *
+
+*codeexample*
+snp cellcount 1-7
+1      0 1 0 1 1 2 6
+2      0 0 0 0 1 2 8
+3      0 0 0 0 3 1 7
+4      0 0 0 0 5 3 3
+5      0 0 0 3 1 0 7
+6      0 0 0 0 1 0 10
+7      0 0 0 0 2 4 5
+8      0 1 0 0 0 0 10
+*/codeexample*
+
+*/subsection*
+
+*****************************
+
+*subsection*
+
+*subsection-name* cons */subsection-name*
+
+*subsection-title* cons.dat */subsection-title*
+
+* *b* cons.dat */b*:  This file contains a header line (which is not used by the program but is useful for reminding yourself of the  column order), followed by a line of data for each of the $n$ SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in *i* emimmarkers.dat */i*). * The first number on each line is the numeric SNP ID (as given in *i* emimmarkers.dat */i*). This is followed by 3 cell counts corresponding to the number of fully genotyped controls whose genotypes fall into the appropriate genotype categories. Note that by controls we mean individuals of unknown disease status, or (provided the disease is rare) individuals who are known to be disease-free.  This must not include individuals who have already appeared in any other input files (i.e. all input data files must be independent). * For example, suppose that at the first SNP the genotypes of the controls are *
+
+*table*
+*tr* group    &   control & count */tr*
+*tr* 1     &  22   &   1 */tr*
+*tr* 2     &  12   &   7 */tr*
+*tr* 3     &  11   &   6 */tr*
+*/table*
+
+* Then the line in *i* cons.dat */i* corresponding to this SNP would look like: *
+
+*codeexample*
+1      1 7 6
+*/codeexample*
+
+* An example of *i* cons.dat */i* for 8 SNPs, of which the first has counts as given above, is shown below: *
+
+*codeexample*
+snp cellcount 1-3
+1      1 7 6
+2      1 4 9
+3      1 1 12
+4      0 1 13
+5      1 5 8
+6      0 7 7
+7      0 2 12
+8      0 5 9
+*/codeexample*
+
+
+*/subsection* 
+
+*/section*
+
+*************************************************************************
+
+*section*
+
+*section-name* output */section-name*
+
+*section-title* EMIM: Usage and output files */section-title*
+
+* The program is run by typing *q*./emim*/q*. This should produce 2 primary output files: *i* emimresults.out */i* and *i* emimsummary.out */i*. 
+
+
+* In previous versions of EMIM, two additional files (*i* fort.11 */i* and *i* fort.12 */i*) with details of the maximisation procedure were also produced by the MAXFUN subroutine. These files can be quite large and may subsequently be deleted if detailed output is not required. (However they can be quite useful for troubleshooting when the maximisation procedure does not appear to have worked correctly). In current versions of EMIM we do not output these files by default. Please contact us if you need a version of EMIM that outputs these files. *
+
+*
+The main results are given in the file *i* emimresults.out */i*. A fairly large number of lines of results are output for each SNP in turn, therefore this file can become quite large. If you particularly want to see the detailed results for some specific SNPs, we recommend you use PLINK to
+create a smaller subset containing just the SNPs of interest, and then  re-run PREMIM and EMIM on this subset.
+*
+
+The file *i* emimresults.out */i* first shows the parameter estimates
+ from a global null model
+(in which the parameters $R_1$, $R_2$, $S_1$, $S_2$, $I_m$, $I_p$, $\gamma_{11}$, $\gamma_{12}$, $\gamma_{21}$, $\gamma_{22}$ are all set to equal 1.0). Next  the parameter estimates
+ from the specified alternative model (as specified in the file
+*i* emimparams.dat */i*) are given, both on their original and log scales, followed by 95*percent* confidence intervals for estimated parameters of interest. Finally the maximized ln likelihoods for the alternative and null models are given, together with twice the difference between these (which can be compared to a chi-squared on the appropriate df (=the number of  estimated parameters of interest) to calculate a p-value, if required). Note that if nested alternative (non-null) models are to be compared, you will have to run EMIM twice and compare twice the difference between the maximized ln likelihoods for each of the alternative models to a chi-squared on the appropriate df. 
+
+* A summary of the results from *i* emimresults.out */i* is given in the file *i* emimsummary.out */i*. This file can be more convenient to deal with (e.g. by reading in and manipulating in R) if analysis is being performed on a large number of SNPs. First comes a header line describing the different columns. Then comes a single line of results for each SNP analysed. The entries in each line correspond to the SNP number, the SNP ID, the estimated allele frequency (or input allele frequency if allele frequency is not estimated), then for each parameter ($R_1$, $R_2$, $S_1$, $S_2$, $I_m$, $I_p$, $\gamma_{11}$, $\gamma_{12}$, $\gamma_{21}$, $\gamma_{22}$) in turn, we have the estimate of the logarithm of the relevant parameter, its estimated standard error, and the estimated
+ lower and upper 95*percent* confidence limit for the logarithm of the relevant  parameter.
+Finally we have the maximized log likelihood under the null,  the maximized log likelihood under the alternative, and  twice the difference between these,
+followed by a column indicating whether there were any warning messages for this SNP output to the file *i* emimresults.out */i* (in which case we recommend you take a look at the file *i* emimresults.out */i* to see what the warning messages say). 
+
+* *b* PLEASE NOTE THAT EMIM DOES NOT ITSELF GENERATE ANY P-VALUES. Instead, EMIM produces chi-squared statistics and maximized log likelihoods (that can be compared for nested models and used to create p-values, see Example section below). In order to calculate the p-value for any test, you will therefore need to compare
+the chi-squared statistic or twice the difference in maximized log likelihoods to a chi-squared on the appropriate degrees of freedom, using an external program such as Excel or R.   */b* *
+
+
+*********************************************************************
+
+*subsection*
+
+*subsection-name*
+alt-paras
+*/subsection-name*
+
+*subsection-title*
+Alternative parameterisations
+*/subsection-title*
+
+*
+If one of the parameterizations from the third section of *i* emimparams.dat */i* has been selected, the output parameters in *i* emimsummary.out */i* are slightly different. If the *cite* sinsheimer:etal:03 */cite* MFG interaction parameters have been chosen, then instead of $\gamma_{11}$ and/or $\gamma_{22}$, you should find that MFG parameters $\gamma_{01}$ and/or $\gamma_{21}$ (denoted MFG01 and MFG21) are output. If the *cite* palmer:etal:06 */cite* interaction parameter has been chosen, then instead of $\gamma_{11}$ you should find the Palmer match parameter (denoted MFGmu) is output. If the  *cite* li:etal:09 */cite* and *cite* parimi:etal:08 */cite* interaction parameter has been chosen, then instead of $\gamma_{22}$, you should find that the *cite* li:etal:09 */cite* conflict parameter (denoted Jc) is output. Hopefully the header line in *i* emimsummary.out */i* should make it clear which parameters have been output.
+*
+
+*
+Moreover, if one of the parameterizations from the third section of *i* emimparams.dat */i* has been selected, the value of the other estimated parameters may be different. For example, if the *cite* sinsheimer:etal:03 */cite* MFG interaction parameterisation is chosen, the R1 and R2 parameters  as output by EMIM will actually correspond to what were called $\rho_1$ and $\rho_2$ in Table I (Example 9) of *cite* ainsworth:etal:11 */cite*, and $S_1$ and $S_2$ will actually correspond to what were called $\eta_1$ and $\eta_2$ in Table I (Example 9) of *cite* ainsworth:etal:11 */cite*. Perusal of  Table I (Example 9) of *cite* ainsworth:etal:11 */cite* shows that $\rho_1$ ($\rho_2$) is the factor by which an individual's disease risk is multiplied if they possess one (two) risk alleles at a given locus, and $\eta_1$ ($\eta_2$) is the factor by which an individual's disease risk is multiplied if their mother possesses one risk allele at that locus, when using the Sinsheimer parameterisation. That is why these parameters are still denoted $R_1$, $R_2$, $S_1$ and $S_2$ in the EMIM output - because they have the same meaning that we are attributing to $R_1$, $R_2$, $S_1$ and $S_2$ when using the default interaction parameterisation (i.e. when interaction is modelled in terms of parameters $\gamma_{11}$ and $\gamma_{22}$, instead of $\gamma_{01}$ and $\gamma_{21}$). However, the values of $R_1$, $R_2$, $S_1$ and $S_2$ will not necessarily be the same within these two paramaterisations. See *cite* ainsworth:etal:11 */cite* more discussion of this issue.
+*
+
+*
+So, in summary, if using the *cite* sinsheimer:etal:03 */cite* MFG interaction parameterisation, the parameters $R_1$ / $R_2$ / $S_1$ / $S_2$ / $\gamma_{01}$ / $\gamma_{21}$ estimated by EMIM are actually equivalent to the parameters that were called $\rho_1$ / $\rho_2$ / $\eta_1$ / $\eta_2$ / $\mu_0$ / $\mu_2$ by *cite* sinsheimer:etal:03 */cite*.
+*
+
+
+
+
+*********************************************************************
+
+*/subsection*
+
+
+*********************************************************************
+
+*/section*
+
+*************************************************************************
+
+**********************************************************
+
+
+*input* emim-premim-eg.hat */input*
+
+
+*************************************************************************
+
+
+*section*
+
+*section-name* parallel */section-name*
+
+*section-title* Parallel processing */section-title*
+
+* EMIM performs the analysis for each SNP one by one, so if there are many SNPs then this may take a long time. It is therefore natural to want to speed up the process by performing these calculations in parallel. To facilitate this, EMIM and PREMIM have added features to make this easy by splitting the input files for EMIM into many different files, or by using multiple files (e.g. one file per chromosome)
+that have already been created  using some other program such as PLINK. *
+
+* The following the instructions explain how to do this: *
+
+*numlist*
+
+*item* *b* Create input and output sub-directories for EMIM. */b* In the directory where your pedigree file or pedigree files are,  create sub-directories for the input and output of EMIM. For example, to create directories simply called *code* input */code* and *code* output */code* in Linux/UNIX type:
+
+*codeexample*
+mkdir input
+mkdir output
+*/codeexample*
+
+*item* *b* Create input files for EMIM. */b* The next step is to create the input files for EMIM using PREMIM with your pedigree file(s). There are two different ways to do this:
+
+*numlist*
+*item*
+If your data is currently contained in a single file (e.g. called *i* data.bed */i*), you can use  PREMIM with the "*code* -s n dir */code*" option to split the output files (*i* caseparenttrios.dat */i* etc.) into many files each containing *code* n */code* SNPs into directory *code* dir */code*. Since the data may be split into many files it is wise to put them in the separate *code* input */code*  directory you made, in order to make them easier to manage. For example, to split the output into files each containing 1000 SNPs into the directory *code* input */code*, using the initial binary pedigree file *i* data.bed */i* and asking PREMIM to estimate allele frequencies, type:
+
+*codeexample* ./premim -a -s 1000 input/ data.bed */codeexample*
+
+Note that the "/" is required after the directory name and a "\" may be required for systems other than Linux/UNIX. The files created will be named *i* input/caseparenttrios1.dat, input/caseparenttrios2.dat... */i* etc. Only one EMIM parameter file (*i* emimparams.dat */i*) is created (in the directory above the *code* input */code* directory).
+
+*html* <br/><br/>  */html*
+*tex* \\\\ */tex*
+
+*item* If your data is already split into many files (e.g. one per chromosome, named *i* chr1.bed, chr2.bed, chr3.bed */i* etc.) 
+you need to move these files into the *code* input */code*  directory
+and, within the  *code* input */code* directory, run PREMIM on each file to create the input files for EMIM. This can be done manually, one file at a time, or else you can write a loop via a
+Perl script or similar. Alternatively, if you are using a High Performance Computing (HPC) cluster using the open-source Sun Grid Engine (SGE) 
+scheduler software, then these jobs may be submitted as an array job using something similar to the following script:
+
+*codeexample*
+#!/bin/bash
+# execute in current working directory
+#$ -cwd
+# export local envirnoment
+#$ -V
+# the number of PREMIM tasks 
+#$ -t 1-22
+# execute PREMIM for each task
+./premim -a -n $SGE_TASK_ID chr$SGE_TASK_ID.bed 
+*/codeexample*  
+
+The key thing is to make sure that you use PREMIM's  
+*code* -n */code* option to output a set of input files for EMIM which have different names 
+(e.g. one set of EMIM input files per chromosome). This relies on the fact that it is possible to create files *i* caseparenttriosXXX.dat, caseparentsXXX.dat... */i* etc. in PREMIM by using the "*code* -n name */code*" option. For example to create output files with 5 appended to the end using pedigree file *code* data.ped */code*, you can type  
+
+"*code* ./premim -n 5 data.ped */code*"
+
+*html* <br/><br/>  */html*
+*tex* \\\\ */tex*
+
+If the above job script is called *i* premimarray.sh */i* then it is submitted to the job queue as follows: 
+
+*codeexample* qsub premimarray.sh */codeexample*
+
+This will submit a number of serial jobs (22 in the example above) to the HPC to execute in parallel. 
+The exact details of how to perform parallel jobs may depend on your local computing services and 
+you should consult your local computing support if in doubt. 
+
+*html* <br/><br/>  */html*
+*tex* \\\\ */tex*
+
+Once the array job, or Perl loop, or manual running of PREMIM has finished, you should have 
+created a set of input files named *i* input/caseparenttrios1.dat, input/caseparenttrios2.dat... */i* etc. Only one EMIM parameter file (*i* emimparams.dat */i*) will have been created, corresponding to the last set of input files PREMIM created. This is not entirely satisfactory, as you may find that the last set of input files does not contain the largest number of SNPs.
+You therefore need to edit the number of SNPs on line 13 of  *i* emimparams.dat */i* to the correspond to a number greater than the number of lines in the largest input file  *i* emimmarkers*.dat */i*. E.g. type
+
+*codeexample*
+wc -l emimmarkers*.dat
+*/codeexample*
+
+to find out which file has the greatest number of lines, and edit the  number of SNPs on line 13 of  *i* emimparams.dat  */i* to correspond to this number (or greater). THEN MOVE THIS FILE *i* emimparams.dat */i* ONE LEVEL BACK IN THE DIRECTORY HIERARCHY (i.e. it should be placed in the directory above the *code* input */code* directory).
+
+
+
+*/numlist*
+
+
+
+*item* *b* Create SNP marker files. */b* Before running EMIM it must be ensured that the necessary SNP marker files are available for each set of input files. Normally the file *i* emimmarkers.dat */i* is used, in the parallel version the files *i* emimmarkers1.dat, emimmarkers2.dat... */i* etc. are used instead and are stored in the input directory for EMIM along with the rest of the files. 
+
+If you used  PREMIM's  *code* -a */code* option when creating the input files for EMIM, then
+you should already have a usable set of SNP marker files in the *code* input */code* directory.
+Otherwise, these files may be created using an existing SNP marker file by using PREMIM with the "*code* -fm n markerfile.dat dir */code*" option which splits an existing marker file into many marker files each with *code* n */code* SNPs into directory *code* dir */code*. For example, to split the file *i* emimmarkers.dat */i* into marker files with 1000 SNPs each into directory *code* input */code* type:
+
+*codeexample* ./premim -fm 1000 emimmarkers.dat input/ */codeexample*
+
+This creates the files *i* input/emimmarkers1.dat, input/emimmarkers2.dat... */i* etc. 
+
+*item* *b* Run EMIM in parallel. */b* For each set of input files, for example, *i* input/caseparenttrios5.dat, input/caseparents5.dat... */i* etc., it is possible to run EMIM by typing:
+
+*codeexample* ./emim 5 input/ output/ */codeexample*
+
+This will create result files *i* output/emimsummary5.out */i* and *i* output/emimresults5.out */i*. This must be done for every set of files numbered 1 to *code* N */code* for some *code* N */code*. 
+The number *code* N */code* may correspond to 22 (e.g. if your data files were set up one per chromosome, for 22 chromosomes) or to some other number, depending on how many sets of input files were
+created by PREMIM when it split up your original data file.
+
+If you are using a High Performance Computing (HPC) cluster using the open-source Sun Grid Engine (SGE) scheduler software, then these jobs may be submitted as an array job using something similar to the following script:
+
+*codeexample*
+#!/bin/bash
+# execute in current working directory
+#$ -cwd
+# export local envirnoment
+#$ -V
+# the number of EMIM tasks 
+#$ -t 1-1435
+# execute EMIM for each task
+./emim $SGE_TASK_ID input/ output/
+*/codeexample*  
+
+If the above script is saved in the directory above the *code* input */code* directory (i.e. the directory where your file  *i* emimparams.dat */i* exists) and if the script is called *i* emimarray.sh */i*, then it is submitted to the job queue as follows:
+
+*codeexample* qsub emimarray.sh */codeexample*
+
+This will submit a number of serial jobs (1435 in the example above) to the HPC to execute in parallel. The exact details of how to perform parallel jobs may depend on your local computing services and you should consult your local computing support if in doubt.
+
+*item* *b* Collate EMIM results. */b* The results of the EMIM analysis are stored in the given output directory, for example *i* output/emimsummaryJ.out */i* and *i* output/emimresultsJ.out */i* for *code* J */code* from 1 to *code* N */code* for some *code* N */code*. This can be convenient if each file corresponds to a different chromosome, for example, but it is not very convenient if there are hundreds or thousands of result files. These files may therefore be collated into two result files *i* emimsummary.out */i* and *i* emimresults.out */i* by using the "*code* -fr dir */code*" option in PREMIM. For example, if the results are in directory *code* output */code* type:
+
+*codeexample* ./premim -fr output/ */codeexample*
+
+
+Note that the SNP numbers in these combined files will relate to the number within each output file *i* output/emimsummaryJ.out */i* and *i* output/emimresultsJ.out */i*, which in turn corresponds to the SNP number within the input files  *i* input/caseparenttriosJ.dat, input/casemotherduosJ.dat... */i* etc.  As a result, these SNP numbers in the combined files will not be unique. If you used PREMIM to split a single file (e.g. *i* data.bed */i*) into many files for parallel processing, the SNP ID (as opposed to the SNP number) in the combined files should correspond to the SNP number within the original file *i* data.bed */i*, and so will be unique. If you used PREMIM to process a set of files (e.g. one per chromosome, named *i* chr1.bed, chr2.bed, chr3.bed */i* etc.) then both the SNP number and the SNP ID within the combined will not be unique, as they will refer to the number within the original file *i* chr1.bed, chr2.bed, chr3.bed */i* etc. We recommend you keep a separate list of the SNP identifiers from your .map or .bim files (e.g. their rs IDs) and their SNP number (order) within these files, in order to make it easier to match up the results in your combined output files with the correct SNPs. This can be done using the *code* -rout */code* option in PREMIM. 
+
+*/numlist*
+
+************
+
+*/section* 
+
+
+**********************************************************
+
+
+*input* poo-premim-emim.hat */input*
+
+
+*************************************************************************
+
+*section*
+
+*section-name* trouble */section-name*
+
+*section-title* Troubleshooting and results interpretation  */section-title*
+
+*
+PREMIM and EMIM are ideally designed for use by users who already have experience
+of analysing genetic data and some familiarity with using command-line programs such as PLINK, SNPTEST,  MACH or IMPUTE. If you do not have any such experience, 
+we recommend you attept to gain some familiarity with such programs before 
+embarking on an analysis with  PREMIM and EMIM.
+*
+
+
+
+*
+As with any other statistical analysis method, the results from EMIM are only as reliable as the quality of the data going in to the analysis. If you obtain "strange" results or get a warning/error message, by far the most likely reason is  that there is some "problem" with the input data. By "problem", this could mean an actual mistake in the input files (e.g. they are not formatted correctly), or  it could simply mean that there is limited information provided by the input data, or that the data is too noisy, to produce reliable/interpretable results. 
+*
+
+*
+One common problem is that there is too little data to estimate the parameters requested. This could result from too many cells with zero observations in the input data files *i* caseparenttrios.dat */i*, *i* casemotherduos.dat */i* etc. We have tried to get EMIM to pick up these sorts of issues automatically and give a sensible warning message, but, given the complexities of the potential possible models, it does not always manage to achieve this! You may find that using a more restricted model (e.g. assuming HWE and random mating) helps with parameter identifiability/estimation problems.
+*
+
+*
+If you obtain "significant results" (that you either disbelieve - because they seem "too good to be true" - or believe, in the hope that they are true!) at one or more SNPs analysed, our first recommendation is to make a smaller input data set (e.g. using the *code* --extract snplist.txt */code* command in PLINK) consisting just of this subset of SNPs of interest, and re-run PREMIM and EMIM just on this subset of SNPs. This will allow you to examine the output file *i* emimresults.out */i* more carefully (normally this file is too big to easily sort through in order to find the results pertaining to one specific SNP).  You should also carefully examine the last column of the file *i* emimsummary.out */i* to see if there is an indicator of a warning message at any SNP. Estimated parameters with an estimated standard error (SE) of 0 in the relevant column of *i* emimsummary.out */i* can also suggest that there was some problem with estimating this particular parameter.
+*
+
+
+
+*subsection*
+
+*subsection-name*
+GWAS
+*/subsection-name*
+
+*subsection-title*
+GWAS data
+*/subsection-title*
+
+*
+If your data was derived from a genome-wide SNP array, we recommend you follow  standard GWAS QC procedures to remove unreliable samples (people) and SNPs prior to carrying out an analysis in EMIM. In addition to standard case/control QC(such as removing SNPs and individuals with large amounts of missing data, and removing SNPs with very low minor allele frequencies), we recommend you remove (or check) SNPs or families showing high rates of Mendelian misinheritance errors. 
+*
+
+
+* If your data was derived from a genome-wide SNP array, we also strongly  recommend you check the "cluster plots" (SNP intensities) for any "significant" SNPs you obtain, in order to be sure that the genotypes have been called correctly. (This check may also be relevant for data generated using other genotyping technologies). Our experience is that poor genotype clustering 
+(resulting in incorrect genotype calls)  can produce many more apparent (but false) significant results when you apply a genotype-based test 
+(such as modelling two child genotype effects, $R_1$ and $R_2$, or two maternal genotype effects, $S_1$ and $S_2$) than when you apply an allele-based test (such as the child trend model, where $R_2$ is assumed to equal $R_1$ squared), owing to the fact that poor clustering can result in one genotype being completely or virtually absent in your data set. Although it is certainly possible that a genotype-based model may genuinely be a better model for the SNP effects in your data than an allele-based model, a discrepency between the genotype-based and allele-based results can indicate a possible problem with genotype calling.
+*
+
+*/subsection*
+
+*subsection*
+
+*subsection-name*
+Imputed
+*/subsection-name*
+
+*subsection-title*
+Imputed data
+*/subsection-title*
+
+*
+In principal there is no reason why PREMIM and EMIM cannot be applied to imputed data (i.e. data that has been imputed on the basis of known genotypes, using a program such as MACH or IMPUTE). However, this will only work for SNPs that have been well-imputed (SNPs that are poorly imputed are likely to give rise to a large number of Mendelian errors and unreliable results). We recommend that you use standard post-imputation quality control filters to filter out low-quality SNPs/genotypes *b* prior */b* to performing any analysis in PREMIM and EMIM.
+*
+
+*/subsection*
+
+
+*subsection*
+
+*subsection-name*
+Merged
+*/subsection-name*
+
+*subsection-title*
+Merged data
+*/subsection-title*
+
+
+
+
+*  
+Particular care should be taken when analysing data that has been merged
+from several different studies. Note that no functionality for merging is provided within PREMIM or EMIM; any merging of data needs to be carried out *b* prior */b* to
+analysis in PREMIM/EMIM using (for example) a program such as PLINK. 
+Special care needs to be taken when merging data for A/T or C/G SNPs that
+these alleles have been measured (aligned) relative to the same strand
+of the genome (if in doubt, it may be safer to revove such SNPs entirely). 
+The best way to do this is to obtain assay information from the vendor who provided your genotypes. A useful list of strand alignments for commonly-used genotyping chips is provided at *
+
+* *tex* http://www.well.ox.ac.uk/~wrayner/strand/ */tex* *html* <a href="http://www.well.ox.ac.uk/~wrayner/strand/">http://www.well.ox.ac.uk/~wrayner/strand/</a> */html* *
+
+
+*
+We also recommend that
+you aim to ensure that any merged data set consists of
+individuals who are well matched for ancestry and come from a single homogeneous population. (Results from separate analyses of different populations can be combined later, using meta-analysis techniques, if required).   
+*
+
+*
+An assumption of EMIM is that genotype data for parents of cases (or controls) is missing at random i.e. at any given SNP, there should be no systematic differences between the genotype frequencies in cases who have both parents genotyped, the frequencies in cases who have one parent genotyped and the frequencies in cases who have no parents genotyped (assuming you have  enough cases within these different categories to make a comparison). Similarly for controls. By taking a careful look at the cell counts in the input data files (such as  *i* caseparenttrios.dat */i*, *i* casemotherduos.dat */i* *i* casefatherduos.dat*/i* , *i* cases.dat */i* etc.) you may be able to uncover problems of this sort, which could indicate genotyping discrepencies possibly combined with ascertainment effects (e.g. if your data derives from two different studies, one of which included cases with parents, and one of which included cases without parents, and the genotypes in these two studies are not really consistent/comparable).  
+*
+
+*/subsection*
+
+*/section* 
+
+

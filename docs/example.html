@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="emimstyles.css" />
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+<!-- Begin Header -->
+<div id="header">
+<table><tr>
+<td>
+<img width="200" src="emim5.png" alt="EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling"/>
+</td>
+<td>
+<p style="margin-left: 1em;">EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</p>
+</td></tr>
+</table>
+</div>
+<!-- End Header -->
+<!-- Begin Menu Navigation -->
+<ul id="menunav">
+<li><a href="index.html">Home</a></li>
+<li><a href="downloads.html">Download</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+<!-- End Menu Navigation -->
+
+</td></tr>
+<tr><td>
+<table border="0" cellpadding="0" cellspacing="0"><tr>
+<td valign="top">
+<!-- Begin Left Column -->
+<div id="leftcolumn">
+<!-- Begin Contents Navigation -->
+<div id="navcontainer">
+<ul>
+<li><a href="introduction.html">1 Introduction</a>
+<ul>
+<li><a href="introduction.html#information">1.1 Program information and citation</a></li>
+</ul>
+</li>
+<li><a href="quick-start.html">2 Quick Start</a>
+</li>
+<li><a href="comp.html">3 Slow Start</a>
+<ul>
+<li><a href="comp.html#comp-premim">3.1 Compilation of PREMIM source code</a></li>
+<li><a href="comp.html#comp-emim">3.2 Compilation of EMIM source code</a></li>
+</ul>
+</li>
+<li><a href="premim.html">4 PREMIM: Pedigree file conversion</a>
+<ul>
+<li><a href="premim.html#premim-usage">4.1 Usage</a></li>
+<li><a href="premim.html#premim-input">4.2 Input files</a></li>
+<li><a href="premim.html#premim-output">4.3 Output files</a></li>
+<li><a href="premim.html#premim-processing">4.4 Data processing</a></li>
+<li><a href="premim.html#premim-parallel">4.5 Parallel processing</a></li>
+<li><a href="premim.html#risk-allele">4.6 Changing the risk allele</a></li>
+</ul>
+</li>
+<li><a href="emim.html">5 EMIM: Input files</a>
+<ul>
+<li><a href="emim.html#emimmarkers">5.1 emimmarkers.dat</a></li>
+<li><a href="emim.html#emimparams">5.2 emimparams.dat</a></li>
+<li><a href="emim.html#caseparenttrios">5.3 caseparenttrios.dat</a></li>
+<li><a href="emim.html#caseparents">5.4 caseparents.dat</a></li>
+<li><a href="emim.html#casemotherduos">5.5 casemotherduos.dat</a></li>
+<li><a href="emim.html#casefatherduos">5.6 casefatherduos.dat</a></li>
+<li><a href="emim.html#casemothers">5.7 casemothers.dat</a></li>
+<li><a href="emim.html#casefathers">5.8 casefathers.dat</a></li>
+<li><a href="emim.html#cases">5.9 cases.dat</a></li>
+<li><a href="emim.html#conparents">5.10 conparents.dat</a></li>
+<li><a href="emim.html#conmotherduos">5.11 conmotherduos.dat</a></li>
+<li><a href="emim.html#confatherduos">5.12 confatherduos.dat</a></li>
+<li><a href="emim.html#cons">5.13 cons.dat</a></li>
+</ul>
+</li>
+<li><a href="output.html">6 EMIM: Usage and output files</a>
+<ul>
+<li><a href="output.html#alt-paras">6.1 Alternative parameterisations</a></li>
+</ul>
+</li>
+<li><a href="example.html">7 Example using PREMIM and EMIM</a>
+<ul>
+<li><a href="example.html#eg-run-premim">7.1 Running PREMIM</a></li>
+<li><a href="example.html#eg-run-emim">7.2 Running EMIM</a></li>
+</ul>
+</li>
+<li><a href="parallel.html">8 Parallel processing</a>
+</li>
+<li><a href="poo.html">9 Parent-of-origin effects with SHAPEIT2</a>
+<ul>
+<li><a href="poo.html#options">9.1 Options</a></li>
+<li><a href="poo.html#files">9.2 Data files</a></li>
+<li><a href="poo.html#poo-example">9.3 Example Analysis</a></li>
+</ul>
+</li>
+<li><a href="trouble.html">10 Troubleshooting and results interpretation</a>
+<ul>
+<li><a href="trouble.html#GWAS">10.1 GWAS data</a></li>
+<li><a href="trouble.html#Imputed">10.2 Imputed data</a></li>
+<li><a href="trouble.html#Merged">10.3 Merged data</a></li>
+</ul>
+</li>
+<li><a href="references.html">References</a></li>
+</ul>
+</div>
+<!-- End Contents Navigation -->
+</div>
+<!-- End Left Column -->
+</td>
+<td valign="top">
+<!-- Begin Right Column -->
+<div id="rightcolumn">
+<h1>7 Example using PREMIM and EMIM</h1>
+<p>
+This section contains a worked example of how EMIM and PREMIM can be used to analyse pedigree data given in a standard pedigree PLINK file. The data for this example, <a href="exampleEMIM.zip">exampleEMIM.zip</a>,uses simulated data. The commands below refer to the LINUX/UNIX installation and will need to changed accordingly for other systems. </p>
+<p>
+In this example we perform several different analysis: child genetic effects, maternal genetic effects, maternal genetic effects allowing for child genetic effects and finally child genetic effects allowing for maternal genetic effects. </p>
+<h2><a name="eg-run-premim">7.1 Running PREMIM</a></h2>
+<p>
+To use EMIM with the pedigree data it is necessary to produce the input files needed by EMIM, see section <a href="emim.html">section 5</a>. We do this by running PREMIM on the pedigree data. We use a binary input pedigree file (<i>exampleEMIM.bed</i>) as it is quicker to execute and saves file space. A copy of the screen output from PREMIM will be saved in the file <i>premim.log</i>. </p>
+<pre>
+./premim -cg -a -rout snplist.txt exampleEMIM.bed
+</pre>
+<p>
+The program PREMIM will produce all the files needed for analysis with EMIM: a markers file: <i>emimmarkers.dat</i>; a parameter file: <i>emimparams.dat</i>; a case parent trios file: <i>caseparenttrios.dat</i>; a case mother duos file: <i>casemotherduos.dat</i>; a control mother duos file: <i>conmotherduos.dat</i> and a controls file: <i>cons.dat</i>. (In this example, there are no other types of pedigree unit available, and so although additional input files are created e.g. <i>caseparents.dat, casefatherduos.dat, casemothers.dat, casefathers.dat, cases.dat, conparents.dat, confatherduos.dat</i>, these files have all counts=0 and so will not be used by EMIM according to the specification in the parameter file <i>emimparams.dat</i>. These files may be used, however, if you have different input data, consisting of other types of pedigree unit). </p>
+<p>
+The <tt>-cg</tt> option is used to set options in the created EMIM parameter file to test for child genetic effects. The <tt>-a</tt> option is used to produce the file <i>emimmarkers.dat</i> containing estimates of the allele frequencies based on the given data. The <tt>-rout snplist.txt</tt> option is used to output a listing of the risk alleles to the file <i>snplist.txt</i>. This will be useful for matching up the SNP ID used by EMIM with the original SNP names as specified in the PLINK map file <i>exampleEMIM.bim</i> </p>
+<p>
+It is also possible to set other options, see <a href="premim.html#premim-usage">section 4.1</a>, and more advanced options must be set by manually editing the parameter file. </p>
+<p>
+The output from PREMIM will be written to the screen and saved to a file <i>premim.log</i>. It should look something like the following: </p>
+<pre>
+PREMIM: Pedigree file processing program for EMIM, v2.05
+--------------------------------------------------------
+Child genotype analysis set for parameter file (emimparams.dat).
+Estimating allele frequencies and writing to file (emimmarkers.dat).
+
+Number of subjects: 2400
+          Males: 1800 (75%)
+          Females: 600 (25%)
+          Unknown sex: 0 (0%)
+          Affected: 400 (16.6667%)
+          Unaffected: 2000 (83.3333%)
+Number of SNPs: 8000
+
+Number of pedigrees: 1600
+Mean pedigree size: 1.5
+Standard deviation of pedigree size: 0.500313
+
+File name: emimmarkers.dat
+Number of allele SNP frequencies estimated: 8000
+
+File name: caseparenttrios
+Number of counted case parent trios (all SNPs): 1600000
+Average number of counted case parent trios (per SNP): 200
+Number of uncounted (Mendelian error) case parent trios: 0
+
+File name: casemotherduos
+Number of counted case mother duos (all SNPs): 1600000
+Average number of counted case mother duos (per SNP): 200
+Number of uncounted (Mendelian error) case mother duos: 0
+
+File name: casefatherduos
+Number of counted case father duos (all SNPs): 0
+Average number of counted case father duos (per SNP): 0
+Number of uncounted (Mendelian error) case father duos: 0
+
+File name: cases
+Number of counted cases (all SNPs): 0
+Average number of counted cases (per SNP): 0
+
+File name: caseparents
+Number of counted case parents (all SNPs): 0
+Average number of counted case parents (per SNP): 0
+Number of uncounted (Mendelian error) case parents: 0
+
+File name: casemothers
+Number of counted case mothers (all SNPs): 0
+Average number of counted case mothers (per SNP): 0
+
+File name: casefathers
+Number of counted case fathers (all SNPs): 0
+Average number of counted case fathers (per SNP): 0
+
+File name: conparents
+Number of counted control parents (all SNPs): 0
+Average number of counted control parents (per SNP): 0
+Number of uncounted (Mendelian error) control parents: 0
+
+File name: conmotherduos
+Number of counted control mother duos (all SNPs): 1600000
+Average number of counted control mother duos (per SNP): 200
+Number of uncounted (Mendelian error) control mother duos: 0
+
+File name: confatherduos
+Number of counted control father duos (all SNPs): 0
+Average number of counted control father duos (per SNP): 0
+Number of uncounted (Mendelian error) control father duos: 0
+
+File name: cons
+Number of counted controls (all SNPs): 8000000
+Average number of counted controls (per SNP): 1000
+
+Number of uncounted groups: 0
+</pre>
+<p>
+The parameter file, <i>emimparams.dat</i>, created by PREMIM looks as follows. </p>
+<pre>
+-----------INPUT DATAFILES----------------------------------------------------
+1	&lt;&lt; caseparenttrios.dat file (0=no, 1=yes)
+0	&lt;&lt; caseparents.dat file (0=no, 1=yes)
+1	&lt;&lt; casemotherduos.dat file (0=no, 1=yes)
+0	&lt;&lt; casefatherduos.dat file (0=no, 1=yes)
+0	&lt;&lt; casemothers.dat file (0=no, 1=yes)
+0	&lt;&lt; casefathers.dat file (0=no, 1=yes)
+0	&lt;&lt; cases.dat file (0=no, 1=yes)
+0	&lt;&lt; conparents.dat file (0=no, 1=yes)
+1	&lt;&lt; conmotherduos.dat file (0=no, 1=yes)
+0	&lt;&lt; confatherduos.dat file (0=no, 1=yes)
+1	&lt;&lt; cons.dat file (0=no, 1=yes)
+8000	&lt;&lt; no of SNPs in each file
+------------------PARAMETER RESTRICTIONS--------------------------------------
+0	&lt;&lt; fix allele freq A (0=no, 1=yes)
+1	&lt;&lt; assume HWE and random mating (0=no=estimate 6 mu parameters, 1=yes)
+0	&lt;&lt; assume parental allelic exchangeability (0=no, 1=yes)
+0	&lt;&lt; use CPG likelihood (estimate 9 mu parameters)
+1	&lt;&lt; estimate R1 (0=no, 1=yes)
+1	&lt;&lt; estimate R2 (0=no, 1=yes)
+0	&lt;&lt; R2=R1 (0=no, 1=yes)
+0	&lt;&lt; R2=R1squared	(0=no, 1=yes)
+0	&lt;&lt; estimate S1 (0=no, 1=yes)
+0	&lt;&lt; estimate S2 (0=no, 1=yes)
+0	&lt;&lt; S2=S1 (0=no, 1=yes)
+0	&lt;&lt; S2=S1squared	(0=no, 1=yes)
+0	&lt;&lt; estimate Im (0=no, 1=yes)
+0	&lt;&lt; estimate Ip (0=no, 1=yes)
+0	&lt;&lt; estimate gamma11 (0=no, 1=yes)
+0	&lt;&lt; estimate gamma12 (0=no, 1=yes)
+0	&lt;&lt; estimate gamma21 (0=no, 1=yes)
+0	&lt;&lt; estimate gamma22 (0=no, 1=yes)
+0	&lt;&lt; gamma22=gamma12= gamma21=gamma11 (0=no, 1=yes)
+------------------OTHER PARAMETERIZATIONS-------------------------------------
+0	&lt;&lt; estimate Weinberg (1999b) Im (0=no, 1=yes)
+0	&lt;&lt; estimate Weinberg (1999b) Ip (=Li 2009 Jm) (0=no, 1=yes)
+0	&lt;&lt; estimate Sinsheimer (2003) gamma01 (0=no, 1=yes)
+0	&lt;&lt; estimate Sinsheimer (2003) gamma21 (0=no, 1=yes)
+0	&lt;&lt; estimate Palmer (2006) match parameter (0=no, 1=yes)
+0	&lt;&lt; estimate Li (2009) conflict parameter Jc (0=no, 1=yes)
+</pre>
+<p>
+We do not want to rerun PREMIM every time we want to use EMIM so it is a good idea to save the parameter file for future use. </p>
+<pre>
+cp emimparams.dat emimparamsCG.dat
+</pre>
+<h2><a name="eg-run-emim">7.2 Running EMIM</a></h2>
+<p>
+Now that all the necessary files have been created for EMIM (as described in <a href="example.html#eg-run-premim">section 7.1</a>) the next step is to run EMIM. </p>
+<pre>
+./emim
+</pre>
+<p>
+The results are output to files <i>emimresults.out</i> and <i>emimsummary.out</i>. We will save these files for future use. </p>
+<pre>
+cp emimsummary.out emimsummaryCG.out
+cp emimresults.out emimresultsCG.out
+</pre>
+<p>
+Although the file <i>emimresultsCG.out</i> is too big to look at in detail, we recommend you take a look at the top of it (i.e. examine the results for the first two or three SNPs) to get a feel for how the EMIM analysis has proceeded: </p>
+<pre>
+more emimresultsCG.out
+</pre>
+<p>
+For large numbers of SNPs, a more useful summary is provided in the file <i>emimsummaryCG.out</i>. We can view the results of the analysis and calculate p-values for the resulting chi-squared tests by using the program R. Start up R and then (within R) use the following commands: </p>
+<pre>
+# Read in the child analysis results:
+resultsCG&lt;-read.table("emimsummaryCG.out", header=T)
+
+# Get the log likelihood ratio tests for each SNP
+logLikeRatioCG&lt;-resultsCG$twicediff
+
+# Calculate the p-values for each SNP (2 degrees of freedom)
+pvaluesCG&lt;-1-pchisq(logLikeRatioCG, 2)
+
+# Plot the -log10 p-values for each SNP
+plot(resultsCG$snp, -log10(pvaluesCG), xlab="SNP number",
+ ylab="-Log10 p-value",
+ main="EMIM Analysis for Child Genetic Effects", ylim=c(0, 10) )
+</pre>
+<p>
+Similar calculations and plots could be generated using alternative software packages such as Excel. However, we find R more convenient when there are large numbers of SNPs (e.g. many thousands of rows in the file <i>emimsummary.out</i>). </p>
+<p>
+The results of this analysis can be seen in figure 1. The plot appears to shows a child genetic effect early in the SNP sequence. </p>
+<div id="fig"><a href="plotChildEffects.png"><img src="plotChildEffects.png" border="0" class="figimg" width="200"></a><br />
+<br />
+Figure 1. Plot of the -log10 p-values for each SNP given by EMIM to detect child genetic effects.
+</div>
+<p>
+If you wish to merge in the original SNP names as specified in the PLINK map file <i>exampleEMIM.bim</i>, and output a new summary file that includes a column with this information, as well as the p-values, you could do this in R using the following commands: </p>
+<pre>
+snplist&lt;-read.table("snplist.txt", header=F)
+names(snplist)&lt;-c("snpno","snpname","riskallele")
+newsummary&lt;-data.frame(snplist, pvaluesCG, resultsCG)
+write.table(newsummary, file="emimnewsummaryCG.out", row.names=F, quote=F)
+</pre>
+<p>
+Because of the way that PREMIM uses the SNP number as the SNP ID to be supplied to EMIM, you should find that the columns headed "snpno", "snp", "snpID" all correspond to the SNP number (order) in the original PLINK file <i>exampleEMIM.bim</i>, while the column headed "snpname" corresponds to its original name (e.g. an rsID) in the file <i>exampleEMIM.bim</i>. </p>
+<p>
+<br/><br/><h3><a name="eg-maternal">Maternal Genetic Effects</a></h3>
+<p>
+Of course, we wish to use EMIM to test for effects other than child genetic effects. Now that PREMIM has already created the files that we need, to perform another analysis we can take the following steps to test for maternal genetic effects. </p>
+<ol>
+<li>
+<b>Edit the EMIM parameter file.</b> To perform a maternal genetic effect analysis we firstly need to edit the <i>emimparams.dat</i> file, changing the following lines. <pre>
+...
+0       &lt;&lt; estimate R1 (0=no, 1=yes)
+0       &lt;&lt; estimate R2 (0=no, 1=yes)
+...
+1       &lt;&lt; estimate S1 (0=no, 1=yes)
+1       &lt;&lt; estimate S2 (0=no, 1=yes)
+...
+</pre>
+Again, it may be useful to save a copy of the parameter file for future use. <pre>
+cp emimparams.dat emimparamsMG.dat
+</pre>
+</li><li>
+<b>Run EMIM.</b> Now that all the files are ready to perform a maternal genetic effects analysis we can run EMIM. <pre>
+./emim
+</pre>
+</li><li>
+<b>Analysis results.</b> As before, the results are output to files <i>emimresults.out</i> and <i>emimsummary.out</i>. We save these files for future use. <pre>
+cp emimsummary.out emimsummaryMG.out
+cp emimresults.out emimresultsMG.out
+</pre>
+We can view the results of the analysis in R using the following commands. <pre>
+# Read in the maternal analysis results:
+resultsMG&lt;-read.table("emimsummaryMG.out", header=T)
+
+# Get the log likelihood ratio tests for each SNP
+logLikeRatioMG&lt;-resultsMG$twicediff
+
+# Calculate the p-values for each SNP (2 degrees of freedom)
+pvaluesMG&lt;-1-pchisq(logLikeRatioMG, 2)
+
+# Plot the -log10 p-values for each SNP
+plot(resultsMG$snp, -log10(pvaluesMG), xlab="SNP number",
+ ylab="-Log10 p-value",
+ main="EMIM Analysis for Maternal Genetic Effects", ylim=c(0, 10) )
+</pre>
+The results of this analysis can be seen in figure 2. The plot appears to shows a maternal genetic effect later in the SNP sequence.</li>
+</ol>
+<div id="fig"><a href="plotMaternalEffects.png"><img src="plotMaternalEffects.png" border="0" class="figimg" width="200"></a><br />
+<br />
+Figure 2. Plot of the -log10 p-values for each SNP given by EMIM to detect maternal genetic effects.
+</div>
+<h3><a name="eg-maternal-wo-child">Maternal Genetic Effects Allowing for Child Genetic Effects</a></h3>
+<p>
+We may wish to confirm that a maternal genetic effect is a genuine maternal genetic effect and not the result of an underlying child genetic effect. To test this we can take our null hypothesis to be the child genetic effect analysis and the alternative hypothesis to be the joint child and maternal genetic effect analysis. Firstly, we need to perform another EMIM analysis testing for both child and maternal genetic effects. </p>
+<ol>
+<li>
+<b>Edit the EMIM parameter file.</b> To test for child and maternal genetic effects we firstly need to edit the <i>emimparams.dat</i> file, changing the following lines. <pre>
+...
+1       &lt;&lt; estimate R1 (0=no, 1=yes)
+1       &lt;&lt; estimate R2 (0=no, 1=yes)
+...
+1       &lt;&lt; estimate S1 (0=no, 1=yes)
+1       &lt;&lt; estimate S2 (0=no, 1=yes)
+...
+</pre>
+Again, it may be useful to save a copy of the parameter file for future use. <pre>
+cp emimparams.dat emimparamsCGMG.dat
+</pre>
+</li><li>
+<b>Run EMIM.</b> Now that all the files are ready to perform a child and maternal genetic effects analysis we can run EMIM. <pre>
+./emim
+</pre>
+</li><li>
+<b>Analysis results.</b> Again, the results are output to files <i>emimresults.out</i> and <i>emimsummary.out</i>. We save these files for future use. <pre>
+cp emimsummary.out emimsummaryCGMG.out
+cp emimresults.out emimresultsCGMG.out
+</pre>
+We can view the results of the analysis for maternal effects whilst allowing for child effects by comparing the two EMIM analyses by using the following R commands: <pre>
+# Read in the results:
+resultsCG&lt;-read.table("emimsummaryCG.out", header=T)
+resultsCGMG&lt;-read.table("emimsummaryCGMG.out", header=T)
+
+# Calculate the log likelihood ratio tests for each SNP
+logLikeRatioCGMGvsCG&lt;-2*(resultsCGMG$lnlikfull-resultsCG$lnlikfull)
+
+# Calculate the p-values for each SNP (2 degrees of freedom)
+pvaluesCGMGvsCG&lt;-1-pchisq(logLikeRatioCGMGvsCG, 2)
+
+# Plot the -log10 p-values for each SNP
+plot(resultsCG$snp, -log10(pvaluesCGMGvsCG), xlab="SNP number",
+ ylab="-Log10 p-value",
+ main="EMIM Analysis for Maternal Genetic Effects allowing for Child Genetic Effects",
+ ylim=c(0, 10) )
+</pre>
+The results of this analysis can be seen in figure 3. The plot appears to shows a maternal genetic effect later in the SNP sequence, further supporting the result shown in figure 2 that this effect is a genuine maternal genetic effect and not a child genetic effect.</li>
+</ol>
+<div id="fig"><a href="plotMaternalwoChildEffects.png"><img src="plotMaternalwoChildEffects.png" border="0" class="figimg" width="200"></a><br />
+<br />
+Figure 3. Plot of the -log10 p-values for each SNP given by EMIM to detect maternal genetic effects whilst allowing for child effects.
+</div>
+<h3><a name="eg-child-wo-maternal">Child Genetic Effects Allowing for Maternal Genetic Effects</a></h3>
+<p>
+Similarly, we can test for child genetic effects whilst allowing for maternal genetic effects. We already have the results that we need from EMIM for this analysis, one for maternal genetic effects, which in this case we take as our null hypothesis, and another for child and maternal effects together, which is our alternative hypothesis. To view the results of this analysis we can use the following R commands. </p>
+<pre>
+# Read in the results:
+resultsMG&lt;-read.table("emimsummaryMG.out", header=T)
+resultsCGMG&lt;-read.table("emimsummaryCGMG.out", header=T)
+
+# Calculate the log likelihood ratio tests for each SNP
+logLikeRatioCGMGvsMG&lt;-2*(resultsCGMG$lnlikfull-resultsMG$lnlikfull)
+
+# Calculate the P-values for each SNP (2 degrees of freedom)
+pvaluesCGMGvsMG&lt;-1-pchisq(logLikeRatioCGMGvsMG, 2)
+
+# Plot the -log10 p-values for each SNP
+plot(resultsMG$snp, -log10(pvaluesCGMGvsMG), xlab="SNP number",
+ ylab="-Log10 p-value",
+ main="EMIM Analysis for Child Genetic Effects allowing for Maternal Genetic Effects",
+ ylim=c(0, 10) )
+</pre>
+<p>
+The results of this analysis can be seen in figure 4. The plot appears to shows a child genetic effect early in the SNP sequence, this time supporting the result in figure 1 that this effect is a genuine child genetic effect and not a maternal genetic effect. </p>
+<div id="fig"><a href="plotChildwoMaternalEffects.png"><img src="plotChildwoMaternalEffects.png" border="0" class="figimg" width="200"></a><br />
+<br />
+Figure 4. Plot of the -log10 p-values for each SNP given by EMIM to detect child genetic effects whilst allowing for maternal effects.
+</div>
+<p>
+In fact, these data were simulated to have a child genotype effect at SNP number 76 with <img src="http://latex.codecogs.com/png.latex?\inline R_1 = 1.5 \small " alt="R_1 = 1.5"/> and <img src="http://latex.codecogs.com/png.latex?\inline R_2 = 2.25 \small " alt="R_2 = 2.25"/> and a maternal genotype effect at SNP number 6004 with <img src="http://latex.codecogs.com/png.latex?\inline S_1 = 2 \small " alt="S_1 = 2"/> and <img src="http://latex.codecogs.com/png.latex?\inline S_2 = 3 \small " alt="S_2 = 3"/>. </p>
+<br />
+<div class="prevnext"><span class="left"><a href="output.html">&lt;-prev</a>
+</span><span class="right"><a href="parallel.html">next-&gt;</a>
+</span></div><!-- End Right Column -->
+</div>
+</td>
+</tr></table>
+<!-- End Wrapper -->
+</td></tr></table>
+</div>
+ <!-- Start of StatCounter Code --> <script type="text/javascript"> var sc_project=6887608; var sc_invisible=1; var sc_security="98b151c3"; </script> <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><div class="statcounter"><a title="weebly reliable statistics" href="http://statcounter.com/weebly/" target="_blank"><img class="statcounter" src="http://c.statcounter.com/6887608/0/98b151c3/1/" alt="weebly reliable statistics" ></a></div></noscript> <!-- End of StatCounter Code --></body>
+</html>

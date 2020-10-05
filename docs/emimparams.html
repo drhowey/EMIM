@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="emimstyles.css" />
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+<!-- Begin Header -->
+<div id="header">
+<table><tr>
+<td>
+<img width="200" src="emim5.png" alt="EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling"/>
+</td>
+<td>
+<p style="margin-left: 1em;">EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</p>
+</td></tr>
+</table>
+</div>
+<!-- End Header -->
+<!-- Begin Menu Navigation -->
+<ul id="menunav">
+<li><a href="index.html">Home</a></li>
+<li><a href="downloads.html">Download</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+<!-- End Menu Navigation -->
+
+</td></tr>
+<tr><td>
+<table border="0" cellpadding="0" cellspacing="0"><tr>
+<td valign="top">
+<!-- Begin Left Column -->
+<div id="leftcolumn">
+<!-- Begin Contents Navigation -->
+<div id="navcontainer">
+<ul>
+<li><a href="introduction.html">1 Introduction</a>
+<ul>
+<li><a href="introduction.html#information">1.1 Program information and citation</a></li>
+</ul>
+</li>
+<li><a href="quick-start.html">2 Quick Start</a>
+</li>
+<li><a href="comp.html">3 Slow Start</a>
+<ul>
+<li><a href="comp.html#comp-premim">3.1 Compilation of PREMIM source code</a></li>
+<li><a href="comp.html#comp-emim">3.2 Compilation of EMIM source code</a></li>
+</ul>
+</li>
+<li><a href="premim.html">4 PREMIM: Pedigree file conversion</a>
+<ul>
+<li><a href="premim.html#premim-usage">4.1 Usage</a></li>
+<li><a href="premim.html#premim-input">4.2 Input files</a></li>
+<li><a href="premim.html#premim-output">4.3 Output files</a></li>
+<li><a href="premim.html#premim-processing">4.4 Data processing</a></li>
+<li><a href="premim.html#premim-parallel">4.5 Parallel processing</a></li>
+<li><a href="premim.html#risk-allele">4.6 Changing the risk allele</a></li>
+</ul>
+</li>
+<li><a href="emim.html">5 EMIM</a>
+<ul>
+<li><a href="emimmarkers.html">5.1 emimmarkers.dat</a></li>
+<li><a href="emimparams.html">5.2 emimparams.dat</a></li>
+<li><a href="caseparenttrios.html">5.3 caseparenttrios.dat</a></li>
+<li><a href="caseparents.html">5.4 caseparents.dat</a></li>
+<li><a href="casemotherduos.html">5.5 casemotherduos.dat</a></li>
+<li><a href="casefatherduos.html">5.6 casefatherduos.dat</a></li>
+<li><a href="casemothers.html">5.7 casemothers.dat</a></li>
+<li><a href="casefathers.html">5.8 casefathers.dat</a></li>
+<li><a href="cases.html">5.9 cases.dat</a></li>
+<li><a href="conparents.html">5.10 conparents.dat</a></li>
+<li><a href="conmotherduos.html">5.11 conmotherduos.dat</a></li>
+<li><a href="confatherduos.html">5.12 confatherduos.dat</a></li>
+<li><a href="cons.html">5.13 cons.dat</a></li>
+</ul>
+</li>
+<li><a href="output.html">6 EMIM Output files</a>
+</li>
+<li><a href="example.html">7 Example using PREMIM and EMIM</a>
+<ul>
+<li><a href="example.html#eg-run-premim">7.1 Running PREMIM</a></li>
+<li><a href="example.html#eg-run-emim">7.2 Running EMIM</a></li>
+</ul>
+</li>
+<li><a href="parallel.html">8 Parallel processing</a>
+</li>
+<li><a href="references.html">References</a></li>
+</ul>
+</div>
+<!-- End Contents Navigation -->
+</div>
+<!-- End Left Column -->
+</td>
+<td valign="top">
+<!-- Begin Right Column -->
+<div id="rightcolumn">
+<h2><a name="emimparams">5.2 emimparams.dat</a></h2>
+<p>
+<b>emimparams.dat</b>: This is a file that tells EMIM what input files to read in and sets up the various parameter restrictions for the analyses to be performed. An example of this file is shown on the following page. Here we describe the lines of this file in detail: </p>
+<p>
+Lines 1, 14 and 34 are not read by the program but are simply separators to make the 3 sections of this file easier to read. The text after <img src="http://latex.codecogs.com/png.latex?\inline &lt;&lt; \small " alt="&lt;&lt;"/> on each other line of the file is not read by the program, but is designed to describe what the number (1 or 0) at the beginning of the line means. You are strongly recommended to keep these text comments in order to avoid mistakes. The order of the lines must be EXACTLY as shown in this example. </p>
+<p>
+Lines 2-12 tell EMIM what input files to expect (note that the names given to these input files are not optional). A &ldquo;1&rdquo; indicates that this input file exists and is to be read in, while a &ldquo;0&rdquo; indicates that this input file is not to be read in. At least one of the files <i>caseparenttrios.dat</i>, <i>casemotherduos.dat</i>, <i>casefatherduos.dat</i> (lines 2, 4 and 5) must be read in; in the example above all three of these files are read in, as well as a <i>conmotherduos.dat</i> file. </p>
+<p>
+Line 13 tells EMIM how many SNPs to be analysed: this number must either match or be less than the number of SNPs in the file <i>emimmarkers.dat</i>. (If this number n is less than the number of SNPs in the file <i>emimmarkers.dat</i>, then only the first n SNPs in the file <i>emimmarkers.dat</i> will be analysed). </p>
+<p>
+The second and third sections of the file have a number of lines telling what parameters to estimate and what parameter restrictions to use. A &ldquo;1&rdquo; indicates that this parameter is to be estimated or this restriction is to be used. A &ldquo;0&rdquo; indicates that this parameter is not to be estimated or this restriction is not to be used. </p>
+<pre>
+-----------INPUT DATAFILES--------------------------------------
+1   &lt;&lt; caseparenttrios.dat file (0=no, 1=yes)
+1   &lt;&lt; caseparents.dat file (0=no, 1=yes)
+1   &lt;&lt; casemotherduos.dat file (0=no, 1=yes)
+0   &lt;&lt; casefatherduos.dat file (0=no, 1=yes)
+1   &lt;&lt; casemothers.dat file (0=no, 1=yes)
+0   &lt;&lt; casefathers.dat file (0=no, 1=yes)
+1   &lt;&lt; cases.dat file (0=no, 1=yes)
+1   &lt;&lt; conparents.dat file (0=no, 1=yes)
+0   &lt;&lt; conmotherduos.dat file (0=no, 1=yes)
+0   &lt;&lt; confatherduos.dat file (0=no, 1=yes)
+1   &lt;&lt; cons.dat file (0=no, 1=yes)
+634 &lt;&lt; no of SNPs in each file
+------------------PARAMETER RESTRICTIONS-----------------------
+0   &lt;&lt; fix allele freq A (0=no, 1=yes)
+1   &lt;&lt; assume HWE and random mating (0=no=estimate mews, 1=yes)
+0   &lt;&lt; assume parental allelic symmetry (0=no, 1=yes)
+0   &lt;&lt; use CPG likelihood (9 mews)
+1   &lt;&lt; estimate R1 (0=no, 1=yes)
+1   &lt;&lt; estimate R2 (0=no, 1=yes)
+0   &lt;&lt; R2=R1 (0=no, 1=yes)
+0   &lt;&lt; R2=R1squared (0=no, 1=yes)
+0   &lt;&lt; estimate S1 (0=no, 1=yes)    
+0   &lt;&lt; estimate S2 (0=no, 1=yes)
+0   &lt;&lt; S2=S1 (0=no, 1=yes)
+0   &lt;&lt; S2=S1squared (0=no, 1=yes)
+1   &lt;&lt; estimate Im (0=no, 1=yes)
+0   &lt;&lt; estimate Ip (0=no, 1=yes)
+0   &lt;&lt; estimate gamma11 (0=no, 1=yes)
+0   &lt;&lt; estimate gamma12 (0=no, 1=yes)
+0   &lt;&lt; estimate gamma21 (0=no, 1=yes)
+0   &lt;&lt; estimate gamma22 (0=no, 1=yes)
+0   &lt;&lt; gamma22=gamma12= gamma21=gamma11 (0=no, 1=yes)
+---------------OTHER PARAMETERIZATIONS-------------------------
+0   &lt;&lt; estimate Weinberg (1999b) Im (0=no, 1=yes)
+0   &lt;&lt; estimate Weinberg (1999b) Ip (=Li 2009 Jm) (0=no, 1=yes)
+0   &lt;&lt; estimate Sinsheimer (2003) gamma01 (0=no, 1=yes)
+0   &lt;&lt; estimate Sinsheimer (2003) gamma21 (0=no, 1=yes)
+0   &lt;&lt; estimate Palmer (2006) match parameter (0=no, 1=yes)
+0   &lt;&lt; estimate Li (2009) conflict parameter Jc (0=no, 1=yes)
+</pre>
+<p>
+Line 15 <tt>&lt;&lt; fix allele freq A (0=no, 1=yes)</tt> indicates that the allele frequencies are to be fixed at their given starting values (NOT RECOMMENDED). A &ldquo;1&rdquo; in this line will supercede any instructions given in the next two lines (lines 16 and 17). </p>
+<p>
+Line 16 <tt>&lt;&lt; assume HWE and random mating (0=no=estimate mews, 1=yes)</tt> indicates that the analysis should be performed assuming Hardy Weinberg Equilibrium (HWE) and random mating. In that case, one allele frequency parameter <img src="http://latex.codecogs.com/png.latex?\inline A_2 \small " alt="A_2"/> (the frequency of the 2 allele) will be estimated (or fixed) as opposed to estimating six mating-type stratification parameters <img src="http://latex.codecogs.com/png.latex?\inline \mu_1 - \mu_6 \small " alt="\mu_1 - \mu_6"/>. A &ldquo;1&rdquo; in this line will supercede any instructions given in the next line (line 17). </p>
+<p>
+Line 17 <tt>&lt;&lt; assume parental allelic symmetry (0=no, 1=yes)</tt> indicates that parental allelic symmetry should be assumed (i.e. <img src="http://latex.codecogs.com/png.latex?\inline \mu_4 = \mu_3 \small " alt="\mu_4 = \mu_3"/>) when estimating <img src="http://latex.codecogs.com/png.latex?\inline \mu_1 - \mu_6 \small " alt="\mu_1 - \mu_6"/>. </p>
+<p>
+Line 18 <tt>&lt;&lt; use CPG likelihood (9 mews)</tt> indicates that the Conditional on Parental Genotypes (CPG) rather than the Conditional on Exchangeable Parental Genotypes (CEPG) [<a href="references.html#cordell:04">Cordell (2004)</a>, <a href="references.html#weinberg:shi:09">Weinberg and Shi (2009)</a>] likelihood should be used. This provides a more robust analysis that does not assume exchangeability of parental mating types, at the expense of estimating a larger number (nine) of mating-type stratification parameters. This analysis is recommended if your derives from pedigrees that contain (or were ascertained on the basis of the presence of) multiple affected individuals [<a href="references.html#cordell:04">Cordell (2004)</a>]. </p>
+<p>
+Line 19 <tt>&lt;&lt; estimate R1 (0=no, 1=yes)</tt> indicates that the child genotype effect <img src="http://latex.codecogs.com/png.latex?\inline R_1 \small " alt="R_1"/> (the factor by which the disease risk is multiplied if the child has a single copy of allele 2) should be estimated. </p>
+<p>
+Line 20 <tt>&lt;&lt; estimate R2 (0=no, 1=yes)</tt> indicates that the child genotype effect <img src="http://latex.codecogs.com/png.latex?\inline R_2 \small " alt="R_2"/> (the factor by which the disease risk is multiplied if the child has two copies of allele 2) should be estimated. </p>
+<p>
+Line 21 <tt>&lt;&lt; R2=R1 (0=no, 1=yes)</tt> indicates that a single child genotype effect <img src="http://latex.codecogs.com/png.latex?\inline R_2=R_1 \small " alt="R_2=R_1"/> should be estimated. A &ldquo;1&rdquo; in this line will supercede any instructions given in the two previous lines. However, if line 21 is set equal to &ldquo;1&rdquo;, we recommend you set lines 19 and 20 to &ldquo;0&rdquo; in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. </p>
+<p>
+Line 22 <tt>&lt;&lt; R2=R1squared (0=no, 1=yes)</tt> indicates that a single child genotype effect <img src="http://latex.codecogs.com/png.latex?\inline R_2={R_1}^2 \small " alt="R_2={R_1}^2"/> should be estimated. This is a multiplicative allelic model for the child genotype effects. A &ldquo;1&rdquo; in this line will supercede any instructions given in the three previous lines. However, if line 22 is set equal to &ldquo;1&rdquo;, we recommend you set lines 19, 20 and 21 to &ldquo;0&rdquo; in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. </p>
+<p>
+Line 23 <tt>&lt;&lt; estimate S1 (0=no, 1=yes)</tt> indicates that the maternal genotype effect <img src="http://latex.codecogs.com/png.latex?\inline S_1 \small " alt="S_1"/> (the factor by which the disease risk is multiplied if the mother has a single copy of allele 2) should be estimated. </p>
+<p>
+Line 24 <tt>&lt;&lt; estimate S2 (0=no, 1=yes)</tt> indicates that the maternal genotype effect <img src="http://latex.codecogs.com/png.latex?\inline S_2 \small " alt="S_2"/> (the factor by which the disease risk is multiplied if the mother has two copies of allele 2) should be estimated. </p>
+<p>
+Line 25 <tt>&lt;&lt; S2=S1 (0=no, 1=yes)</tt> indicates that a single maternal genotype effect <img src="http://latex.codecogs.com/png.latex?\inline S_2=S_1 \small " alt="S_2=S_1"/> should be estimated. A &ldquo;1&rdquo; in this line will supercede any instructions given in the two previous lines. However, if line 25 is set equal to &ldquo;1&rdquo;, we recommend you set lines 23 and 24 to &ldquo;0&rdquo; in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. </p>
+<p>
+Line 26 <tt>&lt;&lt; S2=S1squared (0=no, 1=yes)</tt> indicates that a single maternal genotype effect <img src="http://latex.codecogs.com/png.latex?\inline S_2={S_1}^2 \small " alt="S_2={S_1}^2"/> should be estimated. This is a multiplicative allelic model for the maternal genotype effects. A &ldquo;1&rdquo; in this line will supercede any instructions given in the three previous lines. However, if line 26 is set equal to &ldquo;1&rdquo;, we recommend you set lines 23, 24 and 25 to &ldquo;0&rdquo; in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. </p>
+<p>
+Line 27 <tt>&lt;&lt; estimate Im (0=no, 1=yes)</tt> indicates that a maternal imprinting effect <img src="http://latex.codecogs.com/png.latex?\inline I_m \small " alt="I_m"/> (a multiplicative factor by which the probability of disease is multiplied if the child receives a (maternal) copy of the 2 allele from their mother) should be estimated. A &ldquo;1&rdquo; in this line will supercede any instructions given in the next line (line 28) i.e. only one of <img src="http://latex.codecogs.com/png.latex?\inline I_m \small " alt="I_m"/> and <img src="http://latex.codecogs.com/png.latex?\inline I_p \small " alt="I_p"/> can be estimated. The exception to this is if no child genotype (R) or interaction (gamma) parameters are estimated, in which case it is possible to estimate both <img src="http://latex.codecogs.com/png.latex?\inline I_m \small " alt="I_m"/> and <img src="http://latex.codecogs.com/png.latex?\inline I_p \small " alt="I_p"/>. </p>
+<p>
+Line 28 <tt>&lt;&lt; estimate Ip (0=no, 1=yes)</tt> indicates that a paternal imprinting effect <img src="http://latex.codecogs.com/png.latex?\inline I_p \small " alt="I_p"/> (a multiplicative factor by which the probability of disease is multiplied if the child receives a (paternal) copy of the 2 allele from their father) should be estimated. </p>
+<p>
+Line 29 <tt>&lt;&lt; estimate gamma11 (0=no, 1=yes)</tt> indicates that the mother/child genotype interaction parameter <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{11} \small " alt="\gamma_{11}"/> should be estimated. </p>
+<p>
+Line 30 <tt>&lt;&lt; estimate gamma12 (0=no, 1=yes)</tt> indicates that the mother/child genotype interaction parameter <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{12} \small " alt="\gamma_{12}"/> should be estimated. </p>
+<p>
+Line 31 <tt>&lt;&lt; estimate gamma21 (0=no, 1=yes)</tt> indicates that the mother/child genotype interaction parameter <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{21} \small " alt="\gamma_{21}"/> should be estimated. </p>
+<p>
+Line 32 <tt>&lt;&lt; estimate gamma22 (0=no, 1=yes)</tt> indicates that the mother/child genotype interaction parameter <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{22} \small " alt="\gamma_{22}"/> should be estimated. </p>
+<p>
+Line 33 <tt>&lt;&lt; gamma22=gamma12=gamma21=gamma11 (0=no, 1=yes)</tt> indicates that a single mother/child genotype interaction parameter <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{22}=\gamma_{12}=\gamma_{21}=\gamma_{11} \small " alt="\gamma_{22}=\gamma_{12}=\gamma_{21}=\gamma_{11}"/> should be estimated. A &ldquo;1&rdquo; in this line will supercede any instructions given in the four previous lines. However, if line 33 is set equal to &ldquo;1&rdquo;, we recommend you set lines 29, 30, 31 and 32 to &ldquo;0&rdquo; in order to avoid problems when EMIM tries to determine whether the parameters you have selected are estimable, given the data. </p>
+<p>
+Depending on what optional input data files are available, estimation of certain parameter combinations may be limited. (This is particularly true if you only read in a single file, <i>casemotherduos.dat</i> or <i>casefatherduos.dat</i> ). EMIM will attempt to adjust the number of parameters to estimate in some &ldquo;sensible&rdquo; way if it detects you are trying to estimate too many parameters with not enough restrictions. However, it may be better to make this adjustment yourself (e.g. by making assumptions of HWE and/or estimating only a smaller number of parameters). You can generally tell if EMIM has been successful at its choice of parameters by looking at the output confidence intervals: if these do not look sensible (e.g. if the upper and lower confidence limits for a parameter are equal) then there is a good chance that the choice of parameters has not been made appropriately. </p>
+<p>
+Lines 35 and 36 <tt>&lt;&lt; estimate Weinberg (1999b) Im (0=no, 1=yes)</tt> <tt>&lt;&lt; estimate Weinberg (1999b) Ip (=Li 2009 Jm) (0=no, 1=yes)</tt> </p>
+<p>
+Parameterization of interactions and imprinting effects is quite complex (see <a href="references.html#ainsworth:etal:11">Ainsworth et al. (2011)</a>) and several different parameterizations have been proposed in the literature. Our paramaterization for the parent-of-origin effects <img src="http://latex.codecogs.com/png.latex?\inline I_m \small " alt="I_m"/> and <img src="http://latex.codecogs.com/png.latex?\inline I_p \small " alt="I_p"/> corresponds to the original parameterization used by <a href="references.html#weinberg:etal:98">Weinberg et al. (1998)</a> rather than to a later alternative parameterization used by <a href="references.html#weinberg:99b">Weinberg (1999)</a>, <a href="references.html#parimi:etal:08">Parimi et al. (2008)</a>, and <a href="references.html#li:etal:09">Li et al. (2009)</a>. If preferred, the user can choose to use the later parameterization by setting the values in lines 27 and 28 to 0 and the values in line 35 or 36 to 1. In this case, if interactions are also required, we recommend using either the <a href="references.html#sinsheimer:etal:03">Sinsheimer et al. (2003)</a> or <a href="references.html#palmer:etal:06">Palmer et al. (2006)</a> parameterization (see below), as our interaction parameterization does not allow estimation of the later <a href="references.html#weinberg:99b">Weinberg (1999)</a> imprinting parameters. </p>
+<p>
+Lines 37 and 38 <tt>&lt;&lt; estimate Sinsheimer (2003) gamma01 (0=no, 1=yes)</tt> <tt>&lt;&lt; estimate Sinsheimer (2003) gamma21 (0=no, 1=yes)</tt> <a href="references.html#sinsheimer:etal:03">Sinsheimer et al. (2003)</a> proposed an alternative parameterization for interactions in terms of maternal-fetal genotype incompatibility (MFG) parameters. <a href="references.html#sinsheimer:etal:03">Sinsheimer et al. (2003)</a> denoted these parameters as <img src="http://latex.codecogs.com/png.latex?\inline \mu \small " alt="\mu"/> (or <img src="http://latex.codecogs.com/png.latex?\inline \mu_0 \small " alt="\mu_0"/>) and <img src="http://latex.codecogs.com/png.latex?\inline \mu_2 \small " alt="\mu_2"/>. We denote these MFG interactions as <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{01} \small " alt="\gamma_{01}"/> and <img src="http://latex.codecogs.com/png.latex?\inline \gamma_{21} \small " alt="\gamma_{21}"/>, since they correspond to effects that operate (in addition to maternal and child genotype effects) when the child has one copy, and the mother either zero or two copies, of a particular allele of interest. To include one or both MFG interactions, you should set the values in lines 29-33 to 0 and the value(s) in line 37 and/or 38 to 1. </p>
+<p>
+Line 39 <tt>&lt;&lt; estimate Palmer (2006) match parameter (0=no, 1=yes)</tt> <a href="references.html#sinsheimer:etal:03">Sinsheimer et al. (2003)</a> and <a href="references.html#palmer:etal:06">Palmer et al. (2006)</a> considered an alternative interaction parameterization in which &ldquo;matching&rdquo; rather &ldquo;mismatching&rdquo; between maternal and foetal genotypes increases disease risk in the offspring. To model interaction via the single <a href="references.html#palmer:etal:06">Palmer et al. (2006)</a> match parameter <img src="http://latex.codecogs.com/png.latex?\inline \mu \small " alt="\mu"/>, you should set the values in lines 29-33 to 0 and the value in line 39 to 1. </p>
+<p>
+Line 40 <tt>&lt;&lt; estimate Li (2009) conflict parameter Jc (0=no, 1=yes)</tt> <a href="references.html#li:etal:09">Li et al. (2009)</a> (based on work by <a href="references.html#parimi:etal:08">Parimi et al. (2008)</a>) considered an alternative interaction parameterization that modelled &ldquo;conflict&rdquo; between the mothers and childs genotypes. To model interaction via the single <a href="references.html#li:etal:09">Li et al. (2009)</a> conflict parameter (which we denote <img src="http://latex.codecogs.com/png.latex?\inline J_c \small " alt="J_c"/>, corresponding to exp(<img src="http://latex.codecogs.com/png.latex?\inline i_c \small " alt="i_c"/>) in the notation of <a href="references.html#li:etal:09">Li et al. (2009)</a>), you should set the values in lines 29-33 to 0 and the value in line 40 to 1. Note that the recommended model of <a href="references.html#li:etal:09">Li et al. (2009)</a> and <a href="references.html#parimi:etal:08">Parimi et al. (2008)</a>) is to include both <img src="http://latex.codecogs.com/png.latex?\inline J_c \small " alt="J_c"/> and <img src="http://latex.codecogs.com/png.latex?\inline J_m \small " alt="J_m"/> (=exp(<img src="http://latex.codecogs.com/png.latex?\inline i_m \small " alt="i_m"/>) in the notation of <a href="references.html#li:etal:09">Li et al. (2009)</a>) where <img src="http://latex.codecogs.com/png.latex?\inline J_m \small " alt="J_m"/> is the imprinting parameter selectable on line 36. So to fit the full <a href="references.html#li:etal:09">Li et al. (2009)</a> and <a href="references.html#parimi:etal:08">Parimi et al. (2008)</a> model you should set the values in lines 36 and 40 to 1. </p>
+<br />
+<div class="prevnext"><span class="left"><a href="emimmarkers.html">&lt;-prev</a>
+</span><span class="right"><a href="caseparenttrios.html">next-&gt;</a>
+</span></div><!-- End Right Column -->
+</div>
+</td>
+</tr></table>
+<!-- End Wrapper -->
+</td></tr></table>
+</div>
+ <!-- Start of StatCounter Code --> <script type="text/javascript"> var sc_project=6887608; var sc_invisible=1; var sc_security="98b151c3"; </script> <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><div class="statcounter"><a title="weebly reliable statistics" href="http://statcounter.com/weebly/" target="_blank"><img class="statcounter" src="http://c.statcounter.com/6887608/0/98b151c3/1/" alt="weebly reliable statistics" ></a></div></noscript> <!-- End of StatCounter Code --></body>
+</html>

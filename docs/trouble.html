@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="emimstyles.css" />
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+<!-- Begin Header -->
+<div id="header">
+<table><tr>
+<td>
+<img width="200" src="emim5.png" alt="EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling"/>
+</td>
+<td>
+<p style="margin-left: 1em;">EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</p>
+</td></tr>
+</table>
+</div>
+<!-- End Header -->
+<!-- Begin Menu Navigation -->
+<ul id="menunav">
+<li><a href="index.html">Home</a></li>
+<li><a href="downloads.html">Download</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+<!-- End Menu Navigation -->
+
+</td></tr>
+<tr><td>
+<table border="0" cellpadding="0" cellspacing="0"><tr>
+<td valign="top">
+<!-- Begin Left Column -->
+<div id="leftcolumn">
+<!-- Begin Contents Navigation -->
+<div id="navcontainer">
+<ul>
+<li><a href="introduction.html">1 Introduction</a>
+<ul>
+<li><a href="introduction.html#information">1.1 Program information and citation</a></li>
+</ul>
+</li>
+<li><a href="quick-start.html">2 Quick Start</a>
+</li>
+<li><a href="comp.html">3 Slow Start</a>
+<ul>
+<li><a href="comp.html#comp-premim">3.1 Compilation of PREMIM source code</a></li>
+<li><a href="comp.html#comp-emim">3.2 Compilation of EMIM source code</a></li>
+</ul>
+</li>
+<li><a href="premim.html">4 PREMIM: Pedigree file conversion</a>
+<ul>
+<li><a href="premim.html#premim-usage">4.1 Usage</a></li>
+<li><a href="premim.html#premim-input">4.2 Input files</a></li>
+<li><a href="premim.html#premim-output">4.3 Output files</a></li>
+<li><a href="premim.html#premim-processing">4.4 Data processing</a></li>
+<li><a href="premim.html#premim-parallel">4.5 Parallel processing</a></li>
+<li><a href="premim.html#risk-allele">4.6 Changing the risk allele</a></li>
+</ul>
+</li>
+<li><a href="emim.html">5 EMIM: Input files</a>
+<ul>
+<li><a href="emim.html#emimmarkers">5.1 emimmarkers.dat</a></li>
+<li><a href="emim.html#emimparams">5.2 emimparams.dat</a></li>
+<li><a href="emim.html#caseparenttrios">5.3 caseparenttrios.dat</a></li>
+<li><a href="emim.html#caseparents">5.4 caseparents.dat</a></li>
+<li><a href="emim.html#casemotherduos">5.5 casemotherduos.dat</a></li>
+<li><a href="emim.html#casefatherduos">5.6 casefatherduos.dat</a></li>
+<li><a href="emim.html#casemothers">5.7 casemothers.dat</a></li>
+<li><a href="emim.html#casefathers">5.8 casefathers.dat</a></li>
+<li><a href="emim.html#cases">5.9 cases.dat</a></li>
+<li><a href="emim.html#conparents">5.10 conparents.dat</a></li>
+<li><a href="emim.html#conmotherduos">5.11 conmotherduos.dat</a></li>
+<li><a href="emim.html#confatherduos">5.12 confatherduos.dat</a></li>
+<li><a href="emim.html#cons">5.13 cons.dat</a></li>
+</ul>
+</li>
+<li><a href="output.html">6 EMIM: Usage and output files</a>
+<ul>
+<li><a href="output.html#alt-paras">6.1 Alternative parameterisations</a></li>
+</ul>
+</li>
+<li><a href="example.html">7 Example using PREMIM and EMIM</a>
+<ul>
+<li><a href="example.html#eg-run-premim">7.1 Running PREMIM</a></li>
+<li><a href="example.html#eg-run-emim">7.2 Running EMIM</a></li>
+</ul>
+</li>
+<li><a href="parallel.html">8 Parallel processing</a>
+</li>
+<li><a href="poo.html">9 Parent-of-origin effects with SHAPEIT2</a>
+<ul>
+<li><a href="poo.html#options">9.1 Options</a></li>
+<li><a href="poo.html#files">9.2 Data files</a></li>
+<li><a href="poo.html#poo-example">9.3 Example Analysis</a></li>
+</ul>
+</li>
+<li><a href="trouble.html">10 Troubleshooting and results interpretation</a>
+<ul>
+<li><a href="trouble.html#GWAS">10.1 GWAS data</a></li>
+<li><a href="trouble.html#Imputed">10.2 Imputed data</a></li>
+<li><a href="trouble.html#Merged">10.3 Merged data</a></li>
+</ul>
+</li>
+<li><a href="references.html">References</a></li>
+</ul>
+</div>
+<!-- End Contents Navigation -->
+</div>
+<!-- End Left Column -->
+</td>
+<td valign="top">
+<!-- Begin Right Column -->
+<div id="rightcolumn">
+<h1>10 Troubleshooting and results interpretation</h1>
+<p>
+PREMIM and EMIM are ideally designed for use by users who already have experience of analysing genetic data and some familiarity with using command-line programs such as PLINK, SNPTEST, MACH or IMPUTE. If you do not have any such experience, we recommend you attept to gain some familiarity with such programs before embarking on an analysis with PREMIM and EMIM. </p>
+<p>
+As with any other statistical analysis method, the results from EMIM are only as reliable as the quality of the data going in to the analysis. If you obtain "strange" results or get a warning/error message, by far the most likely reason is that there is some "problem" with the input data. By "problem", this could mean an actual mistake in the input files (e.g. they are not formatted correctly), or it could simply mean that there is limited information provided by the input data, or that the data is too noisy, to produce reliable/interpretable results. </p>
+<p>
+One common problem is that there is too little data to estimate the parameters requested. This could result from too many cells with zero observations in the input data files <i>caseparenttrios.dat</i>, <i>casemotherduos.dat</i> etc. We have tried to get EMIM to pick up these sorts of issues automatically and give a sensible warning message, but, given the complexities of the potential possible models, it does not always manage to achieve this! You may find that using a more restricted model (e.g. assuming HWE and random mating) helps with parameter identifiability/estimation problems. </p>
+<p>
+If you obtain "significant results" (that you either disbelieve - because they seem "too good to be true" - or believe, in the hope that they are true!) at one or more SNPs analysed, our first recommendation is to make a smaller input data set (e.g. using the <tt>--extract snplist.txt</tt> command in PLINK) consisting just of this subset of SNPs of interest, and re-run PREMIM and EMIM just on this subset of SNPs. This will allow you to examine the output file <i>emimresults.out</i> more carefully (normally this file is too big to easily sort through in order to find the results pertaining to one specific SNP). You should also carefully examine the last column of the file <i>emimsummary.out</i> to see if there is an indicator of a warning message at any SNP. Estimated parameters with an estimated standard error (SE) of 0 in the relevant column of <i>emimsummary.out</i> can also suggest that there was some problem with estimating this particular parameter. </p>
+<h2><a name="GWAS">10.1 GWAS data</a></h2>
+<p>
+If your data was derived from a genome-wide SNP array, we recommend you follow standard GWAS QC procedures to remove unreliable samples (people) and SNPs prior to carrying out an analysis in EMIM. In addition to standard case/control QC(such as removing SNPs and individuals with large amounts of missing data, and removing SNPs with very low minor allele frequencies), we recommend you remove (or check) SNPs or families showing high rates of Mendelian misinheritance errors. </p>
+<p>
+If your data was derived from a genome-wide SNP array, we also strongly recommend you check the "cluster plots" (SNP intensities) for any "significant" SNPs you obtain, in order to be sure that the genotypes have been called correctly. (This check may also be relevant for data generated using other genotyping technologies). Our experience is that poor genotype clustering (resulting in incorrect genotype calls) can produce many more apparent (but false) significant results when you apply a genotype-based test (such as modelling two child genotype effects, <img src="http://latex.codecogs.com/png.latex?\inline R_1 \small " alt="R_1"/> and <img src="http://latex.codecogs.com/png.latex?\inline R_2 \small " alt="R_2"/>, or two maternal genotype effects, <img src="http://latex.codecogs.com/png.latex?\inline S_1 \small " alt="S_1"/> and <img src="http://latex.codecogs.com/png.latex?\inline S_2 \small " alt="S_2"/>) than when you apply an allele-based test (such as the child trend model, where <img src="http://latex.codecogs.com/png.latex?\inline R_2 \small " alt="R_2"/> is assumed to equal <img src="http://latex.codecogs.com/png.latex?\inline R_1 \small " alt="R_1"/> squared), owing to the fact that poor clustering can result in one genotype being completely or virtually absent in your data set. Although it is certainly possible that a genotype-based model may genuinely be a better model for the SNP effects in your data than an allele-based model, a discrepency between the genotype-based and allele-based results can indicate a possible problem with genotype calling. </p>
+<h2><a name="Imputed">10.2 Imputed data</a></h2>
+<p>
+In principal there is no reason why PREMIM and EMIM cannot be applied to imputed data (i.e. data that has been imputed on the basis of known genotypes, using a program such as MACH or IMPUTE). However, this will only work for SNPs that have been well-imputed (SNPs that are poorly imputed are likely to give rise to a large number of Mendelian errors and unreliable results). We recommend that you use standard post-imputation quality control filters to filter out low-quality SNPs/genotypes <b>prior</b> to performing any analysis in PREMIM and EMIM. </p>
+<h2><a name="Merged">10.3 Merged data</a></h2>
+<p>
+Particular care should be taken when analysing data that has been merged from several different studies. Note that no functionality for merging is provided within PREMIM or EMIM; any merging of data needs to be carried out <b>prior</b> to analysis in PREMIM/EMIM using (for example) a program such as PLINK. Special care needs to be taken when merging data for A/T or C/G SNPs that these alleles have been measured (aligned) relative to the same strand of the genome (if in doubt, it may be safer to revove such SNPs entirely). The best way to do this is to obtain assay information from the vendor who provided your genotypes. A useful list of strand alignments for commonly-used genotyping chips is provided at </p>
+<p>
+<a href="http://www.well.ox.ac.uk/~wrayner/strand/">http://www.well.ox.ac.uk/~wrayner/strand/</a></p>
+<p>
+We also recommend that you aim to ensure that any merged data set consists of individuals who are well matched for ancestry and come from a single homogeneous population. (Results from separate analyses of different populations can be combined later, using meta-analysis techniques, if required). </p>
+<p>
+An assumption of EMIM is that genotype data for parents of cases (or controls) is missing at random i.e. at any given SNP, there should be no systematic differences between the genotype frequencies in cases who have both parents genotyped, the frequencies in cases who have one parent genotyped and the frequencies in cases who have no parents genotyped (assuming you have enough cases within these different categories to make a comparison). Similarly for controls. By taking a careful look at the cell counts in the input data files (such as <i>caseparenttrios.dat</i>, <i>casemotherduos.dat</i> <i>casefatherduos.dat</i> , <i>cases.dat</i> etc.) you may be able to uncover problems of this sort, which could indicate genotyping discrepencies possibly combined with ascertainment effects (e.g. if your data derives from two different studies, one of which included cases with parents, and one of which included cases without parents, and the genotypes in these two studies are not really consistent/comparable). </p>
+<br />
+<div class="prevnext"><span class="left"><a href="poo.html">&lt;-prev</a>
+</span></div><!-- End Right Column -->
+</div>
+</td>
+</tr></table>
+<!-- End Wrapper -->
+</td></tr></table>
+</div>
+ <!-- Start of StatCounter Code --> <script type="text/javascript"> var sc_project=6887608; var sc_invisible=1; var sc_security="98b151c3"; </script> <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><div class="statcounter"><a title="weebly reliable statistics" href="http://statcounter.com/weebly/" target="_blank"><img class="statcounter" src="http://c.statcounter.com/6887608/0/98b151c3/1/" alt="weebly reliable statistics" ></a></div></noscript> <!-- End of StatCounter Code --></body>
+</html>

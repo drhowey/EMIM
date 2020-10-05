@@ -1,0 +1,3 @@
+/home/nrajh/code/hat-docs/hatdocs -f statFooter.txt emim.hat /home/nrajh/work-other/tex/biblio.bib
+
+sed -i 's/\\"o/\&ouml/g' references.html

@@ -1,0 +1,538 @@
+*section*
+
+*section-name*
+premim
+*/section-name*
+
+*section-title*
+PREMIM: Pedigree file conversion 
+*/section-title*
+
+*html* <p> <img align="right" src="premim5.png" alt="PREMIM"/> </p> */html*
+
+
+*
+The program EMIM requires a number of input files as described in *ref* emim */ref*; the program PREMIM is written as a useful tool to create these files from standard format pedigree files. Basic usage of the program is given by typing:
+*
+
+*codeexample*
+./premim data.ped
+*/codeexample*
+  
+*
+where *i* data.ped */i* is a PLINK pedigree file with corresponding MAP file, *i* data.map */i*, in the same directory. Alternatively, you can use a PLINK binary pedigree file:
+*
+
+*codeexample*
+./premim data.bed
+*/codeexample*
+
+*
+where *i* data.bed */i* is a PLINK binary pedigree file with corresponding files, *i* data.bim */i* and  *i* data.fam */i*, in the same directory.
+*
+
+*
+PREMIM will produce a number of output files (ready for subsequent input to EMIM) and a copy of the screen output is written to the file *i* premim.log */i*
+*
+
+
+
+
+
+
+*
+*b* Note that PREMIM and EMIM are designed for the analysis of diallelic autosomal loci 
+(i.e. SNPs on chromosomes 1-22) only. */b* *
+
+*
+If your input files contain SNPs on any chromosomes other than 1-22, PREMIM will exit with 
+a warning message and will not produce any output files (apart from *i* premim.log */i*). We suggest you use PLINK to remove
+any SNPs on chromosomes other than 1-22  *b* prior  */b* to embarking on an analysis with PEMIM and EMIM. 
+*
+
+
+*
+*************************
+*subsection*
+
+*subsection-name*
+premim-usage
+*/subsection-name*
+
+*subsection-title*
+Usage
+*/subsection-title*
+
+*
+There are several different options available on how to run PREMIM from the command line. Full usage of the program is given by:
+*
+
+*codeexample*
+./premim [options] datafile [mapfile]
+*/codeexample*
+
+*
+where *code* options */code* are given by a number of optional switches; the *code* datafile */code* is a pedigree file given either as a PLINK pedigree file (.ped), a gzipped PLINK pedigree file (.gzip), or
+a PLINK binary pedigree file (.bed). 
+PREMIM will look for a corresponding .map file or .bim and .fam files in the same directory. Alternatively, if you are using a non-binary PLINK pedigree file, you can specify an alternatively-named non-binary *code* mapfile */code* (where the SNPs must appear in the same order as in the pedigree file). 
+*
+
+**********
+
+*subsubsection*
+
+*subsubsection-name*
+premim-options
+*/subsubsection-name*
+
+*subsubsection-title*
+Options
+*/subsubsection-title*
+
+*
+The available options are summarised below:
+*
+
+*tablel*
+*tr*
+Option & Description
+*/tr*
+*tr*
+ -a    &        estimate SNP allele frequencies (and output to *code* emimmarkers.dat */code*)
+*/tr*
+*tr*
+ -s n dir  &  split SNP output into groups of size n in directory dir
+*/tr*
+*tr*
+  -n name  &   add a name to the end of the output files
+*/tr*
+*tr*
+  -so  &   suppress output to screen
+*/tr*
+*tr*
+  -xa   &       allow extra affected case trios per pedigree (not permitted with -ihap, *ref* poo */ref*)
+*/tr*
+*tr*
+  -xu    &      allow extra unaffected control matings per pedigree
+*/tr*
+*tr*
+  -pb file &   use  a proband file, listing affected subjects of interest
+*/tr*
+*tr*
+  -rmaj & use major allele as risk allele (denoted as allele *q*2*/q* in EMIM)
+*/tr*
+*tr*
+ -rout file & output a listing of the risk alleles (and the SNP names and numbers) to file
+*/tr*
+*tr*
+ -rfile file & use the alleles in file as risk alleles
+*/tr*
+*tr*
+  -cg     &     child genotype
+*/tr*
+*tr*
+  -ct      &    child trend (default)
+*/tr*
+*tr*
+  -mg       &    mother genotype
+*/tr*
+*tr*
+  -mt     &      mother trend
+*/tr*
+*tr*
+  -im     &      imprinting, maternal
+*/tr*
+*tr*
+  -ip      &     imprinting, paternal
+*/tr*
+*tr*
+  -imw    &      imprinting, maternal (Weinberg 1999 parameterisation)
+*/tr*
+*tr*
+  -ipw   &       imprinting, paternal (Weinberg 1999 parameterisation)
+*/tr*
+
+*/table*
+
+*/subsubsection*
+**********
+
+*/subsection*
+
+**********************
+
+*subsection*
+
+*subsection-name*
+premim-input
+*/subsection-name*
+
+*subsection-title*
+Input files
+*/subsection-title*
+
+*
+There are three different ways to supply the pedigree data to PREMIM:
+*
+
+*numlist*
+
+*item*
+*b* .ped */b* and *b* .map */b*. A PLINK pedigree file (.ped) and a MAP file (.map). It is not necessary to specify the MAP file - this will be assumed to be in the same location as the .ped file. For example typing:
+
+*codeexample*
+./premim mydata.ped
+*/codeexample*
+
+will assume that *i* mydata.map */i* exists in the same location as *i* mydata.ped */i*. If it does not exist PREMIM will stop and report that the file cannot be found. If one wishes to specify a different .map file, say *i* mymapfile.map */i*, then this may be done by typing:
+
+*codeexample*
+./premim mydata.ped mymapfile.map
+*/codeexample*
+
+*item*
+*b* .bed, .fam */b* and *b* .bim */b*. A PLINK binary pedigree file (.bed) together with the corresponding family information file (.fam) and the extended MAP file (.bim). These three files can be created in PLINK in order to compress pedigree information. To use PREMIM with a .bed file, say *i* mydata.bed */i*, simply type:
+
+*codeexample*
+./premim mydata.bed
+*/codeexample* 
+
+The .fam and .bim files will be assumed to exist in the same directory as the .bed file with names *i* mydata.fam */i* and *i* mydata.bim */i* respectively. If these files do not exist PREMIM will stop and report this.
+*item*
+*b* .gzip */b* and *b* .map */b*. A gzipped pedigree file (.gzip) and a MAP file (.map). Another way to compress pedigree files is to create a .gzip file - these files may be used directly in PREMIM without the need to unzip the files. The MAP file (.map) file should not be gzipped and can be specified or assumed (similarly to when using a .ped file).
+
+*/numlist* 
+
+*
+*b* Note: */b* if you wish to use multiple pedigree files it is recommended that you use PLINK to combine these files into one file, this can then be used as input into PREMIM.
+*
+
+*/subsection*
+
+***************************
+*subsection*
+
+*subsection-name*
+premim-output
+*/subsection-name*
+
+*subsection-title*
+Output files
+*/subsection-title*
+
+*
+The program PREMIM outputs the following files:
+*
+
+*numlist*
+*item* *b* *i* caseparenttrios.dat */i*, *i* casemotherduos.dat */i*, *i* casefatherduos.dat */i*, *i* caseparents.dat */i*, *i* casemothers.dat */i*, *i* casefathers.dat */i*, *i* cases.dat */i*, *i* conparents.dat */i*, *i* conmotherduos.dat */i*, *i* confatherduos.dat */i* */b*  and *b* *i* cons.dat */i* */b*. These files contain the different counted genotype combinations for every SNP and every pedigree.
+
+*item* *b* *i* emimparams.dat */i* */b*. This file contains the required parameter settings for EMIM and is described in *ref* emimparams */ref*. This file is created with a set of default values which may be changed as appropriate for the type of analysis that you wish to perform. There are a number of options that can be given to PREMIM to set the initial options created in this file. The following options choose the kind of child analysis (i.e. the way in which you wish to model child genotype or allele effects):
+
+*list*
+*item* *b* -cg */b*. Perform a child genotype analysis.
+*item* *b* -ct */b*. Perform a child trend analysis (allele effects).
+*/list*    
+
+The following options choose the kind of mother analysis:
+
+*list*
+*item* *b* -mg */b*. Perform a mother genotype analysis.
+*item* *b* -mt */b*. Perform a mother trend analysis (maternal allele effects).
+*/list*    
+
+The following options choose the kind of imprinting analysis:
+
+*list*
+*item* *b* -im */b*. Perform a maternal imprinting analysis.
+*item* *b* -ip */b*. Perform a paternal imprinting analysis.
+*item* *b* -imw */b*. Perform a Weinberg (1999) maternal imprinting analysis.
+*item* *b* -ipw */b*. Perform a Weinberg (1999) paternal imprinting analysis.
+*/list*
+
+It is only valid to choose one option from the above three groups of options. For example, to perform a child trend, a mother genotype and a paternal imprinting analyses one would type:
+
+*codeexample*
+./premim -ct -mg -ip mydata.ped
+*/codeexample*
+
+
+The exception to this rule is if no child effects are to be estimated. In that case, it is valid to choose to estimate both a maternal imprinting effect (either *code* -im */code* or  *code* -imw */code*) and a paternal imprinting effect (either *code* -ip */code* or  *code* -ipw */code*), if desired, e.g.
+
+*codeexample*
+./premim -mg -im -ip mydata.ped
+*/codeexample* 
+
+If none of these options are chosen the child trend analysis option will be set by default.
+
+
+
+*item* *b* *i* emimmarkers.dat */i* */b*. This file contains the minor allele frequencies for each SNP given in the same order as the pedigree file and is described in *ref* emimmarkers */ref*. This file is *i* not */i* created by default when running PREMIM since it is recommended that prior knowledge of the minor allele frequencies in your population should be used when available. However, if required, the minor allele frequencies can be estimated using the *code* -a */code* option:
+
+*codeexample*
+./premim -a mydata.ped
+*/codeexample* 
+
+This will create an estimated minor allele frequency file, *i* emimmarkers.dat */i*. The minor allele frequency is estimated using all of the subjects for each SNP. In the case where the estimated minor allele frequency is less than 0.01 it is set to 0.01. This may occur if there is only one allele for a SNP. If there is no genotype information for a SNP the estimated minor allele frequency is also set to 0.01.
+
+*item* A copy of the screen output from PREMIM is automatically written to the file *i* premim.log */i*. This file will be over-written if it exists, so should be copied to another file name if you wish to keep a copy.
+
+*/numlist*
+
+
+
+
+*/subsection*
+
+***************************
+*subsection*
+
+*subsection-name*
+premim-processing
+*/subsection-name*
+
+*subsection-title*
+Data processing
+*/subsection-title*
+
+*
+This section explains the rules on how the data in the pedigree file is processed, which pedigree subjects are chosen and how they are counted. Options on how to increase the number of pedigree subjects used in the analysis are also given. *
+
+**********************
+
+*subsubsection*
+
+*subsubsection-name*
+premim-ped-subset
+*/subsubsection-name*
+
+*subsubsection-title*
+Choosing a pedigree subset for a given SNP 
+*/subsubsection-title*
+
+*
+For every SNP, genotype data is extracted from each pedigree. For a given SNP and pedigree, one (and only one) of the following pedigree subsets is used in order of preference: 
+*
+
+*numlist*
+*item* *b* A case and its two parents */b* (a case/parent trio).
+*item* *b* A case and its mother */b* (a case/mother duo).
+*item* *b* A case and its father */b* (a case/father duo).
+*item* *b* A case */b*.
+*item* *b* The parents of a case */b* (a case mating). Used when the genotype information is missing for the case.
+*item*  *b* A mother of a case */b*. Used when the genotype information is missing for the case.
+*item* *b* A father of a case */b*. Used when the genotype information is missing for the case.
+*item* *b* Parents of a control */b* (a control mating).
+*item*  *b* A control and its mother */b* (a control/mother duo).
+*item*  *b* A control and its father */b* (a control/father duo).
+*item*  *b* A control */b*.
+*/numlist*
+
+*
+In the situation where a pedigree and SNP yields more than one pedigree subset with the same preference, the subset with the first case or control in the pedigree file will be chosen. This default may be overriden by supplying a *i* proband */i* file containing a list of subjects of interest, see below for details. The different pedigree subset genotype combinations are counted for every pedigree and SNP as described in *ref* emim */ref*. The non-reference or risk allele 
+(denoted as *q*2*/q* in the EMIM documentation)
+is set as the minor allele, which is determined from the data as described in *ref* risk-allele */ref*. 
+(If this allele actually decreases, rather than increases, disease risk, then the 
+odds ratio estimated by EMIM will turn out to be less than rather than greater than 1). 
+
+*
+As an example, the beginning of the case/parent trio file (*i* caseparenttrios.dat */i*) may look something like: 
+*
+
+*codeexample*
+snp     cellcount 1-15
+1      0 0 0 0 0 2 1 3 6 2 18 16 19 27 189
+2      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+3      11 14 15 12 15 18 17 12 40 12 25 24 25 20 27
+4      0 9 7 5 6 10 11 6 23 14 34 23 34 27 79
+5      0 0 0 0 0 0 0 0 0 0 0 0 0 0 288
+6      0 0 0 3 0 1 2 6 19 5 33 27 19 25 148
+7      4 3 5 8 9 11 6 9 19 11 28 31 33 24 87
+8      0 0 0 3 0 1 0 1 7 2 32 17 13 20 192
+*/codeexample*
+
+*
+The counted genotype combinations tend to be weighted to the right hand side, since these are the genotype combinations which tend to have more of the *q*1*/q* alleles - the major allele. The smaller the minor allele frequency is, the more we expect to observe a shift to the right. In the example above, SNP number 3 has a high minor allele frequency (0.43) and SNP number 1 a low minor allele frequency (0.09). In the case where there are all zeros in a row, this may indicate that there is no genotype data for this SNP, or that the pedigree data was such that a different pedigree subset was chosen every time for this SNP. For example, there may be no case/mother duos for one SNP because it was always possible to find a case/parent trio which takes preference. 
+*
+
+*
+When PREMIM is executed a summary for each of the counted genotype combination files is output to screen. The following is example output for the first three files:
+*
+
+*codeexample*
+File name: caseparenttrios.dat
+Number of counted case parent trios (all SNPs): 26685
+Average number of counted case parent trios (per SNP): 266.85
+Number of uncounted (Mendelian error) case parent trios: 1
+
+File name: casemotherduos.dat
+Number of counted case mother duos (all SNPs): 2818
+Average number of counted case mother duos (per SNP): 28.18
+Number of uncounted (Mendelian error) case mother duos: 0
+
+File name: casefatherduos.dat
+Number of counted case father duos (all SNPs): 1331
+Average number of counted case father duos (per SNP): 13.31
+Number of uncounted (Mendelian error) case father duos: 0
+*/codeexample*
+
+*
+The first line shows the name of the file followed by the total number of counted genotype combinations over all SNPs in the pedigree file. The third line gives an average over the number of SNPs, in this example there are 100 SNPs. The third line shows the number of genotype combinations that are invalid due to a Mendelian error. These errors are not counted and no other data is counted for these pedigree and SNP combinations. 
+*
+
+*
+The total count over every file is therefore the total number of pedigrees multiplied by the total number of SNPs minus the number of Mendelian errors. This count may be increased by allowing PREMIM to count multiple case/parent trios from one pedigree for each SNP.  
+*
+
+*
+To allow extra case/parent trios use the *code* -xa */code* option by typing:
+*
+
+*codeexample*
+./premim -xa mydata.ped
+*/codeexample*
+
+
+*
+This option allows one to include all possible case/parent trios from a pedigree, counting them as if they are independent. For a given pedigree the case/parent trios are picked such that they are disjoint, that is they have no individuals in common. Depending on the analysis you want to do, this assumption may be more or less valid. For example, if analysing child genotype effects only, under the restricted CPG likelihood, one can show that treating all affected offspring from a mating as independent is completely correct if one is analysing the true causal locus, and is otherwise equivalent to testing for linkage in the presence of association rather than association in the presence of linkage (See
+*cite* cordell:04 */cite*). Furthermore, as allowing extra trios has not been fully investigated for parent-of-origin analyses, the *code* -xa */code* option is not permitted with the *code* -ihap */code* option, see *ref* poo */ref*. However, extra trios could be achieved with the *code* ihap */code* option, at the users risk, by manually creating a data file with extra trios.
+*
+
+*
+It is also possible to allow extra control matings from each pedigree (which are treated as independent) using the *code* -xu */code* option:
+*
+
+*codeexample*
+./premim -xu mydata.ped
+*/codeexample*
+
+*
+Control matings cannot overlap and are determined by the order in which the controls appear in the pedigree file.
+*
+
+*/subsubsection*
+**************
+
+*subsubsection*
+
+*subsubsection-name*
+premim-proband
+*/subsubsection-name*
+
+*subsubsection-title*
+Setting a list of proband subjects
+*/subsubsection-title*
+
+As mentioned earlier it may be the case that more than one pedigree subset could be chosen by PREMIM for analysis. For a pedigree file with many large pedigrees this could potentially alter the results of the final analysis performed by EMIM. For example, if pedigrees are ascertained on the basis of a particular affected child, but case/parent trios containing the parents and grandparents are chosen instead by PREMIM, this could then bias the analysis. With this in mind it is possible to supply an optional *i* proband */i* file containing a list of all the affected subjects that are of interest. The file is a list of subjects given by the pedigree number and subject number coresponding to the pedigree file given to PREMIM. For example, a proband file may look as following:
+
+*codeexample*
+1 4
+2 5
+3 2
+5 12
+7 3
+9 3
+10 2
+*/codeexample*
+
+The proband file is used in PREMIM with the *code* -pb */code* option as follows:
+
+*codeexample*
+./premim -pb proband.dat mydata.ped
+*/codeexample*
+The name of the proband file should following immediately after the *code* -pb */code* option. The following points should be noted about proband files:
+
+*numlist*
+*item* If a proband file is given it is not necessary to supply a subject for every pedigree. For example, for smaller pedigrees you may be happy to use the default setting.
+
+*item* The proband subjects do not need to appear in any particular order in the file.
+
+*item* If the proband subject is not affected a warning message will be displayed and the pedigree processed using the default settings.
+
+*item* If a proband subject does not exist in the pedigree file a warning message will be displayed and the pedigree file will be processed as normal.
+
+*item* It is possible to list more than one subject for a pedigree which may be useful if the *code* -xa */code* option is being used. In this case the subjects listed first in the proband file will get preference during processing.
+
+*/numlist*
+
+*/subsubsection*
+**************
+
+*/subsection*
+
+***************************
+
+***************************
+*subsection*
+
+*subsection-name*
+premim-parallel
+*/subsection-name*
+
+*subsection-title*
+Parallel processing
+*/subsection-title*
+
+*
+The options "*code* -s */code*", "*code* -n */code*", "*code* -fm */code*" and "*code* -fr */code*" are used to aid the parallel execution of EMIM as described in *ref* parallel */ref*. The options "*code* -fm */code*" and "*code* -fr */code*" are are not used when processing pedigree files and simply manipulate input or output files associated with EMIM.
+*
+
+*/subsection*
+
+***************************
+*subsection*
+
+*subsection-name*
+risk-allele
+*/subsection-name*
+
+*subsection-title*
+Changing the risk allele
+*/subsection-title*
+
+* There may be rare occasions where it is desirable to change the risk allele (denoted as allele *q*2*/q* in the EMIM documentation), which is by default chosen as the minor allele for every SNP.
+*
+
+*
+The minor allele frequency is estimated using all of the unaffected subjects for each SNP. If there are no unaffected subjects then the affected subjects are used instead. If the estimated allele frequencies are both exactly 0.5, then in the case of a text pedigree file (.ped) the second allele encountered in the map file (.ped) is defined as the minor allele. In the case of a binary file (.bed) the minor allele is set as the first allele in the .bim file (which corresponds to the allele that PLINK has denoted as the minor allele).
+*
+
+*
+There are three options related to changing the risk allele:
+*
+ 
+*numlist*
+
+*item* *b* -rmaj. */b* Change the risk allele, *q*2*/q*, to correspond to the major allele for every SNP. 
+ 
+*item* *b* -rout file. */b* Output to file a list of the risk alleles used by PREMIM. This can be useful for three reasons: (i) to check for specific SNPs of interest which alleles were set as the risk alleles, (ii) to use as a template file to edit and define a set of risk alleles, and (iii) to output a listing of how the SNP numbers (which will be used by EMIM) relate to the original SNP names (e.g. rsIDs). An extract of a risk allele file is shown below where the columns are the SNP number, SNP name and the name of the risk allele. (If a SNP does not have any data then *q* *code* NoData */code* */q* will be reported. If a risk allele is a minor allele with no occurrences then *q* *code* Unknown */code* */q* will be reported.)
+
+*codeexample*
+...
+16  rs4970405  G
+17  rs12726255 A
+18  rs11807848 C
+19  rs9442373  A
+20  rs2298217  T
+21  rs12145826 G
+22  rs9442380  T
+23  rs7553429  C
+24  rs4970362  A
+25  rs9660710  C
+26  rs4970420  A
+27  rs1320565  T
+...
+*/codeexample*
+
+
+*item* *b* -rfile file. */b* PREMIM can be provided with a risk allele file as formatted above. This option could be used to define some SNPs to have a specific risk allele that is given by the minor allele and others by the major allele. The above two options can be used to output a file of the minor or major alleles that can be used as a starting point to create the list of risk alleles as required.
+
+*/numlist*
+
+
+
+*/subsection*
+
+
+
+*/section*

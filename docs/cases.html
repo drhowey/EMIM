@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="emimstyles.css" />
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+<!-- Begin Header -->
+<div id="header">
+<table><tr>
+<td>
+<img width="200" src="emim5.png" alt="EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling"/>
+</td>
+<td>
+<p style="margin-left: 1em;">EMIM: Estimation of Maternal, Imprinting and interaction effects using Multinomial modelling</p>
+</td></tr>
+</table>
+</div>
+<!-- End Header -->
+<!-- Begin Menu Navigation -->
+<ul id="menunav">
+<li><a href="index.html">Home</a></li>
+<li><a href="downloads.html">Download</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+<!-- End Menu Navigation -->
+
+</td></tr>
+<tr><td>
+<table border="0" cellpadding="0" cellspacing="0"><tr>
+<td valign="top">
+<!-- Begin Left Column -->
+<div id="leftcolumn">
+<!-- Begin Contents Navigation -->
+<div id="navcontainer">
+<ul>
+<li><a href="introduction.html">1 Introduction</a>
+<ul>
+<li><a href="introduction.html#information">1.1 Program information and citation</a></li>
+</ul>
+</li>
+<li><a href="quick-start.html">2 Quick Start</a>
+</li>
+<li><a href="comp.html">3 Slow Start</a>
+<ul>
+<li><a href="comp.html#comp-premim">3.1 Compilation of PREMIM source code</a></li>
+<li><a href="comp.html#comp-emim">3.2 Compilation of EMIM source code</a></li>
+</ul>
+</li>
+<li><a href="premim.html">4 PREMIM: Pedigree file conversion</a>
+<ul>
+<li><a href="premim.html#premim-usage">4.1 Usage</a></li>
+<li><a href="premim.html#premim-input">4.2 Input files</a></li>
+<li><a href="premim.html#premim-output">4.3 Output files</a></li>
+<li><a href="premim.html#premim-processing">4.4 Data processing</a></li>
+<li><a href="premim.html#premim-parallel">4.5 Parallel processing</a></li>
+<li><a href="premim.html#risk-allele">4.6 Changing the risk allele</a></li>
+</ul>
+</li>
+<li><a href="emim.html">5 EMIM</a>
+<ul>
+<li><a href="emimmarkers.html">5.1 emimmarkers.dat</a></li>
+<li><a href="emimparams.html">5.2 emimparams.dat</a></li>
+<li><a href="caseparenttrios.html">5.3 caseparenttrios.dat</a></li>
+<li><a href="caseparents.html">5.4 caseparents.dat</a></li>
+<li><a href="casemotherduos.html">5.5 casemotherduos.dat</a></li>
+<li><a href="casefatherduos.html">5.6 casefatherduos.dat</a></li>
+<li><a href="casemothers.html">5.7 casemothers.dat</a></li>
+<li><a href="casefathers.html">5.8 casefathers.dat</a></li>
+<li><a href="cases.html">5.9 cases.dat</a></li>
+<li><a href="conparents.html">5.10 conparents.dat</a></li>
+<li><a href="conmotherduos.html">5.11 conmotherduos.dat</a></li>
+<li><a href="confatherduos.html">5.12 confatherduos.dat</a></li>
+<li><a href="cons.html">5.13 cons.dat</a></li>
+</ul>
+</li>
+<li><a href="output.html">6 EMIM Output files</a>
+</li>
+<li><a href="example.html">7 Example using PREMIM and EMIM</a>
+<ul>
+<li><a href="example.html#eg-run-premim">7.1 Running PREMIM</a></li>
+<li><a href="example.html#eg-run-emim">7.2 Running EMIM</a></li>
+</ul>
+</li>
+<li><a href="parallel.html">8 Parallel processing</a>
+</li>
+<li><a href="references.html">References</a></li>
+</ul>
+</div>
+<!-- End Contents Navigation -->
+</div>
+<!-- End Left Column -->
+</td>
+<td valign="top">
+<!-- Begin Right Column -->
+<div id="rightcolumn">
+<h2><a name="cases">5.9 cases.dat</a></h2>
+<p>
+<b>cases.dat</b>: This file contains a header line (which is not read in by the program but is useful for reminding yourself of the column order), followed by a line of data for each of the <img src="http://latex.codecogs.com/png.latex?\inline n \small " alt="n"/> SNPs to be analysed (IN EXACTLY THE SAME ORDER as given in <i>emimmarkers.dat</i>). </p>
+<p>
+The first number on each line is the numeric SNP ID (as given in <i>emimmarkers.dat</i>). This is followed by 3 cell counts corresponding to the number of fully genotyped cases whose genotypes fall into the appropriate genotype categories. Note that these must not include cases already in the files <i>caseparenttrios.dat</i>, <i>casemotherduos.dat</i>, or <i>casefatherduos.dat</i> (i.e. all input data files must be independent). </p>
+<p>
+For example, suppose that at the first SNP the genotypes of the cases are </p>
+<table id="tablestyle" class="center">
+<tr><th>group </th><th>case </th><th>count</th></tr>
+<tr class="alt"><td valign="top">1 </td><td valign="top">22 </td><td valign="top">93</td></tr>
+<tr><td valign="top">2 </td><td valign="top">12 </td><td valign="top">268</td></tr>
+<tr class="alt"><td valign="top">3 </td><td valign="top">11 </td><td valign="top">174</td></tr>
+</table>
+<p>
+Then the line in <i>cases.dat</i> corresponding to this SNP would look like: </p>
+<pre>
+1      93 268 174
+</pre>
+<p>
+An example of <i>cases.dat</i> for 8 SNPs, of which the first has counts as given above, is shown below: </p>
+<pre>
+snp cellcount 1-3
+1      93 268 174
+2      47 223 265
+3      0 0 536
+4      11 150 375
+5      51 197 288
+6      7 93 436
+7      9 128 399
+8      99 247 189
+</pre>
+<br />
+<div class="prevnext"><span class="left"><a href="casefathers.html">&lt;-prev</a>
+</span><span class="right"><a href="conparents.html">next-&gt;</a>
+</span></div><!-- End Right Column -->
+</div>
+</td>
+</tr></table>
+<!-- End Wrapper -->
+</td></tr></table>
+</div>
+ <!-- Start of StatCounter Code --> <script type="text/javascript"> var sc_project=6887608; var sc_invisible=1; var sc_security="98b151c3"; </script> <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><div class="statcounter"><a title="weebly reliable statistics" href="http://statcounter.com/weebly/" target="_blank"><img class="statcounter" src="http://c.statcounter.com/6887608/0/98b151c3/1/" alt="weebly reliable statistics" ></a></div></noscript> <!-- End of StatCounter Code --></body>
+</html>

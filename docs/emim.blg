@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (Web2C 7.5.6)
+The top-level auxiliary file: emim.aux
+The style file: genepi.bst
+Database file #1: /home/nrajh/work-other/tex/biblio.bib
+You've used 13 entries,
+            2490 wiz_defined-function locations,
+            697 strings with 7480 characters,
+and the built_in function-call counts, 7310 in all, are:
+= -- 693
+> -- 434
+< -- 8
++ -- 163
+- -- 144
+* -- 653
+:= -- 1385
+add.period$ -- 52
+call.type$ -- 13
+change.case$ -- 113
+chr.to.int$ -- 13
+cite$ -- 13
+duplicate$ -- 269
+empty$ -- 421
+format.name$ -- 200
+if$ -- 1381
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 13
+newline$ -- 69
+num.names$ -- 65
+pop$ -- 114
+preamble$ -- 1
+purify$ -- 113
+quote$ -- 0
+skip$ -- 189
+stack$ -- 0
+substring$ -- 376
+swap$ -- 15
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 156
+warning$ -- 0
+while$ -- 57
+width$ -- 0
+write$ -- 185

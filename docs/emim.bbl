@@ -1,0 +1,96 @@
+\begin{thebibliography}{13}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[\protect\citeauthoryear{Ainsworth, Unwin, Jamison, and
+  Cordell}{Ainsworth et~al.}{2011}]{ainsworth:etal:11}
+Ainsworth HF, Unwin J, Jamison DL, Cordell HJ. 2011.
+\newblock Investigation of maternal effects, maternal-fetal interactions and
+  parent-of-origin effects (imprinting), using mothers and their offspring.
+\newblock Genet Epidemiol 35:19--45.
+
+\bibitem[\protect\citeauthoryear{Cordell}{Cordell}{2004}]{cordell:04}
+Cordell HJ. 2004.
+\newblock {Properties of case/pseudocontrol analysis for genetic association
+  studies: Effects of recombination, ascertainment, and multiple affected
+  offspring}.
+\newblock Genet Epidemiol 26:186--205.
+
+\bibitem[\protect\citeauthoryear{Delaneau, Marchini, and Zagury}{Delaneau
+  et~al.}{2012}]{delaneau:etal:12}
+Delaneau O, Marchini J, Zagury JF. 2012.
+\newblock A linear complexity phasing method for thousands of genomes.
+\newblock Nat Methods 9:179--81.
+
+\bibitem[\protect\citeauthoryear{Delaneau, Zagury, and Marchini}{Delaneau
+  et~al.}{2013}]{delaneau:etal:13}
+Delaneau O, Zagury JF, Marchini J. 2013.
+\newblock Improved whole chromosome phasing for disease and population genetic
+  studies.
+\newblock Nat Methods 10:5--6.
+
+\bibitem[\protect\citeauthoryear{Howey and Cordell}{Howey and
+  Cordell}{2012}]{howey:cordell:12}
+Howey R, Cordell HJ. 2012.
+\newblock {PREMIM and EMIM: Tools for estimation of maternal, imprinting and
+  interaction effects using multinomial modelling}.
+\newblock BMC Bioinformatics 13:149.
+
+\bibitem[\protect\citeauthoryear{Howey, Mamasoula, T\"opf, Nudel, Goodship,
+  Keavney, and Cordell}{Howey et~al.}{2015}]{howey:etal:15}
+Howey R, Mamasoula C, T\"opf A, Nudel R, Goodship JA, Keavney BD, Cordell HJ.
+  2015.
+\newblock Increased power for detection of parent-of-origin effects via the use
+  of haplotype estimation.
+\newblock The American Journal of Human Genetics 97:419--434.
+
+\bibitem[\protect\citeauthoryear{Li, Lu, Fu, Romero, and Cui}{Li
+  et~al.}{2009}]{li:etal:09}
+Li S, Lu Q, Fu W, Romero R, Cui Y. 2009.
+\newblock {A regularized regression approach for dissecting genetic conflicts
+  that increase disease risk in pregnancy}.
+\newblock Stat Appl Genet Mol Biol 8:45.
+
+\bibitem[\protect\citeauthoryear{Palmer, Hsieh, Reed, Lonnqvist, Peltonen,
+  Woodward, and Sinsheimer}{Palmer et~al.}{2006}]{palmer:etal:06}
+Palmer CG, Hsieh HJ, Reed EF, Lonnqvist J, Peltonen L, Woodward JA, Sinsheimer
+  JS. 2006.
+\newblock {HLA-B maternal-fetal genotype matching increases risk of
+  schizophrenia}.
+\newblock Am J Hum Genet 79:710--715.
+
+\bibitem[\protect\citeauthoryear{Parimi, Tromp, Kuivaniemi, Nien, Gomez,
+  Romero, and Goddard}{Parimi et~al.}{2008}]{parimi:etal:08}
+Parimi N, Tromp G, Kuivaniemi H, Nien JK, Gomez R, Romero R, Goddard KA. 2008.
+\newblock {Analytical approaches to detect maternal/fetal genotype
+  incompatibilities that increase risk of pre-eclampsia}.
+\newblock BMC Med Genet 9:60.
+
+\bibitem[\protect\citeauthoryear{Sinsheimer, Palmer, and Woodward}{Sinsheimer
+  et~al.}{2003}]{sinsheimer:etal:03}
+Sinsheimer JS, Palmer CG, Woodward JA. 2003.
+\newblock Detecting genotype combinations that increase risk for disease:
+  maternal-fetal genotype incompatibility test.
+\newblock Genet Epidemiol 24:1--13.
+
+\bibitem[\protect\citeauthoryear{Weinberg}{Weinberg}{1999}]{weinberg:99b}
+Weinberg CR. 1999.
+\newblock Methods for detection of parent-of-origin effects in genetic studies
+  of case-parents triads.
+\newblock Am J Hum Genet 65:229--235.
+
+\bibitem[\protect\citeauthoryear{Weinberg and Shi}{Weinberg and
+  Shi}{2009}]{weinberg:shi:09}
+Weinberg CR, Shi M. 2009.
+\newblock The genetics of preterm birth: Using what we know to design better
+  association studies.
+\newblock Am J Epidemiol 170:1373--1381.
+
+\bibitem[\protect\citeauthoryear{Weinberg, Wilcox, and Lie}{Weinberg
+  et~al.}{1998}]{weinberg:etal:98}
+Weinberg CR, Wilcox AJ, Lie RT. 1998.
+\newblock A log-linear approach to case-parent-triad data: assessing effects of
+  disease genes that act either directly or through maternal effects and that
+  may be subject to parental imprinting.
+\newblock Am J Hum Genet 62:969--978.
+
+\end{thebibliography}
